@@ -7,6 +7,7 @@ namespace PharmacyManagmentSystem.Models
         [Key]
         public int CustomerID { get; set; }
         public string CustomerName { get; set; }
+        public required string location { get; set; }
 
     }
 }
