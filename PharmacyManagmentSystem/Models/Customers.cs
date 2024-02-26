@@ -1,7 +1,12 @@
-﻿namespace PharmacyManagmentSystem.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PharmacyManagmentSystem.Models
 {
     public class Customers
     {
+        [Key]
+        public int CustomerID { get; set; }
+        public string CustomerName { get; set; }
 
     }
 }
