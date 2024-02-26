@@ -6,9 +6,9 @@ namespace PharmacyManagmentSystem.Models
     {
         [Key]
         public int MedicineID { get; set; }
-        public string TradeName { get; set; }
-        public string GenericName { get; set; }
-        public string Capacity { get; set; }
+        public string? TradeName { get; set; }
+        public string? GenericName { get; set; }
+        public string? Capacity { get; set; }
 
     }
 }
