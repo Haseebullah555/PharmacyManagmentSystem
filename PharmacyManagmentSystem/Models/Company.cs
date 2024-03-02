@@ -3,12 +3,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PharmacyManagmentSystem.Models
 {
-    public class Currencies
+    public class Company
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int CurrencyID { get; set; }
-        [Required(ErrorMessage = "Currency Name Couldn't be Empty")]
-        public string CurrencyName { get; set; }
+        public int CompanyID { get; set; }
+        [Required(ErrorMessage = "Company Name Couldn't be Empty")]
+        public string CompanyName { get; set;}
     }
 }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PharmacyManagmentSystem.Models
 {
-    public class Medicines
+    public class Medicine
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

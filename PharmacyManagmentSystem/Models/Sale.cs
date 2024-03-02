@@ -3,16 +3,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PharmacyManagmentSystem.Models
 {
-    public class Purchases
+    public class Sale
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Purchases PurchaseID { get; set; }
-        public Suppliers SupplierID { get; set; }
-        public Medicines MedicineID { get; set; }
-        public Catagories CatagoryID { get; set; }
-        public Companies CompanyID { get; set; }
-        public Currencies CurrencyID { get; set; }
+        public int SaleID { get; set; }
+        public Customer CustomerID { get; set; }
+        public Medicine MedicineID { get; set; }
+        public Catagory CatagoryID { get; set; }
+        public Company CompanyID { get; set; }
+        public Currency CurrencyID { get; set; }
         [Required(ErrorMessage = "Amount Couldn't be Empty")]
         public int Amount { get; set; }
         [Required(ErrorMessage = "Unite Price Couldn't be Empty")]
@@ -23,9 +23,8 @@ namespace PharmacyManagmentSystem.Models
         public int Paid { get; set; }
         [Required(ErrorMessage = "Unpaid Amount Couldn't be Empty")]
         public int Unpaid { get; set; }
-        [Required(ErrorMessage = "Purchase Date Couldn't be Empty")]
+        [Required(ErrorMessage = "Sale Date Couldn't be Empty")]
         [DataType(DataType.DateTime)]
-        public DateTime PurchaseDate { get; set; }
-
+        public DateTime SaleDate { get; set; }
     }
 }
