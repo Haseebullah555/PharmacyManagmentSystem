@@ -3,9 +3,9 @@ using PharmacyManagmentSystem.Models;
 
 namespace PharmacyManagmentSystem.Data
 {
-    public class Applicationdbcontext : DbContext
+    public class ApplicationDbContext : DbContext
     {
-        public Applicationdbcontext(DbContextOptions<Applicationdbcontext> options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
