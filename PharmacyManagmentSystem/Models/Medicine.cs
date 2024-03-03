@@ -14,6 +14,12 @@ namespace PharmacyManagmentSystem.Models
         public string? GenericName { get; set; }
         [Required(ErrorMessage = "Capacity Couldn't be Empty")]
         public string? Capacity { get; set; }
+        // Navigation Property
+        public ICollection<Category> Categories { get; set; }
+        public ICollection<Purchase> Purchases { get; set; }
+        public ICollection<Supplier> Suppliers { get; set; }
+        public ICollection<Sale> Sales { get; set; }
+
 
     }
 }

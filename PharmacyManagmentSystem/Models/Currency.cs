@@ -10,5 +10,8 @@ namespace PharmacyManagmentSystem.Models
         public int CurrencyID { get; set; }
         [Required(ErrorMessage = "Currency Name Couldn't be Empty")]
         public string CurrencyName { get; set; }
+        // Navigation Property
+        public ICollection<Sale> Sales { get; set; }
+        public ICollection<Purchase> Purchases { get; set; }
     }
 }
