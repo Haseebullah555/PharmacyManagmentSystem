@@ -5,12 +5,9 @@
 @import url('icons/font-awesome/css/fontawesome-all.min.css');
 @import url('icons/themify-icons/themify-icons.css');
 @import url('icons/material-design-iconic-font/css/materialdesignicons.min.css');
-
-
 .search-box .app-search .form-control {
     border-radius: 0px
 }
-
 .topbar .dropdown-menu .with-arrow > span {
     transform: rotate(45deg);
     -ms-transform: rotate(45deg);
@@ -10738,7 +10735,8 @@ html[dir=ltr] body .p-l-0 {
         }
 
         #main-wrapper[data-layout=vertical][data-sidebartype=mini-sidebar] .sidebar-nav .has-arrow:after, #main-wrapper[data-layout=vertical][data-sidebartype=mini-sidebar] .sidebar-nav .hide-menu {
-            display: none
+            display: none;
+            margin-left:50px;
         }
 
         #main-wrapper[data-layout=vertical][data-sidebartype=mini-sidebar] .sidebar-nav .nav-small-cap {
