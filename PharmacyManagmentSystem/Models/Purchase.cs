@@ -5,8 +5,6 @@ namespace PharmacyManagmentSystem.Models
 {
     public class Purchase
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int PurchaseID { get; set; }
 
         [Required(ErrorMessage = "Amount Couldn't be Empty")]
@@ -23,12 +21,10 @@ namespace PharmacyManagmentSystem.Models
         [DataType(DataType.DateTime)]
         public DateTime PurchaseDate { get; set; }
         //Navigation Property
-        public Supplier Supplier { get; set; }
-        public int SupplierID { get; set; }
-
         public Medicine Medicine { get; set; }
         public int MedicineID { get; set; }
-
+        public Supplier Supplier { get; set; }
+        public int SupplierID { get; set; }
         public Currency Currency { get; set; }
         public int CurrencyID { get; set; }
 

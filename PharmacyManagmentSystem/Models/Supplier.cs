@@ -5,8 +5,6 @@ namespace PharmacyManagmentSystem.Models
 {
     public class Supplier
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int SupplierID { get; set; }
         [Required(ErrorMessage = "Supplier Name Couldn't be Empty")]
         public string SupplierName { get; set; }

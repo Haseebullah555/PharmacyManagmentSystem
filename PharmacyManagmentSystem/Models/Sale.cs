@@ -5,11 +5,7 @@ namespace PharmacyManagmentSystem.Models
 {
     public class Sale
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int SaleID { get; set; }
-        
-
         [Required(ErrorMessage = "Amount Couldn't be Empty")]
         public Decimal Amount { get; set; }
         [Required(ErrorMessage = "Unite Price Couldn't be Empty")]

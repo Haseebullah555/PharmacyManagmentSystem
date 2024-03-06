@@ -6,11 +6,37 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PharmacyManagmentSystem.Migrations
 {
     /// <inheritdoc />
-    public partial class initalMgr : Migration
+    public partial class initialMgr : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.CategoryId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Companies",
+                columns: table => new
+                {
+                    CompanyID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Companies", x => x.CompanyID);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Currencies",
                 columns: table => new
@@ -40,21 +66,6 @@ namespace PharmacyManagmentSystem.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Medicines",
-                columns: table => new
-                {
-                    MedicineID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TradeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    GenericName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Capacity = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Medicines", x => x.MedicineID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Suppliers",
                 columns: table => new
                 {
@@ -71,67 +82,31 @@ namespace PharmacyManagmentSystem.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Catagories",
+                name: "Medicines",
                 columns: table => new
                 {
-                    CatagoryID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CatagoryName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MedicineID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Catagories", x => x.CatagoryID);
-                    table.ForeignKey(
-                        name: "FK_Catagories_Medicines_MedicineID",
-                        column: x => x.MedicineID,
-                        principalTable: "Medicines",
-                        principalColumn: "MedicineID");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Sales",
-                columns: table => new
-                {
-                    MedicineID = table.Column<int>(type: "int", nullable: false),
-                    CustomerID = table.Column<int>(type: "int", nullable: false),
-                    SaleID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    SubTotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Paid = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Unpaid = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    SaleDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CurrencyID = table.Column<int>(type: "int", nullable: false),
-                    CurrencyID1 = table.Column<int>(type: "int", nullable: true)
+                    GenericName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TradeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Capacity = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CategoryID = table.Column<int>(type: "int", nullable: false),
+                    CompanyID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Sales", x => new { x.MedicineID, x.CustomerID });
+                    table.PrimaryKey("PK_Medicines", x => x.MedicineID);
                     table.ForeignKey(
-                        name: "FK_Sales_Currencies_CurrencyID",
-                        column: x => x.CurrencyID,
-                        principalTable: "Currencies",
-                        principalColumn: "CurrencyID",
+                        name: "FK_Medicines_Categories_CategoryID",
+                        column: x => x.CategoryID,
+                        principalTable: "Categories",
+                        principalColumn: "CategoryId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Sales_Currencies_CurrencyID1",
-                        column: x => x.CurrencyID1,
-                        principalTable: "Currencies",
-                        principalColumn: "CurrencyID");
-                    table.ForeignKey(
-                        name: "FK_Sales_Customers_CustomerID",
-                        column: x => x.CustomerID,
-                        principalTable: "Customers",
-                        principalColumn: "CustomerID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Sales_Medicines_MedicineID",
-                        column: x => x.MedicineID,
-                        principalTable: "Medicines",
-                        principalColumn: "MedicineID",
+                        name: "FK_Medicines_Companies_CompanyID",
+                        column: x => x.CompanyID,
+                        principalTable: "Companies",
+                        principalColumn: "CompanyID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -163,8 +138,6 @@ namespace PharmacyManagmentSystem.Migrations
                 name: "Purchases",
                 columns: table => new
                 {
-                    SupplierID = table.Column<int>(type: "int", nullable: false),
-                    MedicineID = table.Column<int>(type: "int", nullable: false),
                     PurchaseID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Amount = table.Column<int>(type: "int", nullable: false),
@@ -174,23 +147,19 @@ namespace PharmacyManagmentSystem.Migrations
                     Paid = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Unpaid = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     PurchaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CurrencyID = table.Column<int>(type: "int", nullable: false),
-                    CurrencyID1 = table.Column<int>(type: "int", nullable: true)
+                    MedicineID = table.Column<int>(type: "int", nullable: false),
+                    SupplierID = table.Column<int>(type: "int", nullable: false),
+                    CurrencyID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Purchases", x => new { x.MedicineID, x.SupplierID });
+                    table.PrimaryKey("PK_Purchases", x => x.PurchaseID);
                     table.ForeignKey(
                         name: "FK_Purchases_Currencies_CurrencyID",
                         column: x => x.CurrencyID,
                         principalTable: "Currencies",
                         principalColumn: "CurrencyID",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Purchases_Currencies_CurrencyID1",
-                        column: x => x.CurrencyID1,
-                        principalTable: "Currencies",
-                        principalColumn: "CurrencyID");
                     table.ForeignKey(
                         name: "FK_Purchases_Medicines_MedicineID",
                         column: x => x.MedicineID,
@@ -205,10 +174,55 @@ namespace PharmacyManagmentSystem.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Sales",
+                columns: table => new
+                {
+                    SaleID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    SubTotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Paid = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Unpaid = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    SaleDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    MedicineID = table.Column<int>(type: "int", nullable: false),
+                    CurrencyID = table.Column<int>(type: "int", nullable: false),
+                    CustomerID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sales", x => x.SaleID);
+                    table.ForeignKey(
+                        name: "FK_Sales_Currencies_CurrencyID",
+                        column: x => x.CurrencyID,
+                        principalTable: "Currencies",
+                        principalColumn: "CurrencyID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Sales_Customers_CustomerID",
+                        column: x => x.CustomerID,
+                        principalTable: "Customers",
+                        principalColumn: "CustomerID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Sales_Medicines_MedicineID",
+                        column: x => x.MedicineID,
+                        principalTable: "Medicines",
+                        principalColumn: "MedicineID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
-                name: "IX_Catagories_MedicineID",
-                table: "Catagories",
-                column: "MedicineID");
+                name: "IX_Medicines_CategoryID",
+                table: "Medicines",
+                column: "CategoryID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Medicines_CompanyID",
+                table: "Medicines",
+                column: "CompanyID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MedicineSupplier_SuppliersSupplierID",
@@ -218,13 +232,12 @@ namespace PharmacyManagmentSystem.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Purchases_CurrencyID",
                 table: "Purchases",
-                column: "CurrencyID",
-                unique: true);
+                column: "CurrencyID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Purchases_CurrencyID1",
+                name: "IX_Purchases_MedicineID",
                 table: "Purchases",
-                column: "CurrencyID1");
+                column: "MedicineID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Purchases_SupplierID",
@@ -234,26 +247,22 @@ namespace PharmacyManagmentSystem.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Sales_CurrencyID",
                 table: "Sales",
-                column: "CurrencyID",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Sales_CurrencyID1",
-                table: "Sales",
-                column: "CurrencyID1");
+                column: "CurrencyID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Sales_CustomerID",
                 table: "Sales",
                 column: "CustomerID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sales_MedicineID",
+                table: "Sales",
+                column: "MedicineID");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Catagories");
-
             migrationBuilder.DropTable(
                 name: "MedicineSupplier");
 
@@ -274,6 +283,12 @@ namespace PharmacyManagmentSystem.Migrations
 
             migrationBuilder.DropTable(
                 name: "Medicines");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Companies");
         }
     }
 }

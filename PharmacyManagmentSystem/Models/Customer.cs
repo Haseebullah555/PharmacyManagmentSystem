@@ -5,8 +5,6 @@ namespace PharmacyManagmentSystem.Models
 {
     public class Customer
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CustomerID { get; set; }
         [Required(ErrorMessage = "Customer Name Couldn't be Empty")]
         public string? CustomerName { get; set; }

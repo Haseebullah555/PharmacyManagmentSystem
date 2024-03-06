@@ -12,8 +12,8 @@ using PharmacyManagmentSystem.Data;
 namespace PharmacyManagmentSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240303094326_initalMgr")]
-    partial class initalMgr
+    [Migration("20240306065635_initialMgr")]
+    partial class initialMgr
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,24 +42,36 @@ namespace PharmacyManagmentSystem.Migrations
 
             modelBuilder.Entity("PharmacyManagmentSystem.Models.Category", b =>
                 {
-                    b.Property<int>("CatagoryID")
+                    b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CatagoryID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"));
 
-                    b.Property<string>("CatagoryName")
+                    b.Property<string>("CategoryName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MedicineID")
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("PharmacyManagmentSystem.Models.Company", b =>
+                {
+                    b.Property<int>("CompanyID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.HasKey("CatagoryID");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CompanyID"));
 
-                    b.HasIndex("MedicineID");
+                    b.Property<string>("CompanyName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("Catagories");
+                    b.HasKey("CompanyID");
+
+                    b.ToTable("Companies");
                 });
 
             modelBuilder.Entity("PharmacyManagmentSystem.Models.Currency", b =>
@@ -116,6 +128,12 @@ namespace PharmacyManagmentSystem.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("CategoryID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompanyID")
+                        .HasColumnType("int");
+
                     b.Property<string>("GenericName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -126,16 +144,20 @@ namespace PharmacyManagmentSystem.Migrations
 
                     b.HasKey("MedicineID");
 
+                    b.HasIndex("CategoryID");
+
+                    b.HasIndex("CompanyID");
+
                     b.ToTable("Medicines");
                 });
 
             modelBuilder.Entity("PharmacyManagmentSystem.Models.Purchase", b =>
                 {
-                    b.Property<int>("MedicineID")
+                    b.Property<int>("PurchaseID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("SupplierID")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PurchaseID"));
 
                     b.Property<int>("Amount")
                         .HasColumnType("int");
@@ -143,7 +165,7 @@ namespace PharmacyManagmentSystem.Migrations
                     b.Property<int>("CurrencyID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CurrencyID1")
+                    b.Property<int>("MedicineID")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Paid")
@@ -152,14 +174,11 @@ namespace PharmacyManagmentSystem.Migrations
                     b.Property<DateTime>("PurchaseDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PurchaseID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PurchaseID"));
-
                     b.Property<decimal>("SubTotalPrice")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("SupplierID")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
@@ -170,12 +189,11 @@ namespace PharmacyManagmentSystem.Migrations
                     b.Property<decimal>("Unpaid")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("MedicineID", "SupplierID");
+                    b.HasKey("PurchaseID");
 
-                    b.HasIndex("CurrencyID")
-                        .IsUnique();
+                    b.HasIndex("CurrencyID");
 
-                    b.HasIndex("CurrencyID1");
+                    b.HasIndex("MedicineID");
 
                     b.HasIndex("SupplierID");
 
@@ -184,11 +202,11 @@ namespace PharmacyManagmentSystem.Migrations
 
             modelBuilder.Entity("PharmacyManagmentSystem.Models.Sale", b =>
                 {
-                    b.Property<int>("MedicineID")
+                    b.Property<int>("SaleID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("CustomerID")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SaleID"));
 
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
@@ -196,7 +214,10 @@ namespace PharmacyManagmentSystem.Migrations
                     b.Property<int>("CurrencyID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CurrencyID1")
+                    b.Property<int>("CustomerID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MedicineID")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Paid")
@@ -204,12 +225,6 @@ namespace PharmacyManagmentSystem.Migrations
 
                     b.Property<DateTime>("SaleDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("SaleID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SaleID"));
 
                     b.Property<decimal>("SubTotalPrice")
                         .HasColumnType("decimal(18,2)");
@@ -223,14 +238,13 @@ namespace PharmacyManagmentSystem.Migrations
                     b.Property<decimal>("Unpaid")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("MedicineID", "CustomerID");
+                    b.HasKey("SaleID");
 
-                    b.HasIndex("CurrencyID")
-                        .IsUnique();
-
-                    b.HasIndex("CurrencyID1");
+                    b.HasIndex("CurrencyID");
 
                     b.HasIndex("CustomerID");
+
+                    b.HasIndex("MedicineID");
 
                     b.ToTable("Sales");
                 });
@@ -279,28 +293,32 @@ namespace PharmacyManagmentSystem.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PharmacyManagmentSystem.Models.Category", b =>
+            modelBuilder.Entity("PharmacyManagmentSystem.Models.Medicine", b =>
                 {
-                    b.HasOne("PharmacyManagmentSystem.Models.Medicine", "Medicine")
-                        .WithMany("Categories")
-                        .HasForeignKey("MedicineID")
-                        .OnDelete(DeleteBehavior.NoAction)
+                    b.HasOne("PharmacyManagmentSystem.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Medicine");
+                    b.HasOne("PharmacyManagmentSystem.Models.Company", "Company")
+                        .WithMany("Medicines")
+                        .HasForeignKey("CompanyID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("PharmacyManagmentSystem.Models.Purchase", b =>
                 {
                     b.HasOne("PharmacyManagmentSystem.Models.Currency", "Currency")
-                        .WithOne()
-                        .HasForeignKey("PharmacyManagmentSystem.Models.Purchase", "CurrencyID")
+                        .WithMany()
+                        .HasForeignKey("CurrencyID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("PharmacyManagmentSystem.Models.Currency", null)
-                        .WithMany("Purchases")
-                        .HasForeignKey("CurrencyID1");
 
                     b.HasOne("PharmacyManagmentSystem.Models.Medicine", "Medicine")
                         .WithMany("Purchases")
@@ -324,14 +342,10 @@ namespace PharmacyManagmentSystem.Migrations
             modelBuilder.Entity("PharmacyManagmentSystem.Models.Sale", b =>
                 {
                     b.HasOne("PharmacyManagmentSystem.Models.Currency", "Currency")
-                        .WithOne()
-                        .HasForeignKey("PharmacyManagmentSystem.Models.Sale", "CurrencyID")
+                        .WithMany()
+                        .HasForeignKey("CurrencyID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("PharmacyManagmentSystem.Models.Currency", null)
-                        .WithMany("Sales")
-                        .HasForeignKey("CurrencyID1");
 
                     b.HasOne("PharmacyManagmentSystem.Models.Customer", "Customer")
                         .WithMany("Sales")
@@ -352,11 +366,9 @@ namespace PharmacyManagmentSystem.Migrations
                     b.Navigation("Medicine");
                 });
 
-            modelBuilder.Entity("PharmacyManagmentSystem.Models.Currency", b =>
+            modelBuilder.Entity("PharmacyManagmentSystem.Models.Company", b =>
                 {
-                    b.Navigation("Purchases");
-
-                    b.Navigation("Sales");
+                    b.Navigation("Medicines");
                 });
 
             modelBuilder.Entity("PharmacyManagmentSystem.Models.Customer", b =>
@@ -366,8 +378,6 @@ namespace PharmacyManagmentSystem.Migrations
 
             modelBuilder.Entity("PharmacyManagmentSystem.Models.Medicine", b =>
                 {
-                    b.Navigation("Categories");
-
                     b.Navigation("Purchases");
 
                     b.Navigation("Sales");
