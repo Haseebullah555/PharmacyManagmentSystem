@@ -12,7 +12,6 @@ namespace PharmacyManagmentSystem.Models
         [RegularExpression("^937[0-9]{0,11}$|7[0-9]{0,9}$", ErrorMessage = "Invalid Phone Number")]
         public string PhoneNo { get; set; }
         public  string Address { get; set; }
-        // Navigation Property
-        public ICollection<Sale> Sales { get; set; }
+     
     }
 }

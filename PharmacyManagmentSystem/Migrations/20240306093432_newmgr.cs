@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PharmacyManagmentSystem.Migrations
 {
     /// <inheritdoc />
-    public partial class initialMgr : Migration
+    public partial class newmgr : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -111,30 +111,6 @@ namespace PharmacyManagmentSystem.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MedicineSupplier",
-                columns: table => new
-                {
-                    MedicinesMedicineID = table.Column<int>(type: "int", nullable: false),
-                    SuppliersSupplierID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MedicineSupplier", x => new { x.MedicinesMedicineID, x.SuppliersSupplierID });
-                    table.ForeignKey(
-                        name: "FK_MedicineSupplier_Medicines_MedicinesMedicineID",
-                        column: x => x.MedicinesMedicineID,
-                        principalTable: "Medicines",
-                        principalColumn: "MedicineID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MedicineSupplier_Suppliers_SuppliersSupplierID",
-                        column: x => x.SuppliersSupplierID,
-                        principalTable: "Suppliers",
-                        principalColumn: "SupplierID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Purchases",
                 columns: table => new
                 {
@@ -225,11 +201,6 @@ namespace PharmacyManagmentSystem.Migrations
                 column: "CompanyID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MedicineSupplier_SuppliersSupplierID",
-                table: "MedicineSupplier",
-                column: "SuppliersSupplierID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Purchases_CurrencyID",
                 table: "Purchases",
                 column: "CurrencyID");
@@ -263,9 +234,6 @@ namespace PharmacyManagmentSystem.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "MedicineSupplier");
-
             migrationBuilder.DropTable(
                 name: "Purchases");
 

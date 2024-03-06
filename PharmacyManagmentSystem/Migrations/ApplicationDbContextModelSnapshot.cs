@@ -22,21 +22,6 @@ namespace PharmacyManagmentSystem.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("MedicineSupplier", b =>
-                {
-                    b.Property<int>("MedicinesMedicineID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SuppliersSupplierID")
-                        .HasColumnType("int");
-
-                    b.HasKey("MedicinesMedicineID", "SuppliersSupplierID");
-
-                    b.HasIndex("SuppliersSupplierID");
-
-                    b.ToTable("MedicineSupplier");
-                });
-
             modelBuilder.Entity("PharmacyManagmentSystem.Models.Category", b =>
                 {
                     b.Property<int>("CategoryId")
@@ -275,21 +260,6 @@ namespace PharmacyManagmentSystem.Migrations
                     b.ToTable("Suppliers");
                 });
 
-            modelBuilder.Entity("MedicineSupplier", b =>
-                {
-                    b.HasOne("PharmacyManagmentSystem.Models.Medicine", null)
-                        .WithMany()
-                        .HasForeignKey("MedicinesMedicineID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PharmacyManagmentSystem.Models.Supplier", null)
-                        .WithMany()
-                        .HasForeignKey("SuppliersSupplierID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("PharmacyManagmentSystem.Models.Medicine", b =>
                 {
                     b.HasOne("PharmacyManagmentSystem.Models.Category", "Category")
@@ -299,7 +269,7 @@ namespace PharmacyManagmentSystem.Migrations
                         .IsRequired();
 
                     b.HasOne("PharmacyManagmentSystem.Models.Company", "Company")
-                        .WithMany("Medicines")
+                        .WithMany()
                         .HasForeignKey("CompanyID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -318,13 +288,13 @@ namespace PharmacyManagmentSystem.Migrations
                         .IsRequired();
 
                     b.HasOne("PharmacyManagmentSystem.Models.Medicine", "Medicine")
-                        .WithMany("Purchases")
+                        .WithMany()
                         .HasForeignKey("MedicineID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("PharmacyManagmentSystem.Models.Supplier", "Supplier")
-                        .WithMany("Purchases")
+                        .WithMany()
                         .HasForeignKey("SupplierID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -345,13 +315,13 @@ namespace PharmacyManagmentSystem.Migrations
                         .IsRequired();
 
                     b.HasOne("PharmacyManagmentSystem.Models.Customer", "Customer")
-                        .WithMany("Sales")
+                        .WithMany()
                         .HasForeignKey("CustomerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("PharmacyManagmentSystem.Models.Medicine", "Medicine")
-                        .WithMany("Sales")
+                        .WithMany()
                         .HasForeignKey("MedicineID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -361,28 +331,6 @@ namespace PharmacyManagmentSystem.Migrations
                     b.Navigation("Customer");
 
                     b.Navigation("Medicine");
-                });
-
-            modelBuilder.Entity("PharmacyManagmentSystem.Models.Company", b =>
-                {
-                    b.Navigation("Medicines");
-                });
-
-            modelBuilder.Entity("PharmacyManagmentSystem.Models.Customer", b =>
-                {
-                    b.Navigation("Sales");
-                });
-
-            modelBuilder.Entity("PharmacyManagmentSystem.Models.Medicine", b =>
-                {
-                    b.Navigation("Purchases");
-
-                    b.Navigation("Sales");
-                });
-
-            modelBuilder.Entity("PharmacyManagmentSystem.Models.Supplier", b =>
-                {
-                    b.Navigation("Purchases");
                 });
 #pragma warning restore 612, 618
         }

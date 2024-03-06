@@ -18,9 +18,6 @@ namespace PharmacyManagmentSystem.Models
         public int CategoryID { get; set; }
         public Company Company { get; set; }
         public int CompanyID { get; set; }
-        public ICollection<Sale> Sales { get; set; }
-        public ICollection<Purchase> Purchases { get; set; }
-        public ICollection<Supplier> Suppliers { get; set; }
-
+         
     }
 }
