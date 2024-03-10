@@ -69,7 +69,7 @@ namespace PharmacyManagmentSystem.Controllers
             return View(currency);
         }
         
-        public IActionResult Delete(int id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {

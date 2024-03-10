@@ -15,8 +15,10 @@ namespace PharmacyManagmentSystem.Models
         public string Capacity { get; set; }
         // Navigation Property
         public Category Category{ get; set; }
+        [Required]
         public int CategoryID { get; set; }
         public Company Company { get; set; }
+        [Required]
         public int CompanyID { get; set; }
          
     }

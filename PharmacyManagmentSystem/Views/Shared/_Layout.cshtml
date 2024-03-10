@@ -27,282 +27,258 @@
     <link rel="icon"
           type="image/png"
           sizes="16x16"
-          href ="~/Data/assets/images/favicon.png"/>
+          href="~/Data/assets/images/favicon.png" />
     <!-- Custom CSS -->
     <link href="~/Data/assets/libs/flot/css/float-chart.css" rel="stylesheet" />
     <!-- Custom CSS -->
     <link href="~/data/dist/css/style.min.css" rel="stylesheet" />
+   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.5/dist/sweetalert2.min.css">
+    
 </head>
 <body>
-    @*  <header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-    <div class="container-fluid">
-    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PharmacyManagmentSystem</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-    aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-    <ul class="navbar-nav flex-grow-1">
-    <li class="nav-item">
-    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-    </li>
-    <li class="nav-item">
-    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-    </li>
-    </ul>
-    </div>
-    </div>
-    </nav>
-    </header>
-
-    <footer class="border-top footer text-muted">
-    <div class="container">
-    &copy; 2024 - PharmacyManagmentSystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-    </div>
-    </footer> *@
-        <!-- ============================================================== -->
-        <!-- Preloader - style you can find in spinners.css -->
-        <!-- ============================================================== -->
-        <div class="preloader">
-            <div class="lds-ripple">
-                <div class="lds-pos"></div>
-                <div class="lds-pos"></div>
-            </div>
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
         </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper"
+         data-layout="vertical"
+         data-navbarbg="skin5"
+         data-sidebartype="full"
+         data-sidebar-position="absolute"
+         data-header-position="absolute"
+         data-boxed-layout="full">
         <!-- ============================================================== -->
-        <!-- Main wrapper - style you can find in pages.scss -->
+        <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
-        <div id="main-wrapper"
-             data-layout="vertical"
-             data-navbarbg="skin5"
-             data-sidebartype="full"
-             data-sidebar-position="absolute"
-             data-header-position="absolute"
-             data-boxed-layout="full">
-            <!-- ============================================================== -->
-            <!-- Topbar header - style you can find in pages.scss -->
-            <!-- ============================================================== -->
-            <header class="topbar" data-navbarbg="skin5">
-                <nav class="navbar top-navbar navbar-expand-md navbar-dark">
-                    <div class="navbar-header" data-logobg="skin5">
-                        <!-- ============================================================== -->
-                        <!-- Logo -->
-                        <!-- ============================================================== -->
-                        <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-                            <!-- Logo icon -->
-                            <b class="logo-icon ps-2">
-                                <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-                                <!-- Dark Logo icon -->
-                                <img src="~/Data/assets/images/pharmacy.ico"
-                                     alt="homepage"
-                                     class="light-logo"
-                                     width="25" />
-                            </b>
-                            <!--End Logo icon -->
-                            <!-- Logo text -->
-                            <span class="logo-text ms-2">
-                                <!-- dark Logo text -->
-                                Pharmacy MIS
-                            </span>
-                            <!-- Logo icon -->
-                            <!-- <b class="logo-icon"> -->
+        <header class="topbar" data-navbarbg="skin5">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <div class="navbar-header" data-logobg="skin5">
+                    <!-- ============================================================== -->
+                    <!-- Logo -->
+                    <!-- ============================================================== -->
+                    <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                        <!-- Logo icon -->
+                        <b class="logo-icon ps-2">
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
-                            <!-- <img src="../assets/images/logo-text.png" alt="homepage" class="light-logo" /> -->
-                            <!-- </b> -->
-                            <!--End Logo icon -->
-                        </a>
-                        <!-- ============================================================== -->
-                        <!-- End Logo -->
-                        <!-- ============================================================== -->
-                        <!-- ============================================================== -->
-                        <!-- Toggle which is visible on mobile only -->
-                        <!-- ============================================================== -->
-                        <a class="nav-toggler waves-effect waves-light d-block d-md-none"
-                           href="javascript:void(0)">
-                            <i class="ti-menu ti-close"></i>
-                        </a>
-                    </div>
+                            <img src="~/Data/assets/images/pharmacy.ico"
+                                 alt="homepage"
+                                 class="light-logo"
+                                 width="25" />
+                        </b>
+                        <!--End Logo icon -->
+                        <!-- Logo text -->
+                        <span class="logo-text ms-2">
+                            <!-- dark Logo text -->
+                            Pharmacy MIS
+                        </span>
+                        <!-- Logo icon -->
+                        <!-- <b class="logo-icon"> -->
+                        <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                        <!-- Dark Logo icon -->
+                        <!-- <img src="../assets/images/logo-text.png" alt="homepage" class="light-logo" /> -->
+                        <!-- </b> -->
+                        <!--End Logo icon -->
+                    </a>
                     <!-- ============================================================== -->
                     <!-- End Logo -->
                     <!-- ============================================================== -->
-                    <div class="navbar-collapse collapse"
-                         id="navbarSupportedContent"
-                         data-navbarbg="skin5">
+                    <!-- ============================================================== -->
+                    <!-- Toggle which is visible on mobile only -->
+                    <!-- ============================================================== -->
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none"
+                       href="javascript:void(0)">
+                        <i class="ti-menu ti-close"></i>
+                    </a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse collapse"
+                     id="navbarSupportedContent"
+                     data-navbarbg="skin5">
+                    <!-- ============================================================== -->
+                    <!-- toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav float-start me-auto">
+                        <li class="nav-item d-none d-lg-block">
+                            @* <a class="nav-link sidebartoggler waves-effect waves-light"
+                            href="javascript:void(0)"
+                            data-sidebartype="mini-sidebar">
+                            <i class="mdi mdi-menu font-24"></i>
+                            </a> *@
+                        </li>
+                    </ul>
+                    <!-- ============================================================== -->
+                    <!-- Right side toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav float-end">
                         <!-- ============================================================== -->
-                        <!-- toggle and nav items -->
+                        <!-- User profile and search -->
                         <!-- ============================================================== -->
-                        <ul class="navbar-nav float-start me-auto">
-                            <li class="nav-item d-none d-lg-block">
-                                @* <a class="nav-link sidebartoggler waves-effect waves-light"
-                                   href="javascript:void(0)"
-                                   data-sidebartype="mini-sidebar">
-                                    <i class="mdi mdi-menu font-24"></i>
-                                </a> *@
-                            </li>
-                        </ul>
-                        <!-- ============================================================== -->
-                        <!-- Right side toggle and nav items -->
-                        <!-- ============================================================== -->
-                        <ul class="navbar-nav float-end">
-                            <!-- ============================================================== -->
-                            <!-- User profile and search -->
-                            <!-- ============================================================== -->
-                            <li class="nav-item dropdown">
-                                <a class=" nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic"
-                                   href="#"
-                                   id="navbarDropdown"
-                                   role="button"
-                                   data-bs-toggle="dropdown"
-                                   aria-expanded="false">
-                                    <img src="~/Data/assets/images/users/1.jpg"
-                                         alt="user"
-                                         class="rounded-circle"
-                                         width="31" />
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end user-dd animated"
-                                    aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="javascript:void(0)"><i class="mdi mdi-account me-1 ms-1"></i> My Profile</a>
-                                    <a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-power-off me-1 ms-1"></i> Logout</a>
+                        <li class="nav-item dropdown">
+                            <a class=" nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic"
+                               href="#"
+                               id="navbarDropdown"
+                               role="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                <img src="~/Data/assets/images/users/1.jpg"
+                                     alt="user"
+                                     class="rounded-circle"
+                                     width="31" />
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end user-dd animated"
+                                aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="javascript:void(0)"><i class="mdi mdi-account me-1 ms-1"></i> My Profile</a>
+                                <a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-power-off me-1 ms-1"></i> Logout</a>
 
-                                </ul>
-                            </li>
-                            <!-- ============================================================== -->
-                            <!-- User profile and search -->
-                            <!-- ============================================================== -->
-                        </ul>
-                    </div>
-                </nav>
-            </header>
-            <!-- ============================================================== -->
-            <!-- End Topbar header -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Left Sidebar - style you can find in sidebar.scss  -->
-            <!-- ============================================================== -->
-            <aside class="left-sidebar" data-sidebarbg="skin5">
-                <!-- Sidebar scroll-->
-                <div class="scroll-sidebar">
-                    <!-- Sidebar navigation-->
-                    <nav class="sidebar-nav">
-                        <ul id="sidebarnav" class="pt-4">
-                            <li class="sidebar-item">
-                                <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                   asp-action="Index"
-                                   asp-controller="Home"
-                                   aria-expanded="false">
-                                    <img src="~/data/assets/images/dashboard.png" width="20rem"/><span class="hide-menu">Dashboard</span>
-                                </a>
-                            </li>
-                           @*  <li class="sidebar-item">
-                                <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                   href="charts.html"
-                                   aria-expanded="false">
-                                    <i class="mdi mdi-chart-bar"></i><span class="hide-menu">Charts</span>
-                                </a>
-                            </li> *@
-                            <li class="sidebar-item">
-                                <a class="sidebar-link has-arrow waves-effect waves-dark"
-                                   href="javascript:void(0)"
-                                   aria-expanded="false">
-                                    <img src="~/data/assets/images/medicine.png" width="20rem"/> <span class="hide-menu">Medicines </span>
-                                </a>
-                                <ul aria-expanded="false" class="collapse first-level">
-                                    <li class="sidebar-item">
+                            </ul>
+                        </li>
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar" data-sidebarbg="skin5">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav" class="pt-4">
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                               asp-action="Index"
+                               asp-controller="Home"
+                               aria-expanded="false">
+                                <img src="~/data/assets/images/dashboard.png" width="20rem" /><span class="hide-menu">Dashboard</span>
+                            </a>
+                        </li>
+                        @*  <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                        href="charts.html"
+                        aria-expanded="false">
+                        <i class="mdi mdi-chart-bar"></i><span class="hide-menu">Charts</span>
+                        </a>
+                        </li> *@
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow waves-effect waves-dark"
+                               href="javascript:void(0)"
+                               aria-expanded="false">
+                                <img src="~/data/assets/images/medicine.png" width="20rem" /> <span class="hide-menu">Medicines </span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse first-level">
+                                <li class="sidebar-item">
                                     <a asp-action="Index" asp-controller="Medicines" class="sidebar-link">
-                                            <img src="~/data/assets/images/vaccine-list.png" width="15rem" /><span class="hide-menu"> All Medicines </span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-item">
-                                        <a asp-action="Index" asp-controller="Currencies" class="sidebar-link">
-                                            <img src="~/data/assets/images/add.png" width="15rem" /><span class="hide-menu"> Add New Medicine </span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
+                                        <img src="~/data/assets/images/vaccine-list.png" width="15rem" /><span class="hide-menu"> All Medicines </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a asp-action="Index" asp-controller="Currencies" class="sidebar-link">
+                                        <img src="~/data/assets/images/add.png" width="15rem" /><span class="hide-menu"> Add New Medicine </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
 
-                            <li class="sidebar-item">
-                                <a class="sidebar-link has-arrow waves-effect waves-dark"
-                                   href="javascript:void(0)"
-                                   aria-expanded="false">
-                                    <img src="~/data/assets/images/customers.png" width="20rem" /><span class="hide-menu">Customers </span>
-                                </a>
-                                <ul aria-expanded="false" class="collapse first-level">
-                                    <li class="sidebar-item">
-                                        <a asp-action="Index" asp-controller="Customers" class="sidebar-link">
-                                            <img src="~/data/assets/images/list.png" width="15rem" /><span class="hide-menu"> All Customers </span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-item">
-                                        <a href="form-wizard.html" class="sidebar-link">
-                                            <img src="~/data/assets/images/customer.png" width="15rem" /><span class="hide-menu"> Add New Customer </span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow waves-effect waves-dark"
+                               href="javascript:void(0)"
+                               aria-expanded="false">
+                                <img src="~/data/assets/images/customers.png" width="20rem" /><span class="hide-menu">Customers </span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse first-level">
+                                <li class="sidebar-item">
+                                    <a asp-action="Index" asp-controller="Customers" class="sidebar-link">
+                                        <img src="~/data/assets/images/list.png" width="15rem" /><span class="hide-menu"> All Customers </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="form-wizard.html" class="sidebar-link">
+                                        <img src="~/data/assets/images/customer.png" width="15rem" /><span class="hide-menu"> Add New Customer </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
 
-                            <li class="sidebar-item">
-                                <a class="sidebar-link has-arrow waves-effect waves-dark"
-                                   href="javascript:void(0)"
-                                   aria-expanded="false">
-                                    <img src="~/data/assets/images/supplier.png" width="20rem" /><span class="hide-menu">Suppliers </span>
-                                </a>
-                                <ul aria-expanded="false" class="collapse first-level">
-                                    <li class="sidebar-item">
-                                        <a asp-action="Index" asp-controller="Suppliers" class="sidebar-link">
-                                            <img src="~/data/assets/images/list.png" width="15rem" /><span class="hide-menu"> All Suppliers </span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-item">
-                                        <a href="form-wizard.html" class="sidebar-link">
-                                            <img src="~/data/assets/images/suppliers.png" width="15rem" /><span class="hide-menu"> Add New Supplier </span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow waves-effect waves-dark"
+                               href="javascript:void(0)"
+                               aria-expanded="false">
+                                <img src="~/data/assets/images/supplier.png" width="20rem" /><span class="hide-menu">Suppliers </span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse first-level">
+                                <li class="sidebar-item">
+                                    <a asp-action="Index" asp-controller="Suppliers" class="sidebar-link">
+                                        <img src="~/data/assets/images/list.png" width="15rem" /><span class="hide-menu"> All Suppliers </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="form-wizard.html" class="sidebar-link">
+                                        <img src="~/data/assets/images/suppliers.png" width="15rem" /><span class="hide-menu"> Add New Supplier </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
 
-                            <li class="sidebar-item">
-                                <a class="sidebar-link has-arrow waves-effect waves-dark"
-                                   href="javascript:void(0)"
-                                   aria-expanded="false">
-                                    <img src="~/data/assets/images/acquisition.png" width="20rem" /><span class="hide-menu">Sales </span>
-                                </a>
-                                <ul aria-expanded="false" class="collapse first-level">
-                                    <li class="sidebar-item">
-                                        <a asp-action="Index" asp-controller="Sales" class="sidebar-link">
-                                            <img src="~/data/assets/images/list.png" width="15rem" /><span class="hide-menu"> All Sales </span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-item">
-                                        <a href="form-wizard.html" class="sidebar-link">
-                                            <img src="~/data/assets/images/opportunity.png" width="15rem" /><span class="hide-menu"> New Sale </span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow waves-effect waves-dark"
+                               href="javascript:void(0)"
+                               aria-expanded="false">
+                                <img src="~/data/assets/images/acquisition.png" width="20rem" /><span class="hide-menu">Sales </span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse first-level">
+                                <li class="sidebar-item">
+                                    <a asp-action="Index" asp-controller="Sales" class="sidebar-link">
+                                        <img src="~/data/assets/images/list.png" width="15rem" /><span class="hide-menu"> All Sales </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="form-wizard.html" class="sidebar-link">
+                                        <img src="~/data/assets/images/opportunity.png" width="15rem" /><span class="hide-menu"> New Sale </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
 
-                            <li class="sidebar-item">
-                                <a class="sidebar-link has-arrow waves-effect waves-dark"
-                                   href="javascript:void(0)"
-                                   aria-expanded="false">
-                                    <img src="~/data/assets/images/pay.png" width="20rem" /><span class="hide-menu">Purchases </span>
-                                </a>
-                                <ul aria-expanded="false" class="collapse first-level">
-                                    <li class="sidebar-item">
-                                        <a asp-controller="Purchases" asp-action="Index" class="sidebar-link">
-                                            <img src="~/data/assets/images/list.png" width="15rem" /><span class="hide-menu"> All Purchases </span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-item">
-                                        <a href="form-wizard.html" class="sidebar-link">
-                                            <img src="~/data/assets/images/add-to-cart.png" width="20rem" /><span class="hide-menu"> New Purchase </span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow waves-effect waves-dark"
+                               href="javascript:void(0)"
+                               aria-expanded="false">
+                                <img src="~/data/assets/images/pay.png" width="20rem" /><span class="hide-menu">Purchases </span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse first-level">
+                                <li class="sidebar-item">
+                                    <a asp-controller="Purchases" asp-action="Index" class="sidebar-link">
+                                        <img src="~/data/assets/images/list.png" width="15rem" /><span class="hide-menu"> All Purchases </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="form-wizard.html" class="sidebar-link">
+                                        <img src="~/data/assets/images/add-to-cart.png" width="20rem" /><span class="hide-menu"> New Purchase </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
 
-                            <li class="sidebar-item">
+                        <li class="sidebar-item">
                             <a class="sidebar-link has-arrow waves-effect waves-dark"
                                href="javascript:void(0)"
                                aria-expanded="false">
@@ -322,7 +298,7 @@
                             </ul>
                         </li>
 
-                            <li class="sidebar-item">
+                        <li class="sidebar-item">
                             <a class="sidebar-link has-arrow waves-effect waves-dark"
                                href="javascript:void(0)"
                                aria-expanded="false">
@@ -342,7 +318,7 @@
                             </ul>
                         </li>
 
-                            <li class="sidebar-item">
+                        <li class="sidebar-item">
                             <a class="sidebar-link has-arrow waves-effect waves-dark"
                                href="javascript:void(0)"
                                aria-expanded="false">
@@ -361,110 +337,111 @@
                                 </li>
                             </ul>
                         </li>
-                        </ul>
-                    </nav>
-                    <!-- End Sidebar navigation -->
-                </div>
-                <!-- End Sidebar scroll-->
-            </aside>
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
             <!-- ============================================================== -->
-            <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+            <!-- Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Page wrapper  -->
-            <!-- ============================================================== -->
-            <div class="page-wrapper">
-                <!-- ============================================================== -->
-                <!-- Bread crumb and right sidebar toggle -->
-                <!-- ============================================================== -->
-                <div class="page-breadcrumb">
-                    <div class="row">
-                        <div class="col-12 d-flex no-block align-items-center">
-                            <h4 class="page-title">Dashboard</h4>
-                            <div class="ms-auto text-end">
-                                
-                            </div>
+            <div class="page-breadcrumb">
+                <div class="row">
+                    <div class="col-12 d-flex no-block align-items-center">
+                        <h4 class="page-title">Dashboard</h4>
+                        <div class="ms-auto text-end">
                         </div>
                     </div>
                 </div>
-                <!-- ============================================================== -->
-                <!-- End Bread crumb and right sidebar toggle -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Container fluid  -->
-                <!-- ============================================================== -->
-                <div class="container-fluid">
-                    <div class="container">
-                        <main role="main" class="pb-3">
-                            @RenderBody()
-                        </main>
-                    </div>
-                </div>
-                <!-- ============================================================== -->
-                <!-- End Container fluid  -->
-                <!-- ============================================================== -->
             </div>
             <!-- ============================================================== -->
-            <!-- End Page wrapper  -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <div class="container">
+                    <main role="main" class="pb-3">
+                        @RenderBody()
+                    </main>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
             <!-- ============================================================== -->
         </div>
         <!-- ============================================================== -->
-        <!-- End Wrapper -->
+        <!-- End Page wrapper  -->
         <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- All Jquery -->
-        <!-- ============================================================== -->
-        <script src="~/data/assets/libs/jquery/dist/jquery.min.js"></script>
-        <!-- Bootstrap tether Core JavaScript -->
-        
-        <script src="~/data/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="~/data/assets/libs/bootstrap/dist/js/bootstrap.bundle.js"></script>
-        <script src="~/data/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-        <script src="~/data/assets/extra-libs/sparkline/sparkline.js"></script>
-        <!--Wave Effects -->
-        <script src="~/data/dist/js/waves.js"></script>
-        <!--Menu sidebar -->
-        <script src="~/data/dist/js/sidebarmenu.js"></script>
-        <!--Custom JavaScript -->
-        <script src="~/data/dist/js/custom.min.js"></script>
-        <script src="~/data/dist/js/custom.js"></script>
-        <!--This page JavaScript -->
-        <!-- <script src="../dist/js/pages/dashboards/dashboard1.js"></script> -->
-        <!-- Charts js Files -->
-        <script src="~/data/assets/libs/flot/excanvas.min.js"></script>
-        <script src="~/data/assets/libs/flot/excanvas.js"></script>
-        <script src="~/data/assets/libs/flot/jquery.colorhelpers.js"></script>
-        <script src="~/data/assets/libs/flot/jquery.flot.canvas.js"></script>
-        <script src="~/data/assets/libs/flot/jquery.flot.categories.js"></script>
-        <script src="~/data/assets/libs/flot/jquery.flot.errorbars.js"></script>
-        <script src="~/data/assets/libs/flot/jquery.flot.fillbetween.js"></script>
-        <script src="~/data/assets/libs/flot/jquery.flot.image.js"></script>
-        <script src="~/data/assets/libs/flot/jquery.flot.navigate.js"></script>
-        <script src="~/data/assets/libs/flot/jquery.flot.resize.js"></script>
-        <script src="~/data/assets/libs/flot/jquery.flot.selection.js"></script>
-        
-        <script src="~/data/assets/libs/flot/jquery.flot.symbol.js"></script>
-        <script src="~/data/assets/libs/flot/jquery.flot.threshold.js"></script>
-        
-        
-        <script src="~/data/assets/libs/flot/jquery.js"></script>
-        <script src="~/data/assets/libs/flot/jquery.flot.pie.js"></script>
-        <script src="~/data/assets/libs/flot/jquery.flot.time.js"></script>
-        <script src="~/data/assets/libs/flot/jquery.flot.stack.js"></script>
-        <script src="~/data/assets/libs/flot/jquery.flot.crosshair.js"></script>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="~/data/assets/libs/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+
+    <script src="~/data/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/data/assets/libs/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="~/data/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="~/data/assets/extra-libs/sparkline/sparkline.js"></script>
+    <!--Wave Effects -->
+    <script src="~/data/dist/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="~/data/dist/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="~/data/dist/js/custom.min.js"></script>
+    <script src="~/data/dist/js/custom.js"></script>
+    <!--This page JavaScript -->
+    <!-- <script src="../dist/js/pages/dashboards/dashboard1.js"></script> -->
+    <!-- Charts js Files -->
+    <script src="~/data/assets/libs/flot/excanvas.min.js"></script>
+    <script src="~/data/assets/libs/flot/excanvas.js"></script>
+    <script src="~/data/assets/libs/flot/jquery.colorhelpers.js"></script>
+    <script src="~/data/assets/libs/flot/jquery.flot.canvas.js"></script>
+    <script src="~/data/assets/libs/flot/jquery.flot.categories.js"></script>
+    <script src="~/data/assets/libs/flot/jquery.flot.errorbars.js"></script>
+    <script src="~/data/assets/libs/flot/jquery.flot.fillbetween.js"></script>
+    <script src="~/data/assets/libs/flot/jquery.flot.image.js"></script>
+    <script src="~/data/assets/libs/flot/jquery.flot.navigate.js"></script>
+    <script src="~/data/assets/libs/flot/jquery.flot.resize.js"></script>
+    <script src="~/data/assets/libs/flot/jquery.flot.selection.js"></script>
+
+    <script src="~/data/assets/libs/flot/jquery.flot.symbol.js"></script>
+    <script src="~/data/assets/libs/flot/jquery.flot.threshold.js"></script>
 
 
-        <script src="~/data/assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
-        <script src="~/data/assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
-        <script src="~/data/assets/libs/flot.tooltip/js/jquery.flot.tooltip.source.js"></script>
-        <script src="~/data/assets/libs/flot.tooltip/js/jquery.flot.tooltip.js"></script>
-        <script src="~/data/assets/libs/flot.tooltip/js/jquery.flot.js"></script>
+    <script src="~/data/assets/libs/flot/jquery.js"></script>
+    <script src="~/data/assets/libs/flot/jquery.flot.pie.js"></script>
+    <script src="~/data/assets/libs/flot/jquery.flot.time.js"></script>
+    <script src="~/data/assets/libs/flot/jquery.flot.stack.js"></script>
+    <script src="~/data/assets/libs/flot/jquery.flot.crosshair.js"></script>
 
-        <script src="~/data/dist/js/pages/chart/chart-page-init.js"></script>
-        <script src="~/data/dist/js/pages/chart/chart-page-init.js"></script>
+
+    <script src="~/data/assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
+    <script src="~/data/assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
+    <script src="~/data/assets/libs/flot.tooltip/js/jquery.flot.tooltip.source.js"></script>
+    <script src="~/data/assets/libs/flot.tooltip/js/jquery.flot.tooltip.js"></script>
+    <script src="~/data/assets/libs/flot.tooltip/js/jquery.flot.js"></script>
+
+    <script src="~/data/dist/js/pages/chart/chart-page-init.js"></script>
+    <script src="~/data/dist/js/pages/chart/chart-page-init.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.5/dist/sweetalert2.all.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
