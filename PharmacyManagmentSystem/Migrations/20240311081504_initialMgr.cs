@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PharmacyManagmentSystem.Migrations
 {
     /// <inheritdoc />
-    public partial class newmgr : Migration
+    public partial class initialMgr : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -118,7 +118,6 @@ namespace PharmacyManagmentSystem.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Amount = table.Column<int>(type: "int", nullable: false),
                     UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    SubTotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Paid = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Unpaid = table.Column<decimal>(type: "decimal(18,2)", nullable: false),

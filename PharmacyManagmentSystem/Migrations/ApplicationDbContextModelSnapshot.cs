@@ -156,9 +156,6 @@ namespace PharmacyManagmentSystem.Migrations
                     b.Property<DateTime>("PurchaseDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("SubTotalPrice")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<int>("SupplierID")
                         .HasColumnType("int");
 

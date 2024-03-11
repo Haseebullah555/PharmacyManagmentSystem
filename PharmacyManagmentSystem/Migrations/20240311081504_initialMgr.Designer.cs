@@ -12,8 +12,8 @@ using PharmacyManagmentSystem.Data;
 namespace PharmacyManagmentSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240306093432_newmgr")]
-    partial class newmgr
+    [Migration("20240311081504_initialMgr")]
+    partial class initialMgr
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -158,9 +158,6 @@ namespace PharmacyManagmentSystem.Migrations
 
                     b.Property<DateTime>("PurchaseDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<decimal>("SubTotalPrice")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("SupplierID")
                         .HasColumnType("int");

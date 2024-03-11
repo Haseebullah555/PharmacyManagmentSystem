@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using PharmacyManagmentSystem.Models;
+using System.ComponentModel.DataAnnotations;
 
-namespace PharmacyManagmentSystem.Models
+namespace PharmacyManagmentSystem.ViewModel
 {
-    public class Purchase
+    public class PurchasesViewModel
     {
         public int PurchaseID { get; set; }
 
@@ -20,13 +20,9 @@ namespace PharmacyManagmentSystem.Models
         [DataType(DataType.DateTime)]
         public DateTime PurchaseDate { get; set; }
         //Navigation Property
-        public Medicine Medicine { get; set; }
         public int MedicineID { get; set; }
-        public Supplier Supplier { get; set; }
         public int SupplierID { get; set; }
-        public Currency Currency { get; set; }
         public int CurrencyID { get; set; }
-
 
     }
 }

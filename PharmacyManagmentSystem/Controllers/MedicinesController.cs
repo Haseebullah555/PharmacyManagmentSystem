@@ -26,18 +26,18 @@ namespace PharmacyManagmentSystem.Controllers
         }
         public IActionResult Create()
         {
-            var obj1 = _context.Categories.Select(c => new SelectListItem()
+            var category = _context.Categories.Select(c => new SelectListItem()
             {
                 Text = c.CategoryName,
                 Value = c.CategoryId.ToString()
             }).ToList();
-            ViewBag.Categories = obj1;
-            var obj2 = _context.Companies.Select(c => new SelectListItem()
+            ViewBag.Categories = category;
+            var company = _context.Companies.Select(c => new SelectListItem()
             {
                 Text = c.CompanyName,
                 Value = c.CompanyID.ToString()
             }).ToList();
-            ViewBag.Companies = obj2;
+            ViewBag.Companies = company;
             return View();
         }
         [HttpPost]

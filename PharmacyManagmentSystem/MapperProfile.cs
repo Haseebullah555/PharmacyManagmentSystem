@@ -9,7 +9,10 @@ namespace PharmacyManagmentSystem
     {
         public MapperProfile()
         {
-            CreateMap<MedicineViewModel, Medicine>();
+            CreateMap<Medicine, MedicineViewModel> ()
+                .ReverseMap();
+            CreateMap<Purchase, PurchasesViewModel> ()
+                .ReverseMap();
         }
     }
 }
