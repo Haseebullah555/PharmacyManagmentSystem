@@ -32,9 +32,13 @@
     <link href="~/Data/assets/libs/flot/css/float-chart.css" rel="stylesheet" />
     <!-- Custom CSS -->
     <link href="~/data/dist/css/style.min.css" rel="stylesheet" />
-   
+    @* sweetAlert CSS files *@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.5/dist/sweetalert2.min.css">
-    
+    @* datatables CSS link *@
+    <link href="~/data/assets/extra-libs/multicheck/multicheck.css" rel="stylesheet" />
+    <link href="~/data/assets/extra-libs/datatables/datatables-1.10.16/css/datatables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/data/assets/extra-libs/datatables/datatables-1.10.16/css/datatables.bootstrap4.css" rel="stylesheet" />
+
 </head>
 <body>
     <!-- ============================================================== -->
@@ -440,8 +444,13 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    
+    @* Sweetalert js files link *@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.5/dist/sweetalert2.all.min.js"></script>
+    @* datatables link *@
+    <script src="~/data/assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
+    <script src="~/data/assets/extra-libs/multicheck/jquery.multicheck.js"></script>
+    <script src="~/data/assets/extra-libs/datatables/datatables.min.js"></script>
+    <script src="~/data/assets/extra-libs/datatables/datatables.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

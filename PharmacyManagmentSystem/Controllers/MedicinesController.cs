@@ -1,41 +1,87 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using PharmacyManagmentSystem.Data;
 using PharmacyManagmentSystem.Models;
+using PharmacyManagmentSystem.ViewModel;
 
 namespace PharmacyManagmentSystem.Controllers
 {
     public class MedicinesController : Controller
     {
         private readonly ApplicationDbContext _context;
-        public MedicinesController(ApplicationDbContext context) 
+        private readonly IMapper _mapper;
+
+        public MedicinesController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
         public IActionResult Index()
         {
-            return View(_context.Medicines.ToList());
+            var query = _context.Medicines.Include(c => c.Category).Include(c => c.Company);
+            var result = query.ToList();
+            return View(result);
         }
         public IActionResult Create()
         {
+            var obj1 = _context.Categories.Select(c => new SelectListItem()
+            {
+                Text = c.CategoryName,
+                Value = c.CategoryId.ToString()
+            }).ToList();
+            ViewBag.Categories = obj1;
+            var obj2 = _context.Companies.Select(c => new SelectListItem()
+            {
+                Text = c.CompanyName,
+                Value = c.CompanyID.ToString()
+            }).ToList();
+            ViewBag.Companies = obj2;
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Medicine medicine)
+        public IActionResult Create(MedicineViewModel viewModel,string Capacity, int CategoryID, int CompanyID, string TradeName, string GenericName)
         {
-            if (!ModelState.IsValid)
+            bool medicineExsits = _context.Medicines.Any(m => m.Capacity == Capacity && m.CategoryID == CategoryID && m.CompanyID == CompanyID && m.TradeName == TradeName && m.GenericName == GenericName);
+            if (ModelState.IsValid)
             {
-                _context.Medicines.Add(medicine);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
+                Medicine medicine = _mapper.Map<Medicine>(viewModel);
+                if (medicineExsits)
+                {
+                    TempData["ExsitMessage"] = "Medicine already exists!";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    _context.Medicines.Add(medicine);
+                    _context.SaveChanges();
+                    TempData["AddedMessage"] = "Medicine Added successfully!";
+                    return RedirectToAction("Index");
+                }
+               
             }
-            PopulateDropdownLists();
-            return View(medicine);
+
+            return View(viewModel);
         }
         public IActionResult Edit(int? id)
         {
-            if(id == null)
+            var category = _context.Categories.Select(c => new SelectListItem()
+            {
+                Text = c.CategoryName,
+                Value = c.CategoryId.ToString()
+            }).ToList();
+            ViewBag.Categories = category;
+
+            var company = _context.Companies.Select(c => new SelectListItem()
+            {
+                Text = c.CompanyName,
+                Value = c.CompanyID.ToString()
+            }).ToList();
+            ViewBag.Companies = company;
+
+            if (id == null)
             {
                 return NotFound();
             }
@@ -49,7 +95,7 @@ namespace PharmacyManagmentSystem.Controllers
         [HttpPost]
         public IActionResult Edit(Medicine medicine)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _context.Medicines.Update(medicine);
                 _context.SaveChanges();
@@ -57,10 +103,12 @@ namespace PharmacyManagmentSystem.Controllers
             }
             return View(medicine);
         }
-        
+
         public IActionResult Details(int? id)
         {
-            var  medicine = _context.Medicines.FirstOrDefault(m=>m.MedicineID==id);
+            var query = _context.Medicines.Include(c => c.Category).Include(c => c.Company);
+            var result = query.ToList();
+            var medicine = _context.Medicines.FirstOrDefault(m => m.MedicineID == id);
             if (medicine == null)
             {
                 return NotFound();
@@ -69,8 +117,10 @@ namespace PharmacyManagmentSystem.Controllers
         }
         public IActionResult Delete(int id)
         {
+            var query = _context.Medicines.Include(c => c.Category).Include(c => c.Company);
+            var result = query.ToList();
             var medicine = _context.Medicines.Find(id);
-            if(medicine == null)
+            if (medicine == null)
             {
                 return NotFound();
             }
@@ -81,36 +131,13 @@ namespace PharmacyManagmentSystem.Controllers
         public IActionResult ConfirmedDelete(int id)
         {
             var medicine = _context.Medicines.Find(id);
-            if(medicine != null)
+            if (medicine != null)
             {
                 _context.Medicines.Remove(medicine);
             }
             _context.SaveChanges();
+            TempData["DeletionMessage"] = "Medicine Deleted Successfully!";
             return RedirectToAction("Index");
-        }
-        private void PopulateDropdownLists()
-        {
-            ViewBag.Categories = _context.Categories.ToList();
-            ViewBag.Companies = _context.Companies.ToList();
-
-            // Check if the lists are null before creating the SelectList objects
-            if (ViewBag.Categories != null)
-            {
-                ViewBag.CategoryID = new SelectList(ViewBag.Categories, "CategoryId", "CategoryName");
-            }
-            else
-            {
-                ViewBag.CategoryID = new SelectList(Enumerable.Empty<SelectListItem>(), "Value", "Text");
-            }
-
-            if (ViewBag.Companies != null)
-            {
-                ViewBag.CompanyID = new SelectList(ViewBag.Companies, "CompanyID", "CompanyName");
-            }
-            else
-            {
-                ViewBag.CompanyID = new SelectList(Enumerable.Empty<SelectListItem>(), "Value", "Text");
-            }
         }
 
     }

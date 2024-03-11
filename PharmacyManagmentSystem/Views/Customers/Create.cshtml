@@ -37,14 +37,5 @@
 </div>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    @if (TempData["SuccessMessage"] != null)
-        {
-        <script>
-            Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: '@TempData["SuccessMessage"]'
-            });
-        </script>
-        }
+   
 }
