@@ -32,6 +32,7 @@ namespace PharmacyManagmentSystem.Controllers
                 Value = c.CategoryId.ToString()
             }).ToList();
             ViewBag.Categories = category;
+
             var company = _context.Companies.Select(c => new SelectListItem()
             {
                 Text = c.CompanyName,

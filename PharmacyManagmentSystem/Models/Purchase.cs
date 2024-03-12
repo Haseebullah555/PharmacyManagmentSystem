@@ -11,13 +11,13 @@ namespace PharmacyManagmentSystem.Models
         public int Amount { get; set; }
         [Required(ErrorMessage = "Unite Price Couldn't be Empty")]
         public Decimal UnitPrice { get; set; }
+        public Decimal SalePrice { get; set; }
         public Decimal TotalPrice { get; set; }
         [Required(ErrorMessage = "Paid Amount Couldn't be Empty")]
         public Decimal Paid { get; set; }
         [Required(ErrorMessage = "Unpaid Amount Couldn't be Empty")]
         public Decimal Unpaid { get; set; }
         [Required(ErrorMessage = "Purchase Date Couldn't be Empty")]
-        [DataType(DataType.DateTime)]
         public DateTime PurchaseDate { get; set; }
         //Navigation Property
         public Medicine Medicine { get; set; }

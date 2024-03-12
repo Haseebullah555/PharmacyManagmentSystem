@@ -11,6 +11,7 @@ namespace PharmacyManagmentSystem
         {
             CreateMap<Medicine, MedicineViewModel> ()
                 .ReverseMap();
+            CreateMap<PurchasesViewModel, Purchase> ();
             CreateMap<Purchase, PurchasesViewModel> ()
                 .ReverseMap();
             CreateMap<Sale, SaleViewModel>()
