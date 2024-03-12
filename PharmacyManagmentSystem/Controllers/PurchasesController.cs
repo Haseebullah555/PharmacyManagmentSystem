@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using PharmacyManagmentSystem.Data;
 using PharmacyManagmentSystem.Models;
 using PharmacyManagmentSystem.ViewModel;
@@ -20,7 +21,8 @@ namespace PharmacyManagmentSystem.Controllers
 
         public IActionResult Index()
         {
-            return View(_context.Purchases.ToList());
+            var query = _context.Purchases.Include(m => m.Medicine).Include(s => s.Supplier).Include(c => c.Currency).ToList();
+            return View(query);
         }
         public IActionResult Create(decimal Amount, decimal UnitPrice)
         {
@@ -49,6 +51,7 @@ namespace PharmacyManagmentSystem.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(PurchasesViewModel viewModel)
         {
             Purchase purchase= _mapper.Map<Purchase>(viewModel);
