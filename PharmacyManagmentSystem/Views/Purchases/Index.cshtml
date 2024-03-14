@@ -7,8 +7,12 @@
 
 <h1 style="display:inline;">All Purchases</h1>
 <a asp-action="Create" class="btn btn-success text-white" style="float:right;">Make New Purchase</a>
-<table class="table">
-    <thead>
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="zero_config"
+                   class="table table-responsive table-bordered">
+                <thead>
         <tr>
             <th>
                 Medicine
@@ -21,15 +25,6 @@
             </th>
             <th>
                 Sale Price
-            </th>
-            <th>
-                Total Price
-            </th>
-            <th>
-                Paid Amount
-            </th>
-            <th>
-                Unpaid Amount
             </th>
             <th>
                 Purchase Date
@@ -54,22 +49,13 @@
                     @Html.DisplayFor(modelItem => item.Medicine.TradeName)-@Html.DisplayFor(modelItem => item.Medicine.Capacity)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Amount)
+                                @Html.DisplayFor(modelItem => item.Amount)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.UnitPrice)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.SalePrice)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TotalPrice)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Paid)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Unpaid)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.PurchaseDate)
@@ -90,3 +76,44 @@
         }
     </tbody>
 </table>
+</div>
+    </div>
+
+</div>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#zero_config').DataTable();
+        });
+    </script>
+    @if (TempData["DeletionMessage"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '@TempData["SuccessMessage"]'
+            });
+        </script>
+    }
+    @if (TempData["ExsitMessage"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: '@TempData["ExsitMessage"]'
+            });
+        </script>
+    }
+    @if (TempData["AddedMessage"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '@TempData["AddedMessage"]'
+            });
+        </script>
+    }
+}

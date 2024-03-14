@@ -43,7 +43,7 @@ namespace PharmacyManagmentSystem.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(MedicineViewModel viewModel,string Capacity, int CategoryID, int CompanyID, string TradeName, string GenericName)
+        public IActionResult Create(MedicineViewModel viewModel, string Capacity, int CategoryID, int CompanyID, string TradeName, string GenericName)
         {
             bool medicineExsits = _context.Medicines.Any(m => m.Capacity == Capacity && m.CategoryID == CategoryID && m.CompanyID == CompanyID && m.TradeName == TradeName && m.GenericName == GenericName);
             if (ModelState.IsValid)
@@ -61,7 +61,7 @@ namespace PharmacyManagmentSystem.Controllers
                     TempData["AddedMessage"] = "Medicine Added successfully!";
                     return RedirectToAction("Index");
                 }
-               
+
             }
 
             return View(viewModel);
@@ -91,18 +91,20 @@ namespace PharmacyManagmentSystem.Controllers
             {
                 return NotFound();
             }
+
             return View(medicine);
         }
         [HttpPost]
-        public IActionResult Edit(Medicine medicine)
+        public IActionResult Edit(MedicineViewModel viewModel)
         {
+            Medicine medicine = _mapper.Map<Medicine>(viewModel);
             if (ModelState.IsValid)
             {
                 _context.Medicines.Update(medicine);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(medicine);
+            return View(viewModel);
         }
 
         public IActionResult Details(int? id)
