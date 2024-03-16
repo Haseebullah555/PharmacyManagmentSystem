@@ -19,9 +19,40 @@ namespace PharmacyManagmentSystem.Controllers
             _context = context;
         }
 
+        // List the purchases as a group with same Medicine name, Medicine Type, Medicine Company, Medicine Capacity, as well as same Currency,if the Currency is different it list it separatly
         public IActionResult Index()
         {
-            var query = _context.Purchases.Include(m => m.Medicine).Include(s => s.Supplier).Include(c => c.Currency).ToList();
+            var query = _context.Purchases
+             .Include(p => p.Medicine)
+             .ThenInclude(m => m.Company)
+             .Include(p => p.Supplier)
+             .Include(p => p.Currency)
+             .GroupBy(p => new { p.Medicine.TradeName, p.Medicine.Capacity, p.Medicine.Company.CompanyName, p.CurrencyID })
+             .Select(g => new Purchase
+             {
+                 Medicine = new Medicine
+                 {
+                     TradeName = g.Key.TradeName,
+                     Capacity = g.Key.Capacity,
+                     Company = new Company
+                     {
+                         CompanyName = g.Key.CompanyName
+                     }
+                 },
+                 Amount = g.Sum(p => p.Amount),
+                 UnitPrice = g.FirstOrDefault(p => p.PurchaseDate == g.Max(d => d.PurchaseDate)).UnitPrice,
+                 SalePrice = g.FirstOrDefault(p => p.PurchaseDate == g.Max(d => d.PurchaseDate)).SalePrice,
+                 PurchaseDate = g.Max(p => p.PurchaseDate),
+                 Currency = new Currency
+                 {
+                     CurrencyName = g.FirstOrDefault(p=> p.PurchaseDate == g.Max(d=>d.PurchaseDate)).Currency.CurrencyName
+                 },
+                 Supplier = new Supplier
+                 {
+                     SupplierName = g.FirstOrDefault(p => p.PurchaseDate == g.Max(d => d.PurchaseDate)).Supplier.SupplierName
+                 }
+             })
+             .ToList();
             return View(query);
         }
         public IActionResult Create()
@@ -54,8 +85,6 @@ namespace PharmacyManagmentSystem.Controllers
         public IActionResult Create(PurchasesViewModel viewModel, int MedicineID, int CurrencyID, DateTime PurchaseDate)
         {
             bool purchaseExists = _context.Purchases.Any(p => p.MedicineID == MedicineID && p.CurrencyID == CurrencyID && p.PurchaseDate == PurchaseDate);
-            bool showablePurchase = _context.Purchases.Any(p => p.MedicineID == MedicineID && p.CurrencyID == CurrencyID);
-
             if (purchaseExists)
             {
                 if (ModelState.IsValid)
@@ -66,37 +95,13 @@ namespace PharmacyManagmentSystem.Controllers
             }
             else
             {
-                if (showablePurchase)
-                {
-                    // Retrieve the existing purchases with the same MedicineID and CurrencyID
-                    var existingPurchases = _context.Purchases
-                        .Where(p => p.MedicineID == MedicineID && p.CurrencyID == CurrencyID)
-                        .ToList();
-
-                    // Calculate the summation of amounts for the existing purchases
-                    int totalAmount = existingPurchases.Sum(p => p.Amount);
-
-                    // Add the new purchase with the updated amount
-                    viewModel.Amount += totalAmount;
-                }
-
                 Purchase purchase = _mapper.Map<Purchase>(viewModel);
                 _context.Purchases.Add(purchase);
                 _context.SaveChanges();
-
                 TempData["AddedMessage"] = "Purchase added successfully!";
+                return RedirectToAction("Index");
             }
-
-            var viewModelForIndex = new PurchasesViewModel
-            {
-                PurchaseDate = viewModel.PurchaseDate,
-                Amount = viewModel.Amount,
-                UnitPrice = viewModel.UnitPrice,
-                SalePrice = viewModel.SalePrice
-            };
-
-            // Pass the view model to the index view
-            return RedirectToAction("Index", viewModelForIndex);
+            return View(viewModel);
         }
         public IActionResult Edit(int? id)
         {
