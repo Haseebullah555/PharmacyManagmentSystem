@@ -19,6 +19,8 @@ namespace PharmacyManagmentSystem.Models
         public Decimal Unpaid { get; set; }
         [Required(ErrorMessage = "Purchase Date Couldn't be Empty")]
         public DateTime PurchaseDate { get; set; }
+        [DataType(DataType.Date)]
+        public DateOnly ExpiryDate { get; set; }
         //Navigation Property
         public Medicine Medicine { get; set; }
         public int MedicineID { get; set; }

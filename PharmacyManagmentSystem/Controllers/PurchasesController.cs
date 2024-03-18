@@ -19,40 +19,44 @@ namespace PharmacyManagmentSystem.Controllers
             _context = context;
         }
 
+        public IActionResult Index(int id)
+        {
+            var query = _context.Purchases.Include(m => m.Medicine).ThenInclude(m=>m.Company).Include(s => s.Supplier).Include(c => c.Currency).ToList();
+            return View(query);
+        }
+
         // List the purchases as a group with same Medicine name, Medicine Type, Medicine Company, Medicine Capacity, as well as same Currency,if the Currency is different it list it separatly
-        public IActionResult Index()
+        // The medicine Expiry Date is the nearest expiry Date of the medicine in stock
+        public IActionResult Stock()
         {
             var query = _context.Purchases
-             .Include(p => p.Medicine)
-             .ThenInclude(m => m.Company)
-             .Include(p => p.Supplier)
-             .Include(p => p.Currency)
-             .GroupBy(p => new { p.Medicine.TradeName, p.Medicine.Capacity, p.Medicine.Company.CompanyName, p.CurrencyID })
-             .Select(g => new Purchase
-             {
-                 Medicine = new Medicine
-                 {
-                     TradeName = g.Key.TradeName,
-                     Capacity = g.Key.Capacity,
-                     Company = new Company
-                     {
-                         CompanyName = g.Key.CompanyName
-                     }
-                 },
-                 Amount = g.Sum(p => p.Amount),
-                 UnitPrice = g.FirstOrDefault(p => p.PurchaseDate == g.Max(d => d.PurchaseDate)).UnitPrice,
-                 SalePrice = g.FirstOrDefault(p => p.PurchaseDate == g.Max(d => d.PurchaseDate)).SalePrice,
-                 PurchaseDate = g.Max(p => p.PurchaseDate),
-                 Currency = new Currency
-                 {
-                     CurrencyName = g.FirstOrDefault(p=> p.PurchaseDate == g.Max(d=>d.PurchaseDate)).Currency.CurrencyName
-                 },
-                 Supplier = new Supplier
-                 {
-                     SupplierName = g.FirstOrDefault(p => p.PurchaseDate == g.Max(d => d.PurchaseDate)).Supplier.SupplierName
-                 }
-             })
-             .ToList();
+            .Include(p => p.Medicine)
+            .ThenInclude(m => m.Company)
+            .Include(p => p.Supplier)
+            .Include(p => p.Currency)
+            .GroupBy(p => new { p.Medicine.TradeName, p.Medicine.Capacity, p.Medicine.Company.CompanyName, p.CurrencyID })
+            .Select(g => new Purchase
+            {
+                Medicine = new Medicine
+                {
+                    TradeName = g.Key.TradeName,
+                    Capacity = g.Key.Capacity,
+                    Company = new Company
+                    {
+                        CompanyName = g.Key.CompanyName
+                    }
+                },
+                Amount = g.Sum(p => p.Amount),
+                UnitPrice = g.FirstOrDefault(p => p.PurchaseDate == g.Max(d => d.PurchaseDate)).UnitPrice,
+                SalePrice = g.FirstOrDefault(p => p.PurchaseDate == g.Max(d => d.PurchaseDate)).SalePrice,
+                ExpiryDate = g.FirstOrDefault(p => p.ExpiryDate == g.Min(d => d.ExpiryDate)).ExpiryDate,
+                PurchaseDate = g.Max(p => p.PurchaseDate),
+                Currency = new Currency
+                {
+                    CurrencyName = g.FirstOrDefault(p => p.PurchaseDate == g.Max(d => d.PurchaseDate)).Currency.CurrencyName
+                }
+            })
+            .ToList();
             return View(query);
         }
         public IActionResult Create()

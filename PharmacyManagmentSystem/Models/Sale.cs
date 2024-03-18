@@ -7,8 +7,8 @@ namespace PharmacyManagmentSystem.Models
     {
         [Key]
         public int SaleID { get; set; }
-        [Required(ErrorMessage = "Amount Couldn't be Empty")]
-        public Decimal Amount { get; set; }
+        [Required(ErrorMessage = "Sale Amount Couldn't be Empty")]
+        public Decimal SaleAmount { get; set; }
         [Required(ErrorMessage = "Unite Price Couldn't be Empty")]
         public Decimal UnitPrice { get; set; }
         public Decimal SubTotalPrice { get; set; }
