@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using PharmacyManagmentSystem.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace PharmacyManagmentSystem.ViewModel
 {
@@ -6,7 +7,7 @@ namespace PharmacyManagmentSystem.ViewModel
     {
         public int SaleID { get; set; }
         [Required(ErrorMessage = "Amount Couldn't be Empty")]
-        public decimal Amount { get; set; }
+        public decimal SaleAmount { get; set; }
         [Required(ErrorMessage = "Unite Price Couldn't be Empty")]
         public decimal UnitPrice { get; set; }
         public decimal SubTotalPrice { get; set; }
@@ -19,9 +20,8 @@ namespace PharmacyManagmentSystem.ViewModel
         [DataType(DataType.DateTime)]
         public DateTime SaleDate { get; set; }
         //Navigation Property
-
+        public Purchase purchase { get; set; }
         public int MedicineID { get; set; }
-
         public int CurrencyID { get; set; }
         public int CustomerID { get; set; }
     }
