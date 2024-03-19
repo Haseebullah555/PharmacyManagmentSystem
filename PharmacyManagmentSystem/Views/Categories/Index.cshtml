@@ -1,0 +1,35 @@
+﻿@model IEnumerable<PharmacyManagmentSystem.Models.Category>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 style="display:inline;">All Medicine Types</h1>
+<a asp-action="Create" class="btn btn-success text-white" style="float:right;">Add New Medicine Type</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Medicine Type
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CategoryId" class="btn btn-primary">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.CategoryId" class="btn btn-info">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.CategoryId" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

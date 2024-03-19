@@ -1,0 +1,138 @@
+﻿@model PharmacyManagmentSystem.Models.Purchase
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Add New</h1>
+
+<h4>Purchase</h4>
+<hr />
+<form asp-action="Create">
+    <div class="row">
+        <div class="col-md-4">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MedicineID" class="control-label">Medicine</label>
+                <select asp-for="MedicineID" class="form-control" asp-items="@ViewBag.Medicines"></select>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="UnitPrice" class="control-label"> Purchase Price </label>
+                <input asp-for="UnitPrice" id="unitPrice" class="form-control" />
+                <span asp-validation-for="UnitPrice" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Paid" class="control-label"></label>
+                <input asp-for="Paid" id="paid" class="form-control" />
+                <span asp-validation-for="Paid" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="SupplierID" class="control-label"></label>
+                <select asp-for="SupplierID" class="form-control" asp-items="@ViewBag.Suppliers"></select>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="SalePrice" class="control-label"></label>
+                <input asp-for="SalePrice" id="SalePrice" class="form-control" />
+                <span asp-validation-for="SalePrice" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+             <div class="form-group">
+                <label asp-for="Unpaid" id="unpaidLabel" class="control-label"></label>
+                <input asp-for="Unpaid" id="unpaid" class="form-control" />
+                <span asp-validation-for="Unpaid" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="PurchaseDate" class="control-label"></label>
+                <input asp-for="PurchaseDate" class="form-control" />
+                <span asp-validation-for="PurchaseDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="TotalPrice" id="totalPriceLabel" class="control-label"></label>
+                <input asp-for="TotalPrice" id="totalPrice" class="form-control" readonly />
+                <span asp-validation-for="TotalPrice" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="CurrencyID" class="control-label"></label>
+                <select asp-for="CurrencyID" class="form-control" asp-items="@ViewBag.Currencies"></select>
+            </div>
+        </div>
+    </div>
+   <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Amount" class="control-label"> Amount</label>
+                <input asp-for="Amount" id="amount" class="form-control" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="ExpiryDate" class="control-label"></label>
+                <input asp-for="ExpiryDate" class="form-control" />
+                <span asp-validation-for="ExpiryDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <br/>
+                <input type="submit" value="Create" class="btn btn-success text-white" />
+                <a asp-action="Index" class="btn btn-warning">Back to List</a>
+            </div>
+        </div>
+   </div>
+</form>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#amount, #unitPrice').on('input', function () {
+                var amount = parseFloat($('#amount').val());
+                var unitPrice = parseFloat($('#unitPrice').val());
+
+                if (!isNaN(amount) && !isNaN(unitPrice)) {
+                    var totalPrice = amount * unitPrice;
+                    $('#totalPrice').val(totalPrice.toFixed(2));
+                    $('#totalPriceLabel, #totalPrice').show();
+                } else {
+                    $('#totalPrice').val('');
+                    $('#totalPriceLabel, #totalPrice').hide();
+                }
+            });
+        });
+        $(document).ready(function () {
+            $('#paid, #unpaid,#totalPrice').on('input', function () {
+                var paid = parseFloat($('#paid').val());
+                var unpaid = parseFloat($('#unpaid').val());
+                var totalPrice = parseFloat($('#totalPrice').val());
+                if (!isNaN(paid) && !isNaN(totalPrice)) {
+                    var unpaid = totalPrice - paid;
+                    $('#unpaid').val(unpaid.toFixed(2));
+                    $('#unpaidLabel, #unpaid').show();
+                } else {
+                    $('#unpaid').val('');
+                    $('#unpaidLable, #unpaid').hide();
+                }
+            });
+        });
+    </script>
+}

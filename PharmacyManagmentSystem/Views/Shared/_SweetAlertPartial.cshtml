@@ -1,0 +1,12 @@
+﻿@model string
+
+@if (!string.IsNullOrEmpty(Model))
+{
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: '@Html.Raw(Model)'
+        });
+    </script>
+}

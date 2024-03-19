@@ -1,0 +1,117 @@
+﻿@model IEnumerable<PharmacyManagmentSystem.Models.Purchase>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 style="display:inline;">All Purchases</h1>
+<a asp-action="Create" class="btn btn-success text-white" style="float:right;">Make New Purchase</a>
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="zero_config"
+                   class="table table-responsive table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            Medicine
+                        </th>
+                        <th>
+                            Amount
+                        </th>
+                        <th>
+                            Expiry Date
+                        </th>
+                        <th>
+                            Purchase Price
+                        </th>
+                        <th>
+                            Sale Price
+                        </th>
+                        <th>
+                            Purchase Date
+                        </th>
+                        <th>
+                            Currency Name
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Medicine.TradeName)-@Html.DisplayFor(modelItem => item.Medicine.Capacity)-@Html.DisplayFor(modelItem => item.Medicine.Company.CompanyName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Amount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ExpiryDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UnitPrice)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SalePrice)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PurchaseDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Currency.CurrencyName)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.PurchaseID" class="btn btn-primary">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@item.PurchaseID" class="btn btn-info">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.PurchaseID" class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#zero_config').DataTable();
+        });
+    </script>
+    @if (TempData["DeletionMessage"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '@TempData["SuccessMessage"]'
+            });
+        </script>
+    }
+    @if (TempData["ExsitMessage"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: '@TempData["ExsitMessage"]'
+            });
+        </script>
+    }
+    @if (TempData["AddedMessage"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '@TempData["AddedMessage"]'
+            });
+        </script>
+    }
+}

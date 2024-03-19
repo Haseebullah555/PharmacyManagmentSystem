@@ -1,0 +1,110 @@
+﻿@model IEnumerable<PharmacyManagmentSystem.Models.Medicine>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 style="display:inline;">All Medicines</h1>
+<a asp-action="Create" class="btn btn-success text-white" style="float:right;">Add New Medicine</a>
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="zero_config"
+                   class="table table-responsive table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            Generic Name
+                        </th>
+                        <th>
+                            Trade Name
+                        </th>
+                        <th>
+                            Capacity
+                        </th>
+                        <th>
+                            Medicine Type
+                        </th>
+                        <th>
+                            Medicine Company
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.GenericName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TradeName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Capacity)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Company.CompanyName)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.MedicineID" class="btn btn-primary">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@item.MedicineID" class="btn btn-info">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.MedicineID" class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#zero_config').DataTable();
+        });
+    </script>
+    @if (TempData["DeletionMessage"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '@TempData["SuccessMessage"]'
+            });
+        </script>
+    }
+    @if (TempData["ExsitMessage"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: '@TempData["ExsitMessage"]'
+            });
+        </script>
+    }
+    @if (TempData["AddedMessage"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '@TempData["AddedMessage"]'
+            });
+        </script>
+    }
+}
+
+

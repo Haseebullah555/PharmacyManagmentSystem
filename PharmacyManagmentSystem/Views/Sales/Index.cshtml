@@ -1,0 +1,85 @@
+﻿@model IEnumerable<PharmacyManagmentSystem.Models.Sale>
+ 
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Medicine.GenericName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SaleAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SubTotalPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Paid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Unpaid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SaleDate)
+            </th>
+          
+            <th>
+                @Html.DisplayNameFor(model => model.Currency)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+                <td>
+                    @item.Medicine.TradeName-@item.Medicine.Capacity
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SaleAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubTotalPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Paid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Unpaid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SaleDate)
+            </td>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.Currency.CurrencyName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.CustomerName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.SaleID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.SaleID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.SaleID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

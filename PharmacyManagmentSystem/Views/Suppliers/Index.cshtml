@@ -1,0 +1,51 @@
+﻿@model IEnumerable<PharmacyManagmentSystem.Models.Supplier>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 style="display:inline;">All Suppliers</h1>
+<a asp-action="Create" class="btn btn-success text-white" style="float:right;">Add New Supplier</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Supplier Name
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                Phone No.
+            </th>
+            <th>
+                Description
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupplierName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContactNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.SupplierID" class="btn btn-primary">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.SupplierID" class="btn btn-info">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.SupplierID" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
