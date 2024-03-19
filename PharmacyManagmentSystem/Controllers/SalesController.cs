@@ -61,22 +61,40 @@ namespace PharmacyManagmentSystem.Controllers
             //Sale sale = new Sale();
             //ViewBag.medicineId = GetMedicines();
             //ViewBag.amount = GetAmount();
-            var medicines = _context.Medicines
-                .Include(m => m.Category)
-                .Include(m => m.Company)
-                .Select(m => new SelectListItem()
+            var query = _context.Purchases
+                .Include(p => p.Medicine)
+                    .ThenInclude(m => m.Company)
+                .Include(p => p.Currency)
+                .GroupBy(p => new { p.Medicine.TradeName, p.Medicine.Capacity, p.Medicine.Company.CompanyName, p.CurrencyID })
+                .Select(g => new
                 {
-                    Text = m.TradeName + " | " + m.Capacity + " | " + m.Category.CategoryName + " | " + m.Company.CompanyName,
-                    Value = m.MedicineID.ToString()
+                    TradeName = g.Key.TradeName,
+                    Capacity = g.Key.Capacity,
+                    CompanyName = g.Key.CompanyName,
+                    Amount = g.Sum(p => p.Amount),
+                    UnitPrice = g.FirstOrDefault(p => p.PurchaseDate == g.Max(d => d.PurchaseDate)).UnitPrice,
+                    SalePrice = g.FirstOrDefault(p => p.PurchaseDate == g.Max(d => d.PurchaseDate)).SalePrice,
+                    ExpiryDate = g.FirstOrDefault(p => p.ExpiryDate == g.Min(d => d.ExpiryDate)).ExpiryDate,
+                    PurchaseDate = g.Max(p => p.PurchaseDate),
+                    CurrencyName = g.FirstOrDefault(p => p.PurchaseDate == g.Max(d => d.PurchaseDate)).Currency.CurrencyName
                 })
                 .ToList();
-            ViewBag.medicines = medicines;
-            var defaultItem = new SelectListItem()
+
+            var selectedMedicines = query.Select(item => new SelectListItem
             {
-               Text = "--Select a Medicine",
-                Value = ""
-            };
-            medicines.Insert(0, defaultItem);
+                Text = $"{item.TradeName} | {item.Capacity} | {item.CompanyName} | {item.CurrencyName}",
+                Value = $"{item.TradeName}_{item.Capacity}_{item.CompanyName}"
+            })
+            .ToList();
+
+ViewBag.medicines = selectedMedicines;
+
+            //var defaultItem = new SelectListItem()
+            //{
+            //   Text = "--Select a Medicine",
+            //    Value = ""
+            //};
+            //query.Insert(0, defaultItem);
 
             var currency = _context.Currencies
                 .Select(c => new SelectListItem()
@@ -133,6 +151,12 @@ namespace PharmacyManagmentSystem.Controllers
         [HttpPost]
         public IActionResult Create(SaleViewModel viewModel)
         {
+            var amount = _context.Purchases
+            .Where(p => p.MedicineID == viewModel.MedicineID)
+            .Sum(p => p.Amount);
+
+            // Assign the amount to the Sale object
+            viewModel.purchase.Amount = amount;
             Sale sale = _mapper.Map<Sale>(viewModel);
             if (ModelState.IsValid)
             {
@@ -157,9 +181,15 @@ namespace PharmacyManagmentSystem.Controllers
             }
             return View(purchase);
         }
-        public JsonResult GetMedicineAmount(int medicineId)
+        [HttpPost]
+        [HttpPost]
+        public IActionResult GetAmount(int medicineID)
         {
-            return Json(_context.Purchases.Where(m=>m.MedicineID == medicineId).ToList());
+            var amount = _context.Purchases
+                .Where(p => p.MedicineID.ToString() == medicineID.ToString())
+                .Sum(p => p.Amount);
+
+            return Json(amount);
         }
     }
 }

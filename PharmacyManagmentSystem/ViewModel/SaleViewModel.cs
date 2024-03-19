@@ -1,4 +1,5 @@
-﻿using PharmacyManagmentSystem.Models;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using PharmacyManagmentSystem.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace PharmacyManagmentSystem.ViewModel
@@ -20,6 +21,7 @@ namespace PharmacyManagmentSystem.ViewModel
         [DataType(DataType.DateTime)]
         public DateTime SaleDate { get; set; }
         //Navigation Property
+        public List<SelectListItem> SelectedMedicines { get; set; }
         public Purchase purchase { get; set; }
         public int MedicineID { get; set; }
         public int CurrencyID { get; set; }

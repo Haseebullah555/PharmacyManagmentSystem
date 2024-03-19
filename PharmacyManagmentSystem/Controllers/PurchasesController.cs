@@ -6,7 +6,7 @@ using PharmacyManagmentSystem.Data;
 using PharmacyManagmentSystem.Models;
 using PharmacyManagmentSystem.ViewModel;
 
-namespace PharmacyManagmentSystem.Controllers
+namespace PharmacyManagmentSystem.Controllers 
 {
     public class PurchasesController : Controller
     {

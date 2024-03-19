@@ -50,12 +50,25 @@
             </div>
             <div class="form-group">
                 <label   class="control-label"></label>
-                <select asp-for="MedicineID" id="medicineId" class="form-control" asp-items="@ViewBag.medicines">
+                <select asp-for="MedicineID" id="medicineID" class="form-control" asp-items="@ViewBag.medicines">
+                    <option disabled selected>--Select Medicine--</option>
                 </select>
             </div>
             <div class="form-group">
                 <label asp-for="purchase.Amount" class="control-label"></label>
-                <select asp-for="purchase.Amount" id="amount" class="form-control" asp-items="@ViewBag.Amount"></select>
+                <select asp-for="purchase.Amount" id="amount" class="form-control" disabled>
+                    <option value="">-- Select a Medicine First --</option>
+                    @{
+                        var amounts = ViewBag.Amount as List<SelectListItem>;
+                        if (amounts != null && amounts.Count > 0)
+                        {
+                            foreach (var amount in amounts)
+                            {
+                                <option value="@amount.Value">@amount.Text</option>
+                            }
+                        }
+                    }
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="CurrencyID" class="control-label"></label>
@@ -77,7 +90,7 @@
 </div>
 
 @section Scripts{
-   <script>
+   @* <script>
        $(document).ready(function (){
            getMedicineAmount();
        })
@@ -94,10 +107,31 @@
                 success: function (data) {
                     $(data).each(
                         function (index, item) {
-                            $('#Amount').append('<option value="'+item.medicineId+'">'+ item.medicineId+'</option>')
+                            $('#Amount').append('<option value="'+item.medicineId+'">'+ item.getMedicineAmount'</option>')
                         })
                 }
             })
         }
-   </script>
+   // </script> *@
+    <script>
+        $(function () {
+            $('#medicineID').change(function () {
+                var selectedMedicineID = $(this).val();
+                var $amountInput = $('#amount');
+
+                if (selectedMedicineID !== '') {
+                    $.ajax({
+                        url: '/Sales/GetAmount',
+                        type: 'POST',
+                        data: { medicineID: selectedMedicineID },
+                        success: function (data) {
+                            $amountInput.val(data);
+                        }
+                    });
+                } else {
+                    $amountInput.val('');
+                }
+            });
+        });
+    </script>
 }
