@@ -11,7 +11,6 @@ namespace PharmacyManagmentSystem.Models
         public Decimal SaleAmount { get; set; }
         [Required(ErrorMessage = "Unite Price Couldn't be Empty")]
         public Decimal UnitPrice { get; set; }
-        public Decimal SubTotalPrice { get; set; }
         public Decimal TotalPrice { get; set; }
         [Required(ErrorMessage = "Paid Amount Couldn't be Empty")]
         public Decimal Paid { get; set; }

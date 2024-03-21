@@ -9,127 +9,233 @@
 
 <h4>Sale</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="col-md-4">
             <div class="form-group">
-                <label asp-for="SaleAmount" class="control-label"></label>
-                <input asp-for="SaleAmount" class="form-control" />
-                <span asp-validation-for="SaleAmount" class="text-danger"></span>
+                <label asp-for="CustomerID" class="control-label">Customer Name</label>
+                <select asp-for="CustomerID" class="form-control" asp-items="ViewBag.customer"></select>
             </div>
+        </div>
+        <div class="col-md-4">
             <div class="form-group">
-                <label asp-for="UnitPrice" class="control-label"></label>
-                <input asp-for="UnitPrice" class="form-control" />
-                <span asp-validation-for="UnitPrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SubTotalPrice" class="control-label"></label>
-                <input asp-for="SubTotalPrice" class="form-control" />
-                <span asp-validation-for="SubTotalPrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TotalPrice" class="control-label"></label>
-                <input asp-for="TotalPrice" class="form-control" />
-                <span asp-validation-for="TotalPrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Paid" class="control-label"></label>
-                <input asp-for="Paid" class="form-control" />
-                <span asp-validation-for="Paid" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Unpaid" class="control-label"></label>
-                <input asp-for="Unpaid" class="form-control" />
-                <span asp-validation-for="Unpaid" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SaleDate" class="control-label"></label>
+                <label asp-for="SaleDate" class="control-label">Sale Date</label>
                 <input asp-for="SaleDate" class="form-control" />
                 <span asp-validation-for="SaleDate" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-4">
             <div class="form-group">
-                <label   class="control-label"></label>
-                <select asp-for="MedicineID" id="medicineID" class="form-control" asp-items="@ViewBag.medicines">
-                    <option disabled selected>--Select Medicine--</option>
-                </select>
+                <label asp-for="CurrencyID" class="control-label">Currency Name</label>
+                <select asp-for="CurrencyID" class="form-control" asp-items="ViewBag.currency"></select>
             </div>
-            <div class="form-group">
-                <label asp-for="purchase.Amount" class="control-label"></label>
-                <select asp-for="purchase.Amount" id="amount" class="form-control" disabled>
-                    <option value="">-- Select a Medicine First --</option>
-                    @{
-                        var amounts = ViewBag.Amount as List<SelectListItem>;
-                        if (amounts != null && amounts.Count > 0)
-                        {
-                            foreach (var amount in amounts)
-                            {
-                                <option value="@amount.Value">@amount.Text</option>
-                            }
-                        }
-                    }
-                </select>
+        </div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Medicine </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="control-label">Medicine</label>
+                                    <select asp-for="MedicineID" id="medicineID" class="form-control" asp-items="@ViewBag.medicines">
+                                        <option disabled selected>--Select Medicine--</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="purchase.Amount" class="control-label">Aviliable Amount in Stock</label>
+                                    <input asp-for="purchase.Amount" class="form-control" id="amount" readonly placeholder="Select a Medicine" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="SaleAmount" class="control-label"></label>
+                            <input asp-for="SaleAmount" id="SaleAmount" class="form-control" />
+                            <span asp-validation-for="SaleAmount" class="text-danger"></span>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="UnitPrice" class="control-label">Sale Price</label>
+                                    <input asp-for="UnitPrice" id="UnitPrice" class="form-control" />
+                                    <span asp-validation-for="UnitPrice" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="TotalPrice" id="TotalPriceLabel" class="control-label">Total Price</label>
+                                    <input asp-for="TotalPrice" id="TotalPrice" class="form-control" readonly />
+                                    <span asp-validation-for="TotalPrice" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="Paid" class="control-label"></label>
+                                    <input asp-for="Paid" id="Paid" class="form-control" />
+                                    <span asp-validation-for="Paid" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="Unpaid" id="UnpaidLable" class="control-label"></label>
+                                    <input asp-for="Unpaid" id="Unpaid" class="form-control" readonly />
+                                    <span asp-validation-for="Unpaid" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeModel">Close</button>
+                        <button type="button" class="btn btn-primary" id="addMedicineBtn">Add</button>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="CurrencyID" class="control-label"></label>
-                <select asp-for="CurrencyID" class ="form-control" asp-items="ViewBag.CurrencyID"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="CustomerID" class="control-label"></label>
-                <select asp-for="CustomerID" class ="form-control" asp-items="ViewBag.CustomerID"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <br />
+                <input type="submit" value="Create" class="btn btn-success text-white" />
+                <a asp-action="Index">Back to List</a>
+            </div>
+        </div>
+    </div>
+</form>
+<button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="">Add</button>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts{
-   @* <script>
-       $(document).ready(function (){
-           getMedicineAmount();
-       })
-       $("#medicineId").change(function () {
-           getMedicineAmount();
-       });
-        var getMedicineAmount = function(){
-            $.ajax({
-                url: '@Url.Action("GetMedicineAmount","Sales")',
-                type:'GET',
-                data: {
-                    medicineId: $('#medicineId').val(),
-                },
-                success: function (data) {
-                    $(data).each(
-                        function (index, item) {
-                            $('#Amount').append('<option value="'+item.medicineId+'">'+ item.getMedicineAmount'</option>')
-                        })
-                }
-            })
-        }
-   // </script> *@
+<table class="table" id="medicineTable">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Medicine</th>
+            <th>Aviliable Amount in Stock</th>
+            <th>Sale Amount</th>
+            <th>Unit Price</th>
+            <th>Total Price</th>
+            <th>Paid</th>
+            <th>Unpaid</th>
+        </tr>
+    </thead>
+    <tbody id="medicineTableBody">
+        
+    </tbody>
+</table>
+@section Scripts {
     <script>
+        // get the aviliable amount of the Selected Medicine
         $(function () {
             $('#medicineID').change(function () {
                 var selectedMedicineID = $(this).val();
                 var $amountInput = $('#amount');
-
+                var parts = selectedMedicineID.split("_");
+                var secondLastPart = parts[parts.length - 2];
                 if (selectedMedicineID !== '') {
-                    $.ajax({
-                        url: '/Sales/GetAmount',
-                        type: 'POST',
-                        data: { medicineID: selectedMedicineID },
-                        success: function (data) {
-                            $amountInput.val(data);
-                        }
-                    });
+                    $("#amount").val(secondLastPart)
                 } else {
-                    $amountInput.val('');
+                    $amountInput.val('Cant access the amount');
+                }
+            });
+        });
+        // get the aviliable amount of the Selected Medicine
+        $(function () {
+            $('#medicineID').change(function () {
+                var selectedMedicineID = $(this).val();
+                var $unitInput = $('#UnitPrice');
+                var selectedValue = $(this).val();
+                var extractedValue = selectedValue.substring(selectedValue.lastIndexOf("_") + 1);
+                if (selectedMedicineID !== '') {
+                    $("#UnitPrice").val(extractedValue)
+                } else {
+                    $unitInput.val('Cant access the amount');
+                }
+            });
+        });
+        // add the medicine from modal into the table
+        $(document).ready(function () {
+            var counter = 1; // Initialize the counter value
+            $('#addMedicineBtn').click(function () {
+              
+                // Retrieve the form data
+                var selectedMedicine = $('#medicineID').val();
+                var parts = selectedMedicine.split("_");
+                var medicineName = parts[0];
+                var medicineID = medicineName;
+                var amount = $('#amount').val();
+                var saleAmount = $('#SaleAmount').val();
+                var unitPrice = $('#UnitPrice').val();
+                var totalPrice = $('#TotalPrice').val();
+                var paid = $('#Paid').val();
+                var unpaid = $('#Unpaid').val();
+
+                // Construct the table row HTML with the counter value
+                var newRow = '<tr>' +
+                    '<td>' + counter + '</td>' +
+                    '<td>' + medicineID + '</td>' +
+                    '<td>' + amount + '</td>' +
+                    '<td>' + saleAmount + '</td>' +
+                    '<td>' + unitPrice + '</td>' +
+                    '<td>' + totalPrice + '</td>' +
+                    '<td>' + paid + '</td>' +
+                    '<td>' + unpaid + '</td>' +
+                    '</tr>';
+
+                // Append the new row to the table body
+                $('#medicineTableBody').append(newRow);
+
+                // Increment the counter value
+                counter++;
+                // Clear the form fields
+                $('#medicineID').val('');
+                $('#amount').val('');
+                $('#SaleAmount').val('');
+                $('#UnitPrice').val('');
+                $('#TotalPrice').val('');
+                $('#Paid').val('');
+                $('#Unpaid').val('');
+                // Close the modal
+                $("#closeModel").trigger("click");
+                $('#exampleModal').modal('hide');
+            });
+        });
+        //Calculate the Total Price
+        $(document).ready(function () {
+            $('#SaleAmount, #UnitPrice').on('input', function () {
+                var SaleAmount = parseFloat($('#SaleAmount').val());
+                var unitPrice = parseFloat($('#UnitPrice').val());
+
+                if (!isNaN(SaleAmount) && !isNaN(unitPrice)) {
+                    var totalPrice = SaleAmount * unitPrice;
+                    $('#TotalPrice').val(totalPrice.toFixed(2));
+                    $('#TotalPriceLabel, #TotalPrice').show();
+                } else {
+                    $('#TotalPrice').val('');
+                    $('#TotalPriceLabel, #TotalPrice').hide();
+                }
+            });
+        });
+        //Calculate the Unpaid Amount
+        $(document).ready(function () {
+            $('#Paid, #Unpaid,#TotalPrice').on('input', function () {
+                var paid = parseFloat($('#Paid').val());
+                var unpaid = parseFloat($('#Unpaid').val());
+                var totalPrice = parseFloat($('#TotalPrice').val());
+                if (!isNaN(paid) && !isNaN(totalPrice)) {
+                    var unpaid = totalPrice - paid;
+                    $('#Unpaid').val(unpaid.toFixed(2));
+                    $('#UnpaidLabel, #Unpaid').show();
+                } else {
+                    $('#Unpaid').val('');
+                    $('#UnpaidLable, #Unpaid').hide();
                 }
             });
         });

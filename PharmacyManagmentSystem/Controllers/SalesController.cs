@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileSystemGlobbing.Internal;
 using PharmacyManagmentSystem.Data;
 using PharmacyManagmentSystem.Models;
 using PharmacyManagmentSystem.ViewModel;
+using System.Text.RegularExpressions;
 
 namespace PharmacyManagmentSystem.Controllers
 {
@@ -24,43 +26,8 @@ namespace PharmacyManagmentSystem.Controllers
             var query = _context.Sales.Include(m=>m.Medicine).Include(c=>c.Customer).Include(cr=>cr.Currency).ToList();
             return View(query);
         }
-        //private List<SelectListItem> GetMedicines()
-        //{
-        //    var medicineList = new List<SelectListItem>();
-        //    List<Medicine> medicines = _context.Medicines.ToList();
-        //    medicineList = medicines.Select(m=> new SelectListItem()
-        //    {
-        //        Text = m.TradeName + " | " + m.Capacity + " | " + m.Category.CategoryName + " | " + m.Company.CompanyName,
-        //        Value = m.MedicineID.ToString()
-        //    }).ToList();
-        //    var defaultItem = new SelectListItem()
-        //    {
-        //        Text = "Select Medicine",
-        //        Value = ""
-        //    };
-        //    medicineList.Insert(0, defaultItem);
-        //    return medicineList;
-        //}
-        //private List<SelectListItem> GetAmount(int medicineId = 1)
-        //{
-        //    List<SelectListItem> AmountList = _context.Purchases.Where(a => a.MedicineID == medicineId).OrderBy(a => a.Amount).Select(a => new SelectListItem()
-        //    {
-        //        Text=a.Amount.ToString(),
-        //        Value = a.Amount.ToString()
-        //    }).ToList();
-        //    var defaultItem = new SelectListItem()
-        //    {
-        //        Text = "Select Amount",
-        //        Value = ""
-        //    };
-        //    AmountList.Insert(0,defaultItem);
-        //    return AmountList;
-        //}
         public IActionResult Create()
         {
-            //Sale sale = new Sale();
-            //ViewBag.medicineId = GetMedicines();
-            //ViewBag.amount = GetAmount();
             var query = _context.Purchases
                 .Include(p => p.Medicine)
                     .ThenInclude(m => m.Company)
@@ -80,14 +47,16 @@ namespace PharmacyManagmentSystem.Controllers
                 })
                 .ToList();
 
-            var selectedMedicines = query.Select(item => new SelectListItem
+            var selectableMedicines = query.Select(item => new SelectListItem
             {
                 Text = $"{item.TradeName} | {item.Capacity} | {item.CompanyName} | {item.CurrencyName}",
-                Value = $"{item.TradeName}_{item.Capacity}_{item.CompanyName}"
+                Value = $"{item.TradeName}_{item.Capacity}_{item.CompanyName}_{item.CurrencyName}_{item.Amount}_{item.SalePrice}"
             })
             .ToList();
-
-ViewBag.medicines = selectedMedicines;
+            var selectedMedicine = query.FirstOrDefault();
+            var amount = selectedMedicine?.Amount ?? 0;
+            ViewBag.medicines = selectableMedicines;
+            ViewBag.Amount = amount;
 
             //var defaultItem = new SelectListItem()
             //{
@@ -114,19 +83,19 @@ ViewBag.medicines = selectedMedicines;
                 .ToList();
             ViewBag.customer = customer;
 
-            var amount = _context.Purchases
-                .GroupBy(p => new { p.Medicine.TradeName, p.Medicine.Capacity, p.Medicine.Company.CompanyName, p.CurrencyID })
-                .Select(g => new
-                {
-                    Amount = g.Sum(p => p.Amount)
-                })
-                .ToList();
+            //var amount = _context.Purchases
+            //    .GroupBy(p => new { p.Medicine.TradeName, p.Medicine.Capacity, p.Medicine.Company.CompanyName, p.CurrencyID })
+            //    .Select(g => new
+            //    {
+            //        Amount = g.Sum(p => p.Amount)
+            //    })
+            //    .ToList();
 
-            ViewBag.Amount = amount.Select(a => new SelectListItem
-            {
-                Text = a.Amount.ToString(),
-                Value = a.Amount.ToString()
-            }).ToList();
+            //ViewBag.Amount = amount.Select(a => new SelectListItem
+            //{
+            //    Text = a.Amount.ToString(),
+            //    Value = a.Amount.ToString()
+            //}).ToList();
 
             //var salePriceQuery = _context.Purchases
             //    .GroupBy(p => new { p.Medicine.TradeName, p.Medicine.Capacity, p.Medicine.Company.CompanyName, p.CurrencyID })
@@ -146,25 +115,21 @@ ViewBag.medicines = selectedMedicines;
             //    .ToList();
             //var amountList = query.Select(q => q.Amount).ToList();
             //var salePriceList = query.Select(q => q.SalePrice).ToList();
+           
             return View();
         }
         [HttpPost]
+        [HttpPost]
         public IActionResult Create(SaleViewModel viewModel)
         {
-            var amount = _context.Purchases
-            .Where(p => p.MedicineID == viewModel.MedicineID)
-            .Sum(p => p.Amount);
-
-            // Assign the amount to the Sale object
-            viewModel.purchase.Amount = amount;
             Sale sale = _mapper.Map<Sale>(viewModel);
             if (ModelState.IsValid)
             {
                 _context.Sales.Add(sale);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
-
             }
+
             return View(viewModel);
         }
         public IActionResult Details(int? id)
@@ -181,15 +146,18 @@ ViewBag.medicines = selectedMedicines;
             }
             return View(purchase);
         }
-        [HttpPost]
-        [HttpPost]
-        public IActionResult GetAmount(int medicineID)
-        {
-            var amount = _context.Purchases
-                .Where(p => p.MedicineID.ToString() == medicineID.ToString())
-                .Sum(p => p.Amount);
-
-            return Json(amount);
-        }
+        //[HttpPost]
+        //[HttpPost]
+        //public IActionResult GetAmount(string medicineID)
+        //{
+        //    string pattern = @"\d+$";
+        //    Match match1 = Regex.Match(medicineID, pattern);
+        //    if (match1.Success)
+        //    {
+        //        string extractedValue1 = match1.Value;
+        //        Console.WriteLine(extractedValue1);
+        //    }
+        //    return Json(match1);
+        //}
     }
 }
