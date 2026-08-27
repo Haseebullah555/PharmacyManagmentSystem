@@ -1,3 +1,4 @@
+using Application.Contracts.Interfaces;
 using Application.Contracts.Interfaces.Common;
 using Application.Contracts.UserManagement;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -16,6 +17,12 @@ namespace Persistence.Repositories.Common
         #region Private fields
         private IRoleRepository _roleRepository;
         private IUserRepository _userRepository;
+        private ICategoryRepository _categoryRepository;
+        private ICompanyRepository _companyRepository;
+        private IMedicineRepository _medicineRepository;
+        private IPurchaseRepository _purchaseRepository;
+        private ISaleRepository _saleRepository;
+        private IInventoryBatchRepository _inventoryBatchRepository;
         #endregion
         
         #region User Management
@@ -24,6 +31,14 @@ namespace Persistence.Repositories.Common
         
         #endregion
 
+        #region Main Entities
+        public ICategoryRepository Categories => _categoryRepository ??= new CategoryRepository(_context);
+        public ICompanyRepository Companies => _companyRepository ??= new CompanyRepository(_context);
+        public IMedicineRepository Medicines => _medicineRepository ??= new MedicineRepository(_context);
+        public IPurchaseRepository Purchases => _purchaseRepository ??= new PurchaseRepository(_context);
+        public ISaleRepository Sales => _saleRepository ??= new SaleRepository(_context);
+        public IInventoryBatchRepository InventoryBatches => _inventoryBatchRepository ??= new InventoryBatchRepository(_context);
+        #endregion
 
         public void Dispose()
         {

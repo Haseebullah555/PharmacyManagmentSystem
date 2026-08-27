@@ -10,6 +10,15 @@ namespace Application.Contracts.Interfaces.Common
         public IRoleRepository Roles {get;}
         #endregion
 
+        #region Main Entities
+        public ICategoryRepository Categories {get;}
+        public ICompanyRepository Companies {get;}
+        public IMedicineRepository Medicines {get;}
+        public IPurchaseRepository Purchases {get;}
+        public ISaleRepository Sales {get;}
+        public IInventoryBatchRepository InventoryBatches { get; }
+        #endregion
+
         Task SaveAsync(CancellationToken cancellationToken);
         Task<IDbContextTransaction> BeginTransactionAsync();
     }
