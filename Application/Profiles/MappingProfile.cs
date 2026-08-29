@@ -7,6 +7,7 @@ using Application.Dtos.Medicine;
 using Application.Dtos.Purchase;
 using Application.Dtos.Sale;
 using Domain.Models;
+using Application.Dtos.Category;
 
 namespace Application.Profiles
 {
@@ -29,6 +30,12 @@ namespace Application.Profiles
             CreateMap<Purchase, UpdatePurchaseDto>().ReverseMap();
             CreateMap<Sale, AddSaleDto>().ReverseMap();
             CreateMap<Sale, UpdateSaleDto>().ReverseMap();
+
+            CreateMap<Category, AddCategoryDto>().ReverseMap();
+            CreateMap<Category, UpdateCategoryDto>().ReverseMap();
+
+            CreateMap<Company, AddCompanyDto>().ReverseMap();
+            CreateMap<Company, UpdateCompanyDto>().ReverseMap();
         }
     }
 }

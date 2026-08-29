@@ -13,6 +13,30 @@ namespace API.Controllers
     [Route("api/sales")]
     public class SaleController(IMediator mediator, AppDbContext context) : ControllerBase
     {
+        [HttpGet]
+        public async Task<ActionResult<List<SaleDto>>> GetAll(CancellationToken cancellationToken)
+        {
+            var result = await context.Sales
+                .AsNoTracking()
+                .OrderByDescending(item => item.SaleDate)
+                .Select(item => new SaleDto
+                {
+                    Id = item.Id,
+                    SaleAmount = item.SaleAmount,
+                    UnitPrice = item.UnitPrice,
+                    TotalPrice = item.TotalPrice,
+                    Paid = item.Paid,
+                    Unpaid = item.Unpaid,
+                    SaleDate = item.SaleDate,
+                    MedicineID = item.MedicineID,
+                    CurrencyID = item.CurrencyID,
+                    CustomerID = item.CustomerID
+                })
+                .ToListAsync(cancellationToken);
+
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(AddSaleDto dto, CancellationToken cancellationToken)
         {
