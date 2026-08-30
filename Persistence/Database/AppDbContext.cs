@@ -12,10 +12,6 @@ namespace Persistence.Database
             base.OnModelCreating(modelBuilder);
            // StaffSeeder.Seed(modelBuilder);
 
-            modelBuilder.Entity<Medicine>()
-                .HasIndex(medicine => medicine.Barcode)
-                .IsUnique();
-
             modelBuilder.Entity<InventoryBatch>()
                 .HasIndex(batch => new { batch.MedicineID, batch.BatchNumber })
                 .IsUnique();
@@ -35,6 +31,24 @@ namespace Persistence.Database
             modelBuilder.Entity<Sale>()
                 .Property(sale => sale.UnitPrice)
                 .HasPrecision(18, 2);
+
+            modelBuilder.Entity<Medicine>()
+                .HasOne(medicine => medicine.Dosage)
+                .WithMany()
+                .HasForeignKey(medicine => medicine.DosageId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Medicine>()
+                .HasOne(medicine => medicine.Category)
+                .WithMany()
+                .HasForeignKey(medicine => medicine.CategoryID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Medicine>()
+                .HasOne(medicine => medicine.Company)
+                .WithMany()
+                .HasForeignKey(medicine => medicine.CompanyID)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<InventoryBatch>()
                 .HasOne(batch => batch.Medicine)
@@ -86,6 +100,7 @@ namespace Persistence.Database
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Company> Companies { get; set; }
+        public DbSet<Dosage> Dosages { get; set; }
         public DbSet<Medicine> Medicines { get; set; }
         public DbSet<Purchase> Purchases { get; set; }
         public DbSet<Sale> Sales { get; set; }

@@ -44,9 +44,7 @@ namespace API.Controllers
                     MedicineID = medicine.Id,
                     GenericName = medicine.GenericName,
                     TradeName = medicine.TradeName,
-                    Barcode = medicine.Barcode,
                     QuantityAvailable = medicine.InventoryBatches.Sum(batch => batch.QuantityAvailable),
-                    ReorderLevel = medicine.ReorderLevel,
                     IsActive = medicine.IsActive,
                     NearestExpiryDate = medicine.InventoryBatches
                         .Where(batch => batch.QuantityAvailable > 0 && batch.ExpiryDate != null)
@@ -54,7 +52,7 @@ namespace API.Controllers
                         .Select(batch => batch.ExpiryDate)
                         .FirstOrDefault()
                 })
-                .Where(medicine => medicine.QuantityAvailable <= medicine.ReorderLevel && medicine.IsActive)
+                .Where(medicine => medicine.QuantityAvailable <= 0 && medicine.IsActive)
                 .ToListAsync(cancellationToken);
 
             return Ok(result);
@@ -78,9 +76,7 @@ namespace API.Controllers
                     MedicineID = batch.MedicineID,
                     GenericName = batch.Medicine.GenericName,
                     TradeName = batch.Medicine.TradeName,
-                    Barcode = batch.Medicine.Barcode,
                     QuantityAvailable = batch.QuantityAvailable,
-                    ReorderLevel = batch.Medicine.ReorderLevel,
                     NearestExpiryDate = batch.ExpiryDate
                 })
                 .ToListAsync(cancellationToken);
@@ -100,9 +96,7 @@ namespace API.Controllers
                     MedicineID = batch.MedicineID,
                     GenericName = batch.Medicine.GenericName,
                     TradeName = batch.Medicine.TradeName,
-                    Barcode = batch.Medicine.Barcode,
                     QuantityAvailable = batch.QuantityAvailable,
-                    ReorderLevel = batch.Medicine.ReorderLevel,
                     NearestExpiryDate = batch.ExpiryDate
                 })
                 .ToListAsync(cancellationToken);

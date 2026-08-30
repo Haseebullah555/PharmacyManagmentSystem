@@ -18,10 +18,7 @@ namespace API.Controllers
                 Id = medicine.Id,
                 GenericName = medicine.GenericName,
                 TradeName = medicine.TradeName,
-                Capacity = medicine.Capacity,
-                UnitOfMeasure = medicine.UnitOfMeasure,
-                Barcode = medicine.Barcode,
-                ReorderLevel = medicine.ReorderLevel,
+                DosageId = medicine.DosageId,
                 IsActive = medicine.IsActive,
                 RequiresPrescription = medicine.RequiresPrescription,
                 CategoryID = medicine.CategoryID,
@@ -36,10 +33,13 @@ namespace API.Controllers
                 .Where(item => item.Id == id)
                 .Select(item => new MedicineDto
                 {
-                    Id = item.Id, GenericName = item.GenericName, TradeName = item.TradeName,
-                    Capacity = item.Capacity, UnitOfMeasure = item.UnitOfMeasure, Barcode = item.Barcode,
-                    ReorderLevel = item.ReorderLevel, IsActive = item.IsActive,
-                    RequiresPrescription = item.RequiresPrescription, CategoryID = item.CategoryID,
+                    Id = item.Id,
+                    GenericName = item.GenericName,
+                    TradeName = item.TradeName,
+                    DosageId = item.DosageId,
+                    IsActive = item.IsActive,
+                    RequiresPrescription = item.RequiresPrescription,
+                    CategoryID = item.CategoryID,
                     CompanyID = item.CompanyID
                 }).FirstOrDefaultAsync(cancellationToken);
             return medicine is null ? NotFound() : Ok(medicine);
@@ -50,15 +50,17 @@ namespace API.Controllers
         {
             if (!ModelState.IsValid)
                 return ValidationProblem(ModelState);
-            if (await context.Medicines.AnyAsync(item => item.Barcode == dto.Barcode && dto.Barcode != null, cancellationToken))
-                return Conflict("A medicine with this barcode already exists.");
 
             var medicine = new Medicine
             {
-                GenericName = dto.GenericName, TradeName = dto.TradeName, Capacity = dto.Capacity,
-                UnitOfMeasure = dto.UnitOfMeasure, Barcode = dto.Barcode, ReorderLevel = dto.ReorderLevel,
-                IsActive = dto.IsActive, RequiresPrescription = dto.RequiresPrescription,
-                CategoryID = dto.CategoryID, CompanyID = dto.CompanyID, CreatedAt = DateTime.UtcNow
+                GenericName = dto.GenericName,
+                TradeName = dto.TradeName,
+                DosageId = dto.DosageId,
+                IsActive = dto.IsActive,
+                RequiresPrescription = dto.RequiresPrescription,
+                CategoryID = dto.CategoryID,
+                CompanyID = dto.CompanyID,
+                CreatedAt = DateTime.UtcNow
             };
             context.Medicines.Add(medicine);
             await context.SaveChangesAsync(cancellationToken);
@@ -73,11 +75,14 @@ namespace API.Controllers
             var medicine = await context.Medicines.FindAsync(new object[] { id }, cancellationToken);
             if (medicine is null)
                 return NotFound();
-            medicine.GenericName = dto.GenericName; medicine.TradeName = dto.TradeName;
-            medicine.Capacity = dto.Capacity; medicine.UnitOfMeasure = dto.UnitOfMeasure;
-            medicine.Barcode = dto.Barcode; medicine.ReorderLevel = dto.ReorderLevel;
-            medicine.IsActive = dto.IsActive; medicine.RequiresPrescription = dto.RequiresPrescription;
-            medicine.CategoryID = dto.CategoryID; medicine.CompanyID = dto.CompanyID;
+
+            medicine.GenericName = dto.GenericName;
+            medicine.TradeName = dto.TradeName;
+            medicine.DosageId = dto.DosageId;
+            medicine.IsActive = dto.IsActive;
+            medicine.RequiresPrescription = dto.RequiresPrescription;
+            medicine.CategoryID = dto.CategoryID;
+            medicine.CompanyID = dto.CompanyID;
             medicine.UpdatedAt = DateTime.UtcNow;
             await context.SaveChangesAsync(cancellationToken);
             return NoContent();

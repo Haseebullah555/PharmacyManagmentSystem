@@ -11,12 +11,8 @@ namespace Domain.Models
         public string TradeName { get; set; }
 
         [Required]
-        public string Capacity { get; set; }
-        [Required]
-        public string UnitOfMeasure { get; set; }
-        public string Barcode { get; set; }
-        [Range(0, int.MaxValue)]
-        public int ReorderLevel { get; set; }
+        public int DosageId { get; set; }
+        public Dosage Dosage { get; set; }
         public bool IsActive { get; set; } = true;
         public bool RequiresPrescription { get; set; }
         // Navigation
