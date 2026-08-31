@@ -17,6 +17,7 @@ namespace Persistence.Repositories.Common
         #region Private fields
         private IRoleRepository _roleRepository;
         private IUserRepository _userRepository;
+        private IExpenseRepository _expenseRepository;
         private ICategoryRepository _categoryRepository;
         private ICompanyRepository _companyRepository;
         private IMedicineRepository _medicineRepository;
@@ -32,6 +33,7 @@ namespace Persistence.Repositories.Common
         #endregion
 
         #region Main Entities
+        public IExpenseRepository Expenses => _expenseRepository ??= new ExpenseRepository(_context);
         public ICategoryRepository Categories => _categoryRepository ??= new CategoryRepository(_context);
         public ICompanyRepository Companies => _companyRepository ??= new CompanyRepository(_context);
         public IMedicineRepository Medicines => _medicineRepository ??= new MedicineRepository(_context);

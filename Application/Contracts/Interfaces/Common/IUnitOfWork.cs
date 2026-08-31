@@ -12,6 +12,7 @@ namespace Application.Contracts.Interfaces.Common
 
         #region Main Entities
         public ICategoryRepository Categories {get;}
+        public IExpenseRepository Expenses {get;}
         public ICompanyRepository Companies {get;}
         public IMedicineRepository Medicines {get;}
         public IPurchaseRepository Purchases {get;}
