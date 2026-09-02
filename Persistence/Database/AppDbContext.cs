@@ -16,21 +16,21 @@ namespace Persistence.Database
                 .HasIndex(batch => new { batch.MedicineID, batch.BatchNumber })
                 .IsUnique();
 
-            modelBuilder.Entity<InventoryBatch>()
-                .Property(batch => batch.UnitCost)
-                .HasPrecision(18, 2);
-            modelBuilder.Entity<InventoryBatch>()
-                .Property(batch => batch.SalePrice)
-                .HasPrecision(18, 2);
-            modelBuilder.Entity<Purchase>()
-                .Property(purchase => purchase.UnitPrice)
-                .HasPrecision(18, 2);
-            modelBuilder.Entity<Purchase>()
-                .Property(purchase => purchase.SalePrice)
-                .HasPrecision(18, 2);
-            modelBuilder.Entity<Sale>()
-                .Property(sale => sale.UnitPrice)
-                .HasPrecision(18, 2);
+            // modelBuilder.Entity<InventoryBatch>()
+            //     .Property(batch => batch.UnitCost)
+            //     .HasPrecision(18, 2);
+            // modelBuilder.Entity<InventoryBatch>()
+            //     .Property(batch => batch.SalePrice)
+            //     .HasPrecision(18, 2);
+            // modelBuilder.Entity<Purchase>()
+            //     .Property(purchase => purchase.UnitPrice)
+            //     .HasPrecision(18, 2);
+            // modelBuilder.Entity<Purchase>()
+            //     .Property(purchase => purchase.SalePrice)
+            //     .HasPrecision(18, 2);
+            // modelBuilder.Entity<Sale>()
+            //     .Property(sale => sale.UnitPrice)
+            //     .HasPrecision(18, 2);
 
             modelBuilder.Entity<Medicine>()
                 .HasOne(medicine => medicine.Dosage)
@@ -65,11 +65,11 @@ namespace Persistence.Database
                 .WithMany()
                 .HasForeignKey(adjustment => adjustment.InventoryBatchID)
                 .OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<Purchase>()
-                .HasOne(purchase => purchase.InventoryBatch)
-                .WithMany()
-                .HasForeignKey(purchase => purchase.InventoryBatchID)
-                .OnDelete(DeleteBehavior.Restrict);
+            // modelBuilder.Entity<Purchase>()
+            //     .HasOne(purchase => purchase.InventoryBatch)
+            //     .WithMany()
+            //     .HasForeignKey(purchase => purchase.InventoryBatchID)
+            //     .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Sale>()
                 .HasOne(sale => sale.InventoryBatch)
                 .WithMany()

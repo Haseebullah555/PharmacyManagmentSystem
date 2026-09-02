@@ -24,6 +24,8 @@ namespace Domain.Models
 
         [Required]
         public decimal Quantity { get; set; }
+        public decimal UnitCost { get; set; }
+        public decimal TotalCost { get; set; }
 
         [Required]
         public InventoryTransactionType TransactionType { get; set; }
