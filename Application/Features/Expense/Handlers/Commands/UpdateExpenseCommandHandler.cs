@@ -4,12 +4,10 @@ using Application.Features.Expense.Requests.Commands;
 using Application.Features.Response;
 using Application.Helper;
 using AutoMapper;
-using Domain.Enums;
-using Domain.Enums.Managment;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Features.Management.Expense.Handlers.Commands
+namespace Application.Features.Expense.Handlers.Commands
 {
     public class UpdateExpenseCommandHandler(IUnitOfWork _unitOfWork, IMapper _mapper, ICurrentUserRepository _currentUserRepository) : IRequestHandler<UpdateExpenseCommand, BaseCommandResponse>
     {
@@ -41,25 +39,25 @@ namespace Application.Features.Management.Expense.Handlers.Commands
                 _unitOfWork.Expenses.Update(expense);
 
                 // Update Financial Transaction
-                var transactionEntity = await _unitOfWork.Transactions
-                    .Query()
-                    .FirstOrDefaultAsync(x =>
-                        x.ReferenceType == ReferenceType.Expences &&
-                        x.ReferenceId == expense.Id,
-                        cancellationToken);
+                // var transactionEntity = await _unitOfWork.Transactions
+                //     .Query()
+                //     .FirstOrDefaultAsync(x =>
+                //         x.ReferenceType == ReferenceType.Expences &&
+                //         x.ReferenceId == expense.Id,
+                //         cancellationToken);
 
-                if (transactionEntity != null)
-                {
-                    transactionEntity.Amount = expense.Amount;
-                    transactionEntity.Date = expense.Date;
-                    transactionEntity.TransactionType = TransactionType.Out;
-                    transactionEntity.UpdatedAt = DateTime.UtcNow;
-                    transactionEntity.UpdateBy = userId;
+                // if (transactionEntity != null)
+                // {
+                //     transactionEntity.Amount = expense.Amount;
+                //     transactionEntity.Date = expense.Date;
+                //     transactionEntity.TransactionType = TransactionType.Out;
+                //     transactionEntity.UpdatedAt = DateTime.UtcNow;
+                //     transactionEntity.UpdateBy = userId;
 
-                    _unitOfWork.Transactions.Update(transactionEntity);
-                }
+                //     _unitOfWork.Transactions.Update(transactionEntity);
+                // }
 
-                await _unitOfWork.SaveAsync(cancellationToken);
+                // await _unitOfWork.SaveAsync(cancellationToken);
                 await transaction.CommitAsync(cancellationToken);
 
                 return new BaseCommandResponse

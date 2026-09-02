@@ -1,16 +1,12 @@
-using Application.Contracts.Interfaces;
 using Application.Contracts.Interfaces.Common;
 using Application.Contracts.UserManagement;
-using Application.Features.Management.Expense.Requests.Commands;
+using Application.Features.Expense.Requests.Commands;
 using Application.Features.Response;
 using Application.Helper;
 using AutoMapper;
-using Domain.Enums;
-using Domain.Enums.Managment;
-using Domain.Models.Management;
 using MediatR;
 
-namespace Application.Features.Management.Expense.Handlers.Commands
+namespace Application.Features.Expense.Handlers.Commands
 {
     public class AddExpenseCommandHandler(IUnitOfWork _unitOfWork, ICurrentUserRepository _currentUser, IMapper _mapper) : IRequestHandler<AddExpenseCommand, BaseCommandResponse>
     {
@@ -22,7 +18,7 @@ namespace Application.Features.Management.Expense.Handlers.Commands
                 var userId = _currentUser.GetCurrentLoggedInUserId();
 
                 // Expense
-                var expense = _mapper.Map<Domain.Models.Management.Expense>(request.AddExpenseDto);
+                var expense = _mapper.Map<Domain.Models.Expense>(request.AddExpenseDto);
                 expense.CreatedAt = DateTime.UtcNow;
                 expense.CreatedBy = userId;
                 expense.Date = PersainDateHelper.ConvertToDateOnly(request.AddExpenseDto.Date);
@@ -31,18 +27,18 @@ namespace Application.Features.Management.Expense.Handlers.Commands
                 await _unitOfWork.SaveAsync(cancellationToken);
 
                 // Financial Transaction
-                var transactionEntity = new Transaction
-                {
-                    TransactionType = TransactionType.Out,
-                    ReferenceType = ReferenceType.Expences,
-                    ReferenceId = expense.Id,
-                    Amount = expense.Amount,
-                    Date = expense.Date,
-                    CreatedAt = DateTime.UtcNow,
-                    CreatedBy = userId
-                };
+                // var transactionEntity = new Transaction
+                // {
+                //     TransactionType = TransactionType.Out,
+                //     ReferenceType = ReferenceType.Expences,
+                //     ReferenceId = expense.Id,
+                //     Amount = expense.Amount,
+                //     Date = expense.Date,
+                //     CreatedAt = DateTime.UtcNow,
+                //     CreatedBy = userId
+                // };
 
-                await _unitOfWork.Transactions.AddAsync(transactionEntity);
+                // await _unitOfWork.Transactions.AddAsync(transactionEntity);
                 await _unitOfWork.SaveAsync(cancellationToken);
 
                 await transaction.CommitAsync(cancellationToken);

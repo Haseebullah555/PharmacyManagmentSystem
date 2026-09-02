@@ -56,12 +56,6 @@ namespace Application.Features.Management.Expense.Handlers.Queries
                     Amount = m.Amount,
                     Date = PersainDateHelper.ConvertToPersianDateString(m.Date),
                     Description = m.Description,
-                    BuildingId = m.BuildingId,
-                    Building = m.Building.Name,
-                    FloorId = m.FloorId,
-                    Floor = m.Floor.Name,
-                    ApartmentId = m.ApartmentId,
-                    Apartment = m.Apartment.Name,
                 }).ToListAsync(cancellationToken);
 
 
