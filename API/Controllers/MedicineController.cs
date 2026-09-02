@@ -44,23 +44,23 @@ namespace API.Controllers
             return Ok(categories);
         }
 
-        [HttpPost("add-category")]
-        public async Task<IActionResult> AddMedicine(AddMedicineDto category)
+        [HttpPost("add-medicine")]
+        public async Task<IActionResult> AddMedicine(AddMedicineDto medicine)
         {
             if (ModelState.IsValid)
             {
-                await _mediator.Send(new AddMedicineCommand { AddMedicineDto = category });
+                await _mediator.Send(new AddMedicineCommand { AddMedicineDto = medicine });
                 return Ok(new { message = "ثبت معلومات با موفقیت شد" });
             }
             return BadRequest(new { message = "اضافه نمودن معلومات ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
 
-        [HttpPut("update-category")]
-        public async Task<IActionResult> UpdateMedicine(UpdateMedicineDto category)
+        [HttpPut("update-medicine")]
+        public async Task<IActionResult> UpdateMedicine(UpdateMedicineDto medicine)
         {
             if (ModelState.IsValid)
             {
-                await _mediator.Send(new UpdateMedicineCommand { UpdateMedicineDto = category });
+                await _mediator.Send(new UpdateMedicineCommand { UpdateMedicineDto = medicine });
                 return Ok(new { message = "تغییرات معلومات با موفقیت شد" });
             }
             return BadRequest(new { message = "تجدید معلومات ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });

@@ -21,8 +21,6 @@ namespace Application.Features.Expense.Handlers.Commands
                 var expense = _mapper.Map<Domain.Models.Expense>(request.AddExpenseDto);
                 expense.CreatedAt = DateTime.UtcNow;
                 expense.CreatedBy = userId;
-                expense.Date = PersainDateHelper.ConvertToDateOnly(request.AddExpenseDto.Date);
-
                 await _unitOfWork.Expenses.AddAsync(expense);
                 await _unitOfWork.SaveAsync(cancellationToken);
 

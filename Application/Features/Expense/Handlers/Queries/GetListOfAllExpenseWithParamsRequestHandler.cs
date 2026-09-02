@@ -54,7 +54,7 @@ namespace Application.Features.Management.Expense.Handlers.Queries
                     Id = m.Id,
                     ExpenseName = m.ExpenseName,
                     Amount = m.Amount,
-                    Date = PersainDateHelper.ConvertToPersianDateString(m.Date),
+                    Date = m.Date,
                     Description = m.Description,
                 }).ToListAsync(cancellationToken);
 

@@ -16,5 +16,6 @@ namespace Application.Dtos.Sale
         public int MedicineID { get; set; }
         public int CurrencyID { get; set; }
         public int CustomerID { get; set; }
+        public int? InventoryBatchID { get; set; }
     }
 }

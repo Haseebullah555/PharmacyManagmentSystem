@@ -9,7 +9,7 @@ namespace Application.Dtos.Inventory
         [Required]
         public string Reason { get; set; }
         public string Notes { get; set; }
-        public DateOnly? AdjustmentDate { get; set; }
+        public DateOnly AdjustmentDate { get; set; }
         [Range(1, int.MaxValue)]
         public int MedicineID { get; set; }
         public int? InventoryBatchID { get; set; }

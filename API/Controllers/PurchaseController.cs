@@ -20,17 +20,14 @@ namespace API.Controllers
                 .Select(item => new PurchaseDto
                 {
                     Id = item.Id,
-                    Amount = item.Amount,
-                    UnitPrice = item.UnitPrice,
-                    SalePrice = item.SalePrice,
-                    TotalPrice = item.TotalPrice,
-                    Paid = item.Paid,
-                    Unpaid = item.Unpaid,
                     PurchaseDate = item.PurchaseDate,
-                    ExpiryDate = item.ExpiryDate ?? DateOnly.MinValue,
-                    MedicineID = item.MedicineID,
+                    InvoiceNumber = item.InvoiceNumber,
                     SupplierID = item.SupplierID,
-                    CurrencyID = item.CurrencyID
+                    CurrencyID = item.CurrencyID,
+                    TotalAmount = item.TotalAmount,
+                    PaidAmount = item.PaidAmount,
+                    UnpaidAmount = item.UnpaidAmount,
+                    Remarks = item.Remarks
                 })
                 .ToListAsync(cancellationToken);
 

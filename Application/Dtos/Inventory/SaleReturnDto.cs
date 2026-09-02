@@ -9,7 +9,7 @@ namespace Application.Dtos.Inventory
         [Required]
         public string Reason { get; set; }
         public bool Restock { get; set; } = true;
-        public DateOnly? ReturnDate { get; set; }
+        public DateOnly ReturnDate { get; set; }
         [Range(1, int.MaxValue)]
         public int SaleBatchAllocationID { get; set; }
     }

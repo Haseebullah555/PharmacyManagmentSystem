@@ -32,7 +32,6 @@ namespace Application.Features.Expense.Handlers.Commands
 
                 // Update Expense
                 _mapper.Map(request.UpdateExpenseDto, expense);
-                expense.Date = PersainDateHelper.ConvertToDateOnly(request.UpdateExpenseDto.Date);
                 expense.UpdatedAt = DateTime.UtcNow;
                 expense.UpdateBy = userId;
 

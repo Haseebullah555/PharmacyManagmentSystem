@@ -6,19 +6,20 @@ namespace Domain.Models
     public class InventoryBatch : BaseDomainEntity
     {
         [Required]
-        public string BatchNumber { get; set; }
-        public DateOnly? ExpiryDate { get; set; }
-        [Range(0, int.MaxValue)]
-        public int QuantityReceived { get; set; }
-        [Range(0, int.MaxValue)]
-        public int QuantityAvailable { get; set; }
-        public decimal UnitCost { get; set; }
-        public decimal SalePrice { get; set; }
-        public DateOnly ReceivedDate { get; set; }
-
         public int MedicineID { get; set; }
         public Medicine Medicine { get; set; }
-        public int SupplierID { get; set; }
-        public Supplier Supplier { get; set; }
+
+        [Required]
+        [MaxLength(100)]
+        public string BatchNumber { get; set; }
+
+        public DateOnly? ManufacturingDate { get; set; }
+
+        public DateOnly? ExpiryDate { get; set; }
+
+        public bool IsActive { get; set; } = true;
+
+        public ICollection<InventoryStock> Stocks { get; set; }
+            = new List<InventoryStock>();
     }
 }

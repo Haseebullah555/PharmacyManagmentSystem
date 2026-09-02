@@ -17,14 +17,15 @@ namespace Application.Features.Sale.Handlers.Commands
 
             var quantityToSell = decimal.ToInt32(sale.SaleAmount);
             var batches = await unitOfWork.InventoryBatches.Query()
-                .Where(batch => batch.MedicineID == sale.MedicineID && batch.QuantityAvailable > 0)
+                .Include(batch => batch.Stocks)
+                .Where(batch => batch.MedicineID == sale.MedicineID && batch.Stocks.Any(stock => stock.Quantity > 0))
                 .Where(batch => batch.ExpiryDate == null || batch.ExpiryDate >= sale.SaleDate)
                 .OrderBy(batch => batch.ExpiryDate == null)
                 .ThenBy(batch => batch.ExpiryDate)
-                .ThenBy(batch => batch.ReceivedDate)
+                .ThenBy(batch => batch.CreatedAt)
                 .ToListAsync(cancellationToken);
 
-            if (batches.Sum(batch => batch.QuantityAvailable) < quantityToSell)
+            if (batches.SelectMany(batch => batch.Stocks).Sum(stock => stock.Quantity) < quantityToSell)
                 throw new InvalidOperationException("Insufficient non-expired stock for this medicine.");
 
             sale.CreatedAt = DateTime.UtcNow;
@@ -35,8 +36,17 @@ namespace Application.Features.Sale.Handlers.Commands
                 if (remainingQuantity == 0)
                     break;
 
-                var allocatedQuantity = Math.Min(batch.QuantityAvailable, remainingQuantity);
-                batch.QuantityAvailable -= allocatedQuantity;
+                var allocatedQuantity = Math.Min(decimal.ToInt32(batch.Stocks.Sum(stock => stock.Quantity)), remainingQuantity);
+                var stockQuantityToReduce = allocatedQuantity;
+                foreach (var stock in batch.Stocks)
+                {
+                    if (stockQuantityToReduce == 0)
+                        break;
+
+                    var stockAllocation = Math.Min(stock.Quantity, stockQuantityToReduce);
+                    stock.Quantity -= stockAllocation;
+                    // stockQuantityToReduce -= stockAllocation;
+                }
                 sale.BatchAllocations.Add(new Domain.Models.SaleBatchAllocation
                 {
                     Quantity = allocatedQuantity,

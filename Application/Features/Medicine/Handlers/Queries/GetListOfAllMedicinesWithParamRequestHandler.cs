@@ -45,7 +45,7 @@ namespace Application.Features.Medicine.Handlers.Queries
             var total = await query.CountAsync(cancellationToken);
 
             // Pagination
-            var Dosages = await query
+            var medicines = await query
                 .Skip((request.Page - 1) * request.PerPage)
                 .Take(request.PerPage)
                 .Select(e => new MedicineDto
@@ -63,7 +63,7 @@ namespace Application.Features.Medicine.Handlers.Queries
 
             return new PaginatedResult<MedicineDto>
             {
-                Data = Dosages,
+                Data = medicines,
                 Total = total,
                 CurrentPage = request.Page,
                 PerPage = request.PerPage
