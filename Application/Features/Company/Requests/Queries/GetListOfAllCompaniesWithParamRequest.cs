@@ -1,5 +1,5 @@
-using Application.Dtos.Common;
 using Application.Dtos.Company;
+using Application.Dtos.Common;
 using MediatR;
 
 namespace Application.Features.Company.Requests.Queries

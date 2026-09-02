@@ -6,7 +6,7 @@ namespace Domain.Models
     public class Dosage : BaseDomainEntity
     {
         [Required]
-        public string Name { get; set; }
+        public string DosageName { get; set; }
         [Required]
         public int CategoryId { get; set; }
         public Category Category { get; set; }

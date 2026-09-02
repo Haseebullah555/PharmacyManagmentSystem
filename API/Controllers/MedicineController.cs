@@ -1,91 +1,69 @@
+using API.Controllers.Common;
 using Application.Dtos.Medicine;
-using Domain.Models;
+using Application.Features.Medicine.Handlers.Queries;
+using Application.Features.Medicine.Requests.Commands;
+using Application.Features.Medicine.Requests.Queries;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Persistence.Database;
 
 namespace API.Controllers
 {
     [ApiController]
-    [Route("api/medicines")]
-    public class MedicineController(AppDbContext context) : ControllerBase
+    [Route("api/[controller]")]
+    public class MedicineController : BaseApiController
     {
-        [HttpGet]
-        public async Task<ActionResult<List<MedicineDto>>> GetAll(CancellationToken cancellationToken)
+        [HttpGet("get-with-param")]
+        public async Task<IActionResult> GetMedicinesWithParam([FromQuery] string? search, [FromQuery] string? sort_field, [FromQuery] string? sort_order, [FromQuery] int page = 1, [FromQuery] int per_page = 10)
         {
-            return Ok(await context.Medicines.AsNoTracking().Select(medicine => new MedicineDto
+            var categories = await _mediator.Send(new GetListOfAllMedicinesWithParamRequest
             {
-                Id = medicine.Id,
-                GenericName = medicine.GenericName,
-                TradeName = medicine.TradeName,
-                DosageId = medicine.DosageId,
-                IsActive = medicine.IsActive,
-                RequiresPrescription = medicine.RequiresPrescription,
-                CategoryID = medicine.CategoryID,
-                CompanyID = medicine.CompanyID
-            }).ToListAsync(cancellationToken));
-        }
-
-        [HttpGet("{id:int}")]
-        public async Task<ActionResult<MedicineDto>> GetById(int id, CancellationToken cancellationToken)
-        {
-            var medicine = await context.Medicines.AsNoTracking()
-                .Where(item => item.Id == id)
-                .Select(item => new MedicineDto
+                Search = search,
+                SortBy = sort_field,
+                SortDirection = sort_order,
+                Page = page,
+                PerPage = per_page
+            });
+            return Ok(new
+            {
+                data = categories.Data,
+                meta = new
                 {
-                    Id = item.Id,
-                    GenericName = item.GenericName,
-                    TradeName = item.TradeName,
-                    DosageId = item.DosageId,
-                    IsActive = item.IsActive,
-                    RequiresPrescription = item.RequiresPrescription,
-                    CategoryID = item.CategoryID,
-                    CompanyID = item.CompanyID
-                }).FirstOrDefaultAsync(cancellationToken);
-            return medicine is null ? NotFound() : Ok(medicine);
+                    total = categories.Total,
+                    current_page = categories.CurrentPage,
+                    per_page = categories.PerPage,
+                    last_page = categories.LastPage,
+                    from = categories.From,
+                    to = categories.To
+                }
+            });
         }
 
-        [HttpPost]
-        public async Task<ActionResult<int>> Create(AddMedicineDto dto, CancellationToken cancellationToken)
+        [HttpGet("get-all")]
+        public async Task<IActionResult> GetMedicinesList()
         {
-            if (!ModelState.IsValid)
-                return ValidationProblem(ModelState);
+            var categories = await _mediator.Send(new GetMedicinesListRequest());
+            return Ok(categories);
+        }
 
-            var medicine = new Medicine
+        [HttpPost("add-category")]
+        public async Task<IActionResult> AddMedicine(AddMedicineDto category)
+        {
+            if (ModelState.IsValid)
             {
-                GenericName = dto.GenericName,
-                TradeName = dto.TradeName,
-                DosageId = dto.DosageId,
-                IsActive = dto.IsActive,
-                RequiresPrescription = dto.RequiresPrescription,
-                CategoryID = dto.CategoryID,
-                CompanyID = dto.CompanyID,
-                CreatedAt = DateTime.UtcNow
-            };
-            context.Medicines.Add(medicine);
-            await context.SaveChangesAsync(cancellationToken);
-            return CreatedAtAction(nameof(GetById), new { id = medicine.Id }, medicine.Id);
+                await _mediator.Send(new AddMedicineCommand { AddMedicineDto = category });
+                return Ok(new { message = "ثبت معلومات با موفقیت شد" });
+            }
+            return BadRequest(new { message = "اضافه نمودن معلومات ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
 
-        [HttpPut("{id:int}")]
-        public async Task<IActionResult> Update(int id, UpdateMedicineDto dto, CancellationToken cancellationToken)
+        [HttpPut("update-category")]
+        public async Task<IActionResult> UpdateMedicine(UpdateMedicineDto category)
         {
-            if (!ModelState.IsValid)
-                return ValidationProblem(ModelState);
-            var medicine = await context.Medicines.FindAsync(new object[] { id }, cancellationToken);
-            if (medicine is null)
-                return NotFound();
-
-            medicine.GenericName = dto.GenericName;
-            medicine.TradeName = dto.TradeName;
-            medicine.DosageId = dto.DosageId;
-            medicine.IsActive = dto.IsActive;
-            medicine.RequiresPrescription = dto.RequiresPrescription;
-            medicine.CategoryID = dto.CategoryID;
-            medicine.CompanyID = dto.CompanyID;
-            medicine.UpdatedAt = DateTime.UtcNow;
-            await context.SaveChangesAsync(cancellationToken);
-            return NoContent();
+            if (ModelState.IsValid)
+            {
+                await _mediator.Send(new UpdateMedicineCommand { UpdateMedicineDto = category });
+                return Ok(new { message = "تغییرات معلومات با موفقیت شد" });
+            }
+            return BadRequest(new { message = "تجدید معلومات ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
     }
 }

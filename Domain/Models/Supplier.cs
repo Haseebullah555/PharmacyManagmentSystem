@@ -9,7 +9,7 @@ namespace Domain.Models
         public string SupplierName { get; set; }
         public string Address { get; set; }
         [Required]
-        public string ContactNo { get; set; }
+        public string Phone { get; set; }
         public string Description { get; set; }
    
     }

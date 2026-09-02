@@ -1,76 +1,68 @@
+using API.Controllers.Common;
 using Application.Dtos.Company;
 using Application.Features.Company.Requests.Commands;
-using MediatR;
+using Application.Features.Company.Requests.Queries;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Persistence.Database;
 
 namespace API.Controllers
 {
     [ApiController]
-    [Route("api/companies")]
-    public class CompanyController(IMediator mediator, AppDbContext context) : ControllerBase
+    [Route("api/[controller]")]
+    public class CompanyController : BaseApiController
     {
-        [HttpGet]
-        public async Task<ActionResult<List<CompanyDto>>> GetAll([FromQuery] string? search = null, CancellationToken cancellationToken = default)
+        [HttpGet("get-with-param")]
+        public async Task<IActionResult> GetCompaniesWithParam([FromQuery] string? search, [FromQuery] string? sort_field, [FromQuery] string? sort_order, [FromQuery] int page = 1, [FromQuery] int per_page = 10)
         {
-            var query = context.Companies.AsNoTracking();
-
-            if (!string.IsNullOrWhiteSpace(search))
-                query = query.Where(item => item.CompanyName.Contains(search));
-
-            var result = await query
-                .OrderBy(item => item.CompanyName)
-                .Select(item => new CompanyDto
+            var categories = await _mediator.Send(new GetListOfAllCompaniesWithParamRequest
+            {
+                Search = search,
+                SortBy = sort_field,
+                SortDirection = sort_order,
+                Page = page,
+                PerPage = per_page
+            });
+            return Ok(new
+            {
+                data = categories.Data,
+                meta = new
                 {
-                    Id = item.Id,
-                    CompanyName = item.CompanyName
-                })
-                .ToListAsync(cancellationToken);
-
-            return Ok(result);
+                    total = categories.Total,
+                    current_page = categories.CurrentPage,
+                    per_page = categories.PerPage,
+                    last_page = categories.LastPage,
+                    from = categories.From,
+                    to = categories.To
+                }
+            });
         }
 
-        [HttpGet("select-list")]
-        public async Task<ActionResult<List<object>>> GetSelectList([FromQuery] string? search = null, CancellationToken cancellationToken = default)
+        [HttpGet("get-all")]
+        public async Task<IActionResult> GetCompanysList()
         {
-            var query = context.Companies.AsNoTracking();
-
-            if (!string.IsNullOrWhiteSpace(search))
-                query = query.Where(item => item.CompanyName.Contains(search));
-
-            var result = await query
-                .OrderBy(item => item.CompanyName)
-                .Select(item => new { id = item.Id, text = item.CompanyName })
-                .ToListAsync(cancellationToken);
-
-            return Ok(result);
+            var categories = await _mediator.Send(new GetCompaniesListRequest());
+            return Ok(categories);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(AddCompanyDto dto, CancellationToken cancellationToken)
+        [HttpPost("add-company")]
+        public async Task<IActionResult> AddCompany(AddCompanyDto company)
         {
-            if (!ModelState.IsValid)
-                return ValidationProblem(ModelState);
-
-            await mediator.Send(new AddCompanyCommand { AddCompanyDto = dto }, cancellationToken);
-            return Ok();
+            if (ModelState.IsValid)
+            {
+                await _mediator.Send(new AddCompanyCommand { AddCompanyDto = company });
+                return Ok(new { message = "ثبت معلومات با موفقیت شد" });
+            }
+            return BadRequest(new { message = "اضافه نمودن معلومات ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
 
-        [HttpPut("{id:int}")]
-        public async Task<IActionResult> Update(int id, [FromBody] AddCompanyDto dto, CancellationToken cancellationToken)
+        [HttpPut("update-company")]
+        public async Task<IActionResult> UpdateCompany(UpdateCompanyDto company)
         {
-            if (!ModelState.IsValid)
-                return ValidationProblem(ModelState);
-
-            var company = await context.Companies.FirstOrDefaultAsync(item => item.Id == id, cancellationToken);
-            if (company is null)
-                return NotFound();
-
-            company.CompanyName = dto.CompanyName;
-            company.UpdatedAt = DateTime.UtcNow;
-            await context.SaveChangesAsync(cancellationToken);
-            return NoContent();
+            if (ModelState.IsValid)
+            {
+                await _mediator.Send(new UpdateCompanyCommand { UpdateCompanyDto = company });
+                return Ok(new { message = "تغییرات معلومات با موفقیت شد" });
+            }
+            return BadRequest(new { message = "تجدید معلومات ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
     }
 }

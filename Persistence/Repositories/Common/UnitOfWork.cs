@@ -19,6 +19,8 @@ namespace Persistence.Repositories.Common
         private IUserRepository _userRepository;
         private ICategoryRepository _categoryRepository;
         private ICompanyRepository _companyRepository;
+        private IDosageRepository _dosageRepository;
+        private ISupplierRepository _supplierRepository;
         private IMedicineRepository _medicineRepository;
         private IPurchaseRepository _purchaseRepository;
         private ISaleRepository _saleRepository;
@@ -34,6 +36,8 @@ namespace Persistence.Repositories.Common
         #region Main Entities
         public ICategoryRepository Categories => _categoryRepository ??= new CategoryRepository(_context);
         public ICompanyRepository Companies => _companyRepository ??= new CompanyRepository(_context);
+        public IDosageRepository Dosages => _dosageRepository ??= new DosageRepository(_context);
+        public ISupplierRepository Suppliers => _supplierRepository ??= new SupplierRepository(_context);
         public IMedicineRepository Medicines => _medicineRepository ??= new MedicineRepository(_context);
         public IPurchaseRepository Purchases => _purchaseRepository ??= new PurchaseRepository(_context);
         public ISaleRepository Sales => _saleRepository ??= new SaleRepository(_context);

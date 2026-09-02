@@ -8,6 +8,8 @@ using Application.Dtos.Purchase;
 using Application.Dtos.Sale;
 using Domain.Models;
 using Application.Dtos.Category;
+using Application.Dtos.Supplier;
+using Application.Dtos.Dosage;
 
 namespace Application.Profiles
 {
@@ -18,16 +20,20 @@ namespace Application.Profiles
             #region User Management
             CreateMap<User, AddUserDto>().ReverseMap();
             CreateMap<User, UpdateUserDto>().ReverseMap();
+            
             CreateMap<Role, AddRoleDto>().ReverseMap();
             CreateMap<Role, UpdateRoleDto>().ReverseMap();
             #endregion
 
             CreateMap<Company, AddCompanyDto>().ReverseMap();
             CreateMap<Company, UpdateCompanyDto>().ReverseMap();
+
             CreateMap<Medicine, AddMedicineDto>().ReverseMap();
             CreateMap<Medicine, UpdateMedicineDto>().ReverseMap();
+
             CreateMap<Purchase, AddPurchaseDto>().ReverseMap();
             CreateMap<Purchase, UpdatePurchaseDto>().ReverseMap();
+
             CreateMap<Sale, AddSaleDto>().ReverseMap();
             CreateMap<Sale, UpdateSaleDto>().ReverseMap();
 
@@ -36,6 +42,13 @@ namespace Application.Profiles
 
             CreateMap<Company, AddCompanyDto>().ReverseMap();
             CreateMap<Company, UpdateCompanyDto>().ReverseMap();
+
+            CreateMap<Dosage, AddDosageDto>().ReverseMap();
+            CreateMap<Dosage, UpdateDosageDto>().ReverseMap();
+
+            CreateMap<Supplier, AddSupplierDto>().ReverseMap();
+            CreateMap<Supplier, UpdateSupplierDto>().ReverseMap();
+
         }
     }
 }

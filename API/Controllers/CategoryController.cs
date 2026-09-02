@@ -1,76 +1,68 @@
+using API.Controllers.Common;
 using Application.Dtos.Category;
 using Application.Features.Category.Requests.Commands;
-using MediatR;
+using Application.Features.Category.Requests.Queries;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Persistence.Database;
 
 namespace API.Controllers
 {
     [ApiController]
-    [Route("api/categories")]
-    public class CategoryController(IMediator mediator, AppDbContext context) : ControllerBase
+    [Route("api/[controller]")]
+    public class CategoryController : BaseApiController
     {
-        [HttpGet]
-        public async Task<ActionResult<List<CategoryDto>>> GetAll([FromQuery] string? search = null, CancellationToken cancellationToken = default)
+        [HttpGet("get-with-param")]
+        public async Task<IActionResult> GetCategoriesWithParam([FromQuery] string? search, [FromQuery] string? sort_field, [FromQuery] string? sort_order, [FromQuery] int page = 1, [FromQuery] int per_page = 10)
         {
-            var query = context.Categories.AsNoTracking();
-
-            if (!string.IsNullOrWhiteSpace(search))
-                query = query.Where(item => item.CategoryName.Contains(search));
-
-            var result = await query
-                .OrderBy(item => item.CategoryName)
-                .Select(item => new CategoryDto
+            var categories = await _mediator.Send(new GetListOfAllCategoriesWithParamRequest
+            {
+                Search = search,
+                SortBy = sort_field,
+                SortDirection = sort_order,
+                Page = page,
+                PerPage = per_page
+            });
+            return Ok(new
+            {
+                data = categories.Data,
+                meta = new
                 {
-                    Id = item.Id,
-                    CategoryName = item.CategoryName
-                })
-                .ToListAsync(cancellationToken);
-
-            return Ok(result);
+                    total = categories.Total,
+                    current_page = categories.CurrentPage,
+                    per_page = categories.PerPage,
+                    last_page = categories.LastPage,
+                    from = categories.From,
+                    to = categories.To
+                }
+            });
         }
 
-        [HttpGet("select-list")]
-        public async Task<ActionResult<List<object>>> GetSelectList([FromQuery] string? search = null, CancellationToken cancellationToken = default)
+        [HttpGet("get-all")]
+        public async Task<IActionResult> GetCategorysList()
         {
-            var query = context.Categories.AsNoTracking();
-
-            if (!string.IsNullOrWhiteSpace(search))
-                query = query.Where(item => item.CategoryName.Contains(search));
-
-            var result = await query
-                .OrderBy(item => item.CategoryName)
-                .Select(item => new { id = item.Id, text = item.CategoryName })
-                .ToListAsync(cancellationToken);
-
-            return Ok(result);
+            var categories = await _mediator.Send(new GetCategoriesListRequest());
+            return Ok(categories);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(AddCategoryDto dto, CancellationToken cancellationToken)
+        [HttpPost("add-category")]
+        public async Task<IActionResult> AddCategory(AddCategoryDto category)
         {
-            if (!ModelState.IsValid)
-                return ValidationProblem(ModelState);
-
-            await mediator.Send(new AddCategoryCommand { AddCategoryDto = dto }, cancellationToken);
-            return Ok();
+            if (ModelState.IsValid)
+            {
+                await _mediator.Send(new AddCategoryCommand { AddCategoryDto = category });
+                return Ok(new { message = "ثبت معلومات با موفقیت شد" });
+            }
+            return BadRequest(new { message = "اضافه نمودن معلومات ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
 
-        [HttpPut("{id:int}")]
-        public async Task<IActionResult> Update(int id, [FromBody] AddCategoryDto dto, CancellationToken cancellationToken)
+        [HttpPut("update-category")]
+        public async Task<IActionResult> UpdateCategory(UpdateCategoryDto category)
         {
-            if (!ModelState.IsValid)
-                return ValidationProblem(ModelState);
-
-            var category = await context.Categories.FirstOrDefaultAsync(item => item.Id == id, cancellationToken);
-            if (category is null)
-                return NotFound();
-
-            category.CategoryName = dto.CategoryName;
-            category.UpdatedAt = DateTime.UtcNow;
-            await context.SaveChangesAsync(cancellationToken);
-            return NoContent();
+            if (ModelState.IsValid)
+            {
+                await _mediator.Send(new UpdateCategoryCommand { UpdateCategoryDto = category });
+                return Ok(new { message = "تغییرات معلومات با موفقیت شد" });
+            }
+            return BadRequest(new { message = "تجدید معلومات ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
     }
 }
