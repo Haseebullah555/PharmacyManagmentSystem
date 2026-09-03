@@ -1,4 +1,4 @@
-namespace Application.Dtos.Medicine
+namespace Application.Dtos.MedicineUnit
 {
     public class MedicineUnitDto
     {

@@ -1,6 +1,6 @@
 using Application.Dtos.Common;
 
-namespace Application.Dtos.Inventory
+namespace Application.Dtos.InventoryBatch
 {
     public class AddInventoryBatchDto : CreateBaseDto
     {

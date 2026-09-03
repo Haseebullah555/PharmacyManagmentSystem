@@ -1,9 +1,8 @@
-using Application.Dtos.Common;
-
-namespace Application.Dtos.Inventory
+namespace Application.Dtos.InventoryBatch
 {
-    public class UpdateInventoryBatchDto : UpdateBaseDto
+    public class InventoryBatchDto
     {
+        public int Id { get; set; }
         public int MedicineID { get; set; }
         public string BatchNumber { get; set; }
         public DateOnly? ManufacturingDate { get; set; }

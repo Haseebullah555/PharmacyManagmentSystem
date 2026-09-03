@@ -1,8 +1,9 @@
-namespace Application.Dtos.Inventory
+using Application.Dtos.Common;
+
+namespace Application.Dtos.InventoryStock
 {
-    public class InventoryStockDto
+    public class UpdateInventoryStockDto : UpdateBaseDto
     {
-        public int Id { get; set; }
         public int InventoryBatchID { get; set; }
         public int LocationID { get; set; }
         public int MedicineUnitID { get; set; }

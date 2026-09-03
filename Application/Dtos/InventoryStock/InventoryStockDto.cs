@@ -1,9 +1,8 @@
-using Application.Dtos.Common;
-
-namespace Application.Dtos.Inventory
+namespace Application.Dtos.InventoryStock
 {
-    public class AddInventoryStockDto : CreateBaseDto
+    public class InventoryStockDto
     {
+        public int Id { get; set; }
         public int InventoryBatchID { get; set; }
         public int LocationID { get; set; }
         public int MedicineUnitID { get; set; }

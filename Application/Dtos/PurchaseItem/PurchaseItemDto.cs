@@ -1,4 +1,4 @@
-namespace Application.Dtos.Purchase
+namespace Application.Dtos.PurchaseItem
 {
     public class PurchaseItemDto
     {

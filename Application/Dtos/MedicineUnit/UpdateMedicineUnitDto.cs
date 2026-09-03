@@ -1,8 +1,8 @@
 using Application.Dtos.Common;
 
-namespace Application.Dtos.Medicine
+namespace Application.Dtos.MedicineUnit
 {
-    public class AddMedicineUnitDto : CreateBaseDto
+    public class UpdateMedicineUnitDto : UpdateBaseDto
     {
         public int MedicineID { get; set; }
         public int UnitID { get; set; }

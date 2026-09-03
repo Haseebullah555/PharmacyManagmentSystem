@@ -1,9 +1,9 @@
 using Application.Contracts.Interfaces;
 using Application.Contracts.Interfaces.Common;
 using Application.Contracts.UserManagement;
-using Microsoft.EntityFrameworkCore.Storage;
 using Persistence.Database;
 using Persistence.Repositories.UserManagement;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Persistence.Repositories.Common
 {
@@ -23,15 +23,17 @@ namespace Persistence.Repositories.Common
         private IDosageRepository _dosageRepository;
         private ISupplierRepository _supplierRepository;
         private IMedicineRepository _medicineRepository;
+        private IMedicineUnitRepository _medicineUnitRepository;
+        private ILocationRepository _locationRepository;
         private IPurchaseRepository _purchaseRepository;
         private ISaleRepository _saleRepository;
         private IInventoryBatchRepository _inventoryBatchRepository;
         #endregion
-        
+
         #region User Management
         public IUserRepository Users => _userRepository ??= new UserRepository(_context);
         public IRoleRepository Roles => _roleRepository ??= new RoleRepository(_context);
-        
+
         #endregion
 
         #region Main Entities
@@ -41,6 +43,8 @@ namespace Persistence.Repositories.Common
         public IDosageRepository Dosages => _dosageRepository ??= new DosageRepository(_context);
         public ISupplierRepository Suppliers => _supplierRepository ??= new SupplierRepository(_context);
         public IMedicineRepository Medicines => _medicineRepository ??= new MedicineRepository(_context);
+        public IMedicineUnitRepository MedicineUnits => _medicineUnitRepository ??= new MedicineUnitRepository(_context);
+        public ILocationRepository Locaitons => _locationRepository ??= new LocationRepository(_context);
         public IPurchaseRepository Purchases => _purchaseRepository ??= new PurchaseRepository(_context);
         public ISaleRepository Sales => _saleRepository ??= new SaleRepository(_context);
         public IInventoryBatchRepository InventoryBatches => _inventoryBatchRepository ??= new InventoryBatchRepository(_context);

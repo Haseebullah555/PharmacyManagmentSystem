@@ -1,7 +1,7 @@
 using Application.Dtos.Common;
 using Domain.Enums;
 
-namespace Application.Dtos.Inventory
+namespace Application.Dtos.InventoryTransaction
 {
     public class UpdateInventoryTransactionDto : UpdateBaseDto
     {

@@ -1,10 +1,10 @@
+using Application.Dtos.Common;
 using Domain.Enums;
 
-namespace Application.Dtos.Inventory
+namespace Application.Dtos.InventoryTransaction
 {
-    public class InventoryTransactionDto
+    public class AddInventoryTransactionDto : CreateBaseDto
     {
-        public int Id { get; set; }
         public int MedicineID { get; set; }
         public int InventoryBatchID { get; set; }
         public int MedicineUnitID { get; set; }

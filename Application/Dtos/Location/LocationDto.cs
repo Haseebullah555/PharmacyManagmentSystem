@@ -1,4 +1,4 @@
-namespace Application.Dtos.Inventory
+namespace Application.Dtos.Location
 {
     public class LocationDto
     {

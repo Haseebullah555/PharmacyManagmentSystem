@@ -1,8 +1,8 @@
 using Application.Dtos.Common;
 
-namespace Application.Dtos.Purchase
+namespace Application.Dtos.PurchaseItem
 {
-    public class UpdatePurchaseItemDto : UpdateBaseDto
+    public class AddPurchaseItemDto : CreateBaseDto
     {
         public int PurchaseID { get; set; }
         public int MedicineID { get; set; }

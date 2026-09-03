@@ -1,12 +1,12 @@
 using Application.Dtos.Common;
 
-namespace Application.Dtos.Inventory
+namespace Application.Dtos.Location
 {
-    public class AddLocationDto : CreateBaseDto
+    public class UpdateLocationDto : UpdateBaseDto
     {
         public string Name { get; set; }
         public string? Code { get; set; }
         public int? ParentLocationID { get; set; }
-        public bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; }
     }
 }

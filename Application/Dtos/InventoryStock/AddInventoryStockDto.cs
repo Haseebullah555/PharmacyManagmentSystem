@@ -1,8 +1,8 @@
 using Application.Dtos.Common;
 
-namespace Application.Dtos.Inventory
+namespace Application.Dtos.InventoryStock
 {
-    public class UpdateInventoryStockDto : UpdateBaseDto
+    public class AddInventoryStockDto : CreateBaseDto
     {
         public int InventoryBatchID { get; set; }
         public int LocationID { get; set; }
