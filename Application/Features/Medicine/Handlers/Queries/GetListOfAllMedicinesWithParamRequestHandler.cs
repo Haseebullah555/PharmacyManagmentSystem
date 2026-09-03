@@ -53,6 +53,8 @@ namespace Application.Features.Medicine.Handlers.Queries
                     Id = e.Id,
                     GenericName = e.GenericName,
                     TradeName = e.TradeName,
+                    IsActive = e.IsActive,
+                    RequiresPrescription = e.RequiresPrescription,
                     DosageId = e.DosageId,
                     Dosage = e.Dosage.DosageName,
                     CategoryID = e.CategoryID,

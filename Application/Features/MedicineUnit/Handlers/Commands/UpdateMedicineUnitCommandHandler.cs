@@ -1,19 +1,19 @@
 using Application.Contracts.Interfaces.Common;
 using Application.Contracts.UserManagement;
-using Application.Features.Medicine.Requests.Commands;
+using Application.Features.MedicineUnit.Requests.Commands;
 using AutoMapper;
 using MediatR;
 
-namespace Application.Features.Medicine.Handlers.Commands
+namespace Application.Features.MedicineUnit.Handlers.Commands
 {
-    public class UpdateMedicineCommandHandler(IUnitOfWork unitOfWork, IMapper mapper, ICurrentUserRepository currentUser) : IRequestHandler<UpdateMedicineCommand>
+    public class UpdateMedicineUnitCommandHandler(IUnitOfWork unitOfWork, IMapper mapper, ICurrentUserRepository currentUser) : IRequestHandler<UpdateMedicineUnitCommand>
     {
-        public async Task Handle(UpdateMedicineCommand request, CancellationToken cancellationToken)
+        public async Task Handle(UpdateMedicineUnitCommand request, CancellationToken cancellationToken)
         {
-            var medicine = mapper.Map<Domain.Models.Medicine>(request.UpdateMedicineDto);
-            medicine.UpdatedAt = DateTime.UtcNow;
-            medicine.UpdateBy = currentUser.GetCurrentLoggedInUserId();
-            unitOfWork.Medicines.Update(medicine);
+            var medicineUnit = mapper.Map<Domain.Models.MedicineUnit>(request.UpdateMedicineUnitDto);
+            medicineUnit.UpdatedAt = DateTime.UtcNow;
+            medicineUnit.UpdateBy = currentUser.GetCurrentLoggedInUserId();
+            unitOfWork.MedicineUnits.Update(medicineUnit);
             await unitOfWork.SaveAsync(cancellationToken);
         }
     }

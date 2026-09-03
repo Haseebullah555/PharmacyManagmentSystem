@@ -14,6 +14,12 @@ using Application.Dtos.Currency;
 using Application.Dtos.Customer;
 using Application.Dtos.Inventory;
 using Application.Dtos.Unit;
+using Application.Dtos.MedicineUnit;
+using Application.Dtos.Location;
+using Application.Dtos.PurchaseItem;
+using Application.Dtos.InventoryTransaction;
+using Application.Dtos.InventoryStock;
+using Application.Dtos.InventoryBatch;
 
 namespace Application.Profiles
 {

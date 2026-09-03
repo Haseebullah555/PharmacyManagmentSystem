@@ -13,7 +13,7 @@ namespace Application.Features.MedicineUnit.Handlers.Queries
             var medicineUnits = await _unitOfWork.MedicineUnits.Query().AsNoTracking().Select(x => new DropDownDto
             {
                 Id = x.Id,
-                MedicineUnitName = x.GenericName + "-" + x.Category.CategoryName + "-" + x.Dosage.DosageName,
+                Name = x.Medicine.GenericName + "-" + x.Unit.Name,
 
             }).ToListAsync();
             return medicineUnits;
