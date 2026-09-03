@@ -17,6 +17,9 @@ namespace Application.Contracts.Interfaces.Common
         public ISupplierRepository Suppliers { get; }
         public IMedicineRepository Medicines { get; }
         public IMedicineUnitRepository MedicineUnits { get; }
+        public IInventoryStockRepository InventoryStocks { get; }
+        public IPurchaseItemRepository PurchaseItems { get; }
+        public IInventoryTransactionRepository InventoryTransactions { get; }
         public ILocationRepository Locations { get; }
         public IExpenseRepository Expenses { get; }
         public IPurchaseRepository Purchases { get; }

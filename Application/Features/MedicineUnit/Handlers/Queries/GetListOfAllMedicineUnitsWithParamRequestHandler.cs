@@ -16,7 +16,7 @@ namespace Application.Features.MedicineUnit.Handlers.Queries
             // Search
             if (!string.IsNullOrWhiteSpace(request.Search))
             {
-                query = query.Where(s => s.Medicine.GenericName.ToString().Contains(request.Search));
+                query = query.Where(s => s.Medicine.GenericName.Contains(request.Search));
             }
 
             // Sorting

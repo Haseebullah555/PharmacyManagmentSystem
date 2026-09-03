@@ -5,7 +5,7 @@ using Persistence.Repositories.Common;
 
 namespace Persistence.Repositories
 {
-    public class InventoryBatchRepository(AppDbContext context) : GenericRepository<InventoryBatch>(context), IInventoryBatchRepository
+    public class InventoryStockRepository(AppDbContext context) : GenericRepository<InventoryStock>(context), IInventoryStockRepository
     {
     }
 }

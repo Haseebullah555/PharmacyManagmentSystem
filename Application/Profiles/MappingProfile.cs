@@ -67,23 +67,34 @@ namespace Application.Profiles
 
             CreateMap<InventoryBatch, AddInventoryBatchDto>().ReverseMap();
             CreateMap<InventoryBatch, UpdateInventoryBatchDto>().ReverseMap();
+
             CreateMap<InventoryStock, AddInventoryStockDto>().ReverseMap();
             CreateMap<InventoryStock, UpdateInventoryStockDto>().ReverseMap();
+
             CreateMap<InventoryTransaction, AddInventoryTransactionDto>().ReverseMap();
             CreateMap<InventoryTransaction, UpdateInventoryTransactionDto>().ReverseMap();
+
             CreateMap<Location, AddLocationDto>().ReverseMap();
             CreateMap<Location, UpdateLocationDto>().ReverseMap();
+
             CreateMap<MedicineUnit, AddMedicineUnitDto>().ReverseMap();
             CreateMap<MedicineUnit, UpdateMedicineUnitDto>().ReverseMap();
+
+            CreateMap<Purchase, AddPurchaseDto>().ReverseMap();
+            CreateMap<Purchase, UpdatePurchaseDto>().ReverseMap();
+
             CreateMap<PurchaseItem, AddPurchaseItemDto>().ReverseMap();
             CreateMap<PurchaseItem, UpdatePurchaseItemDto>().ReverseMap();
+
             CreateMap<SaleBatchAllocation, AddSaleBatchAllocationDto>().ReverseMap();
             CreateMap<SaleBatchAllocation, UpdateSaleBatchAllocationDto>().ReverseMap();
+
             CreateMap<Unit, AddUnitDto>().ReverseMap();
             CreateMap<Unit, UpdateUnitDto>().ReverseMap();
 
             CreateMap<UserRole, AddUserRoleDto>().ReverseMap();
             CreateMap<UserRole, UpdateUserRoleDto>().ReverseMap();
+
             CreateMap<RolePermission, AddRolePermissionDto>().ReverseMap();
             CreateMap<RolePermission, UpdateRolePermissionDto>().ReverseMap();
 
