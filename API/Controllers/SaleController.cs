@@ -53,8 +53,20 @@ namespace API.Controllers
             {
                 await _mediator.Send(new UpdateSaleCommand { UpdateSaleDto = purchase });
                 return Ok(new { message = "تغییرات معلومات با موفقیت شد" });
-           }
+            }
             return BadRequest(new { message = "تجدید معلومات ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
+        }
+        [HttpGet("stocks-for-sale")]
+        public async Task<IActionResult> GetStocksForSale(
+    [FromQuery] int? medicineId)
+        {
+            var result = await _mediator.Send(
+                new GetInventoryStocksForSaleQuery
+                {
+                    MedicineID = medicineId
+                });
+
+            return Ok(result);
         }
     }
 }

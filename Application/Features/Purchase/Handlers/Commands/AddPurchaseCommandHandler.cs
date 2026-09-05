@@ -1,7 +1,6 @@
 using Application.Contracts.Interfaces.Common;
 using Application.Contracts.UserManagement;
 using Application.Features.Purchase.Requests.Commands;
-using AutoMapper;
 using Domain.Enums;
 using Domain.Models;
 using MediatR;

@@ -25,6 +25,7 @@ namespace Application.Contracts.Interfaces.Common
         public IPurchaseRepository Purchases { get; }
         public IPurchaseItemRepository PurchaseItems { get; }
         public ISaleRepository Sales { get; }
+        public ISaleItemRepository SaleItems { get; }
         #endregion
 
         Task SaveAsync(CancellationToken cancellationToken);
