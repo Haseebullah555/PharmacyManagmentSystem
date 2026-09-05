@@ -18,13 +18,13 @@ namespace Application.Contracts.Interfaces.Common
         public IMedicineRepository Medicines { get; }
         public IMedicineUnitRepository MedicineUnits { get; }
         public IInventoryStockRepository InventoryStocks { get; }
-        public IPurchaseItemRepository PurchaseItems { get; }
         public IInventoryTransactionRepository InventoryTransactions { get; }
+        public IInventoryBatchRepository InventoryBatches { get; }
         public ILocationRepository Locations { get; }
         public IExpenseRepository Expenses { get; }
         public IPurchaseRepository Purchases { get; }
+        public IPurchaseItemRepository PurchaseItems { get; }
         public ISaleRepository Sales { get; }
-        public IInventoryBatchRepository InventoryBatches { get; }
         #endregion
 
         Task SaveAsync(CancellationToken cancellationToken);

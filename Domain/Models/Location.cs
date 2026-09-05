@@ -7,7 +7,7 @@ namespace Domain.Models
 {
     [Required]
     [MaxLength(100)]
-    public string Name { get; set; }
+    public string LocationName { get; set; }
 
     [MaxLength(50)]
     public string? Code { get; set; }

@@ -10,7 +10,7 @@ namespace Persistence.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-           // StaffSeeder.Seed(modelBuilder);
+            // StaffSeeder.Seed(modelBuilder);
 
             modelBuilder.Entity<InventoryBatch>()
                 .HasIndex(batch => new { batch.MedicineID, batch.BatchNumber })
@@ -102,6 +102,7 @@ namespace Persistence.Database
         public DbSet<Company> Companies { get; set; }
         public DbSet<Dosage> Dosages { get; set; }
         public DbSet<Medicine> Medicines { get; set; }
+        public DbSet<MedicineUnit> MedicineUnits { get; set; }
         public DbSet<Purchase> Purchases { get; set; }
         public DbSet<Sale> Sales { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
@@ -111,7 +112,10 @@ namespace Persistence.Database
         public DbSet<InventoryAdjustment> InventoryAdjustments { get; set; }
         public DbSet<SaleBatchAllocation> SaleBatchAllocations { get; set; }
         public DbSet<SaleReturn> SaleReturns { get; set; }
-       
+        public DbSet<Expense> Expenses { get; set; }
+        public DbSet<Location> Locations { get; set; }
+
+
         #endregion
     }
 }

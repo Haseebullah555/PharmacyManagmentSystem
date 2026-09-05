@@ -13,8 +13,11 @@ namespace Application.Dtos.Sale
         public decimal Discount { get; set; }
         public string PaymentMethod { get; set; }
         public int MedicineID { get; set; }
+        public string Medicine { get; set; }
         public int CurrencyID { get; set; }
+        public string Currency { get; set; }
         public int CustomerID { get; set; }
+        public string Customer { get; set; }
         public int? InventoryBatchID { get; set; }
     }
 }
