@@ -23,5 +23,6 @@ namespace Application.Dtos.Sale
         public string LocationName { get; set; }
 
         public decimal Quantity { get; set; }
+        public DateOnly? ExpiryDate { get; set; }
     }
 }
