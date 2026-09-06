@@ -16,7 +16,7 @@ namespace Application.Features.Sale.Handlers.Queries
             // Search
             if (!string.IsNullOrWhiteSpace(request.Search))
             {
-                query = query.Where(s => s.Medicine.GenericName.Contains(request.Search));
+                query = query.Where(s => s.InvoiceNumber.Contains(request.Search));
             }
 
             // Sorting
@@ -25,8 +25,8 @@ namespace Application.Features.Sale.Handlers.Queries
                 if (request.SortBy.Equals("name", StringComparison.OrdinalIgnoreCase))
                 {
                     query = request.SortDirection == "desc"
-                        ? query.OrderByDescending(s => s.Medicine.GenericName)
-                        : query.OrderBy(s => s.Medicine.GenericName);
+                        ? query.OrderByDescending(s => s.InvoiceNumber)
+                        : query.OrderBy(s => s.InvoiceNumber);
                 }
                 else if (request.SortBy.Equals("id", StringComparison.OrdinalIgnoreCase))
                 {
@@ -51,13 +51,11 @@ namespace Application.Features.Sale.Handlers.Queries
                 .Select(e => new SaleDto
                 {
                     Id = e.Id,
-                    SaleAmount = e.SaleAmount,
+                    InvoiceNumber = e.InvoiceNumber,
                     SaleDate = e.SaleDate,
-                    TotalPrice = e.TotalPrice,
-                    Paid = e.Paid,
-                    Unpaid = e.Unpaid,
-                    MedicineID = e.MedicineID,
-                    Medicine = e.Medicine.GenericName,
+                    TotalAmount = e.TotalAmount,
+                    PaidAmount = e.PaidAmount,
+                    UnpaidAmount = e.UnpaidAmount,
                     CurrencyID = e.CurrencyID,
                     Currency = e.Currency.CurrencyName,
                     CustomerID = e.CustomerID,

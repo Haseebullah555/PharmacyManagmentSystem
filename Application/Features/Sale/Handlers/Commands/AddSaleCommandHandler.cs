@@ -152,7 +152,7 @@ public class AddSaleCommandHandler(
                 if (stock.Quantity < item.Quantity)
                 {
                     throw new ValidationException(
-                        $"Insufficient stock for {medicineName}. " +
+                        $"Insufficient stock for {stock.MedicineUnit.Medicine.GenericName}. " +
                         $"Available: {stock.Quantity}, Requested: {item.Quantity}.");
                 }
                 if (stock == null)

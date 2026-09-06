@@ -70,16 +70,16 @@ namespace Persistence.Database
             //     .WithMany()
             //     .HasForeignKey(purchase => purchase.InventoryBatchID)
             //     .OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<Sale>()
-                .HasOne(sale => sale.InventoryBatch)
-                .WithMany()
-                .HasForeignKey(sale => sale.InventoryBatchID)
-                .OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<SaleBatchAllocation>()
-                .HasOne(allocation => allocation.Sale)
-                .WithMany(sale => sale.BatchAllocations)
-                .HasForeignKey(allocation => allocation.SaleID)
-                .OnDelete(DeleteBehavior.Cascade);
+            // modelBuilder.Entity<Sale>()
+            //     .HasOne(sale => sale.InventoryBatch)
+            //     .WithMany()
+            //     .HasForeignKey(sale => sale.InventoryBatchID)
+            //     .OnDelete(DeleteBehavior.Restrict);
+            // modelBuilder.Entity<SaleBatchAllocation>()
+            //     .HasOne(allocation => allocation.Sale)
+            //     .WithMany(sale => sale.BatchAllocations)
+            //     .HasForeignKey(allocation => allocation.SaleID)
+            //     .OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<SaleBatchAllocation>()
                 .HasOne(allocation => allocation.InventoryBatch)
                 .WithMany()

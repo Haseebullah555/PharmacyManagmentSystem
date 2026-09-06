@@ -3,6 +3,7 @@ using Application.Dtos.Sale;
 using Application.Features.Sale.Requests.Queries;
 using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Sale.Handlers.Queries
 {
@@ -22,17 +23,15 @@ namespace Application.Features.Sale.Handlers.Queries
             _mapper = mapper;
         }
 
-        public async Task<List<InventoryStockForSaleDto>> Handle(
-            GetInventoryStocksForSaleQuery request,
-            CancellationToken cancellationToken)
+        public async Task<List<InventoryStockForSaleDto>> Handle(GetInventoryStocksForSaleQuery request, CancellationToken cancellationToken)
         {
             var query = _unitOfWork
-                .Repository<InventoryStock>()
+                .InventoryStocks
                 .Query()
                 .Where(x =>
                     x.Quantity > 0 &&
                     x.InventoryBatch.IsActive &&
-                    x.MedicineUnit.IsActive &&
+                    // x.MedicineUnit.IsActive &&
                     x.Location.IsActive);
 
             if (request.MedicineID.HasValue)
@@ -57,11 +56,10 @@ namespace Application.Features.Sale.Handlers.Queries
                     UnitShortName = x.MedicineUnit.Unit.ShortName,
 
                     LocationID = x.LocationID,
-                    LocationName = x.Location.Name,
+                    LocationName = x.Location.LocationName,
 
                     Quantity = x.Quantity
-                })
-                .ToListAsync(cancellationToken);
+                }).ToListAsync(cancellationToken);
         }
     }
 }
