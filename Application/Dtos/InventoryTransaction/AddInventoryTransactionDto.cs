@@ -5,9 +5,9 @@ namespace Application.Dtos.InventoryTransaction
 {
     public class AddInventoryTransactionDto : CreateBaseDto
     {
-        public int MedicineID { get; set; }
-        public int InventoryBatchID { get; set; }
-        public int MedicineUnitID { get; set; }
+        public int MedicineId { get; set; }
+        public int InventoryBatchId { get; set; }
+        public int MedicineUnitId { get; set; }
         public int LocationID { get; set; }
         public decimal Quantity { get; set; }
         public InventoryTransactionType TransactionType { get; set; }

@@ -4,7 +4,7 @@ namespace Application.Dtos.InventoryBatch
 {
     public class UpdateInventoryBatchDto : UpdateBaseDto
     {
-        public int MedicineID { get; set; }
+        public int MedicineId { get; set; }
         public string BatchNumber { get; set; }
         public DateOnly? ManufacturingDate { get; set; }
         public DateOnly? ExpiryDate { get; set; }

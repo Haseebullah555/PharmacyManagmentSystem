@@ -4,7 +4,7 @@ namespace Application.Dtos.MedicineUnit
 {
     public class AddMedicineUnitDto : CreateBaseDto
     {
-        public int MedicineID { get; set; }
+        public int MedicineId { get; set; }
         public int UnitID { get; set; }
         public decimal ConversionFactor { get; set; }
         public bool IsBaseUnit { get; set; }

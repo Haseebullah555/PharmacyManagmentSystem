@@ -29,6 +29,7 @@ namespace Persistence.Repositories.Common
         private IInventoryTransactionRepository _inventoryTransactionRepository;
         private IPurchaseRepository _purchaseRepository;
         private IPurchaseItemRepository _purchaseItemRepository;
+        private ICustomerRepository _customerRepository;
         private ISaleRepository _saleRepository;
         private ISaleItemRepository _saleItemRepository;
         private IInventoryBatchRepository _inventoryBatchRepository;
@@ -53,6 +54,7 @@ namespace Persistence.Repositories.Common
         public ILocationRepository Locations => _locationRepository ??= new LocationRepository(_context);
         public IPurchaseRepository Purchases => _purchaseRepository ??= new PurchaseRepository(_context);
         public IPurchaseItemRepository PurchaseItems => _purchaseItemRepository ??= new PurchaseItemRepository(_context);
+        public ICustomerRepository Customers => _customerRepository ??= new CustomerRepository(_context);
         public ISaleRepository Sales => _saleRepository ??= new SaleRepository(_context);
         public ISaleItemRepository SaleItems => _saleItemRepository ??= new SaleItemRepository(_context);
         public IInventoryBatchRepository InventoryBatches => _inventoryBatchRepository ??= new InventoryBatchRepository(_context);

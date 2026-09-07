@@ -7,10 +7,10 @@ namespace Application.Validators
     {
         public AddPurchaseCommandValidator()
         {
-            RuleFor(x => x.AddPurchaseDto.SupplierID)
+            RuleFor(x => x.AddPurchaseDto.SupplierId)
                 .GreaterThan(0);
 
-            RuleFor(x => x.AddPurchaseDto.CurrencyID)
+            RuleFor(x => x.AddPurchaseDto.CurrencyId)
                 .GreaterThan(0);
 
             RuleFor(x => x.AddPurchaseDto.Items)

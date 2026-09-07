@@ -1,71 +1,68 @@
-using Domain.Models;
+using API.Controllers.Common;
+using Application.Dtos.Customer;
+using Application.Features.Customer.Requests.Commands;
+using Application.Features.Customer.Requests.Queries;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Persistence.Database;
 
 namespace API.Controllers
 {
     [ApiController]
-    [Route("api/customers")]
-    public class CustomerController(AppDbContext context) : ControllerBase
+    [Route("api/[controller]")]
+    public class CustomerController : BaseApiController
     {
-        [HttpGet]
-        public async Task<ActionResult<List<object>>> GetAll([FromQuery] string? search = null, CancellationToken cancellationToken = default)
+        [HttpGet("get-with-param")]
+        public async Task<IActionResult> GetCustomersWithParam([FromQuery] string? search, [FromQuery] string? sort_field, [FromQuery] string? sort_order, [FromQuery] int page = 1, [FromQuery] int per_page = 10)
         {
-            var query = context.Customers.AsNoTracking();
-
-            if (!string.IsNullOrWhiteSpace(search))
-                query = query.Where(item => item.CustomerName.Contains(search) || item.PhoneNo.Contains(search));
-
-            var result = await query
-                .OrderBy(item => item.CustomerName)
-                .Select(item => new { id = item.Id, customerName = item.CustomerName, phoneNo = item.PhoneNo, address = item.Address })
-                .ToListAsync(cancellationToken);
-
-            return Ok(result);
+            var categories = await _mediator.Send(new GetListOfAllCustomersWithParamRequest
+            {
+                Search = search,
+                SortBy = sort_field,
+                SortDirection = sort_order,
+                Page = page,
+                PerPage = per_page
+            });
+            return Ok(new
+            {
+                data = categories.Data,
+                meta = new
+                {
+                    total = categories.Total,
+                    current_page = categories.CurrentPage,
+                    per_page = categories.PerPage,
+                    last_page = categories.LastPage,
+                    from = categories.From,
+                    to = categories.To
+                }
+            });
         }
 
-        [HttpGet("select-list")]
-        public async Task<ActionResult<List<object>>> GetSelectList([FromQuery] string? search = null, CancellationToken cancellationToken = default)
+        [HttpGet("get-all")]
+        public async Task<IActionResult> GetCustomersList()
         {
-            var query = context.Customers.AsNoTracking();
-
-            if (!string.IsNullOrWhiteSpace(search))
-                query = query.Where(item => item.CustomerName.Contains(search) || item.PhoneNo.Contains(search));
-
-            var result = await query
-                .OrderBy(item => item.CustomerName)
-                .Select(item => new { id = item.Id, text = item.CustomerName })
-                .ToListAsync(cancellationToken);
-
-            return Ok(result);
+            var categories = await _mediator.Send(new GetCustomersListRequest());
+            return Ok(categories);
         }
 
-        [HttpPost]
-        public async Task<ActionResult<int>> Create(Customer dto, CancellationToken cancellationToken)
+        [HttpPost("add-customer")]
+        public async Task<IActionResult> AddCustomer(AddCustomerDto customer)
         {
-            if (!ModelState.IsValid)
-                return ValidationProblem(ModelState);
-
-            dto.CreatedAt = DateTime.UtcNow;
-            context.Customers.Add(dto);
-            await context.SaveChangesAsync(cancellationToken);
-            return Ok(dto.Id);
+            if (ModelState.IsValid)
+            {
+                await _mediator.Send(new AddCustomerCommand { AddCustomerDto = customer });
+                return Ok(new { message = "ثبت معلومات با موفقیت شد" });
+            }
+            return BadRequest(new { message = "اضافه نمودن معلومات ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
 
-        [HttpPut("{id:int}")]
-        public async Task<IActionResult> Update(int id, Customer dto, CancellationToken cancellationToken)
+        [HttpPut("update-customer")]
+        public async Task<IActionResult> UpdateCustomer(UpdateCustomerDto customer)
         {
-            var customer = await context.Customers.FirstOrDefaultAsync(item => item.Id == id, cancellationToken);
-            if (customer is null)
-                return NotFound();
-
-            customer.CustomerName = dto.CustomerName;
-            customer.PhoneNo = dto.PhoneNo;
-            customer.Address = dto.Address;
-            customer.UpdatedAt = DateTime.UtcNow;
-            await context.SaveChangesAsync(cancellationToken);
-            return NoContent();
+            if (ModelState.IsValid)
+            {
+                await _mediator.Send(new UpdateCustomerCommand { UpdateCustomerDto = customer });
+                return Ok(new { message = "تغییرات معلومات با موفقیت شد" });
+            }
+            return BadRequest(new { message = "تجدید معلومات ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
     }
 }

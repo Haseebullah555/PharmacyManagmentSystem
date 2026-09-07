@@ -10,7 +10,7 @@ namespace Domain.Models
 
         public int SaleID { get; set; }
         public Sale Sale { get; set; }
-        public int InventoryBatchID { get; set; }
+        public int InventoryBatchId { get; set; }
         public InventoryBatch InventoryBatch { get; set; }
         public ICollection<SaleReturn> SaleReturns { get; set; } = new List<SaleReturn>();
     }

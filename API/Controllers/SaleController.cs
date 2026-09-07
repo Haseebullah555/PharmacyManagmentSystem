@@ -57,12 +57,12 @@ namespace API.Controllers
             return BadRequest(new { message = "تجدید معلومات ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
         [HttpGet("stocks-for-sale")]
-        public async Task<IActionResult> GetStocksForSale([FromQuery] int? medicineId)
+        public async Task<IActionResult> GetStocksForSale([FromQuery] int? MedicineId)
         {
             var result = await _mediator.Send(
                 new GetInventoryStocksForSaleQuery
                 {
-                    MedicineID = medicineId
+                    MedicineId = MedicineId
                 });
 
             return Ok(result);

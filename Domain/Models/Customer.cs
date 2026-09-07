@@ -8,7 +8,7 @@ namespace Domain.Models
         [Required]
         public string CustomerName { get; set; }
         [Required]
-        public string PhoneNo { get; set; }
+        public string Phone { get; set; }
         public  string Address { get; set; }
      
     }

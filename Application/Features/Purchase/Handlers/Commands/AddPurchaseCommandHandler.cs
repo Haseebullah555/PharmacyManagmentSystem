@@ -48,8 +48,8 @@ namespace Application.Features.Purchase.Handlers.Commands
                 {
                     PurchaseDate = dto.PurchaseDate,
                     InvoiceNumber = dto.InvoiceNumber,
-                    SupplierID = dto.SupplierID,
-                    CurrencyID = dto.CurrencyID,
+                    SupplierId = dto.SupplierId,
+                    CurrencyId = dto.CurrencyId,
 
                     TotalAmount = totalAmount,
                     PaidAmount = dto.PaidAmount,
@@ -83,8 +83,8 @@ namespace Application.Features.Purchase.Handlers.Commands
                             .Query()
                             .FirstOrDefaultAsync(
                                 x =>
-                                    x.MedicineID ==
-                                        itemDto.MedicineID &&
+                                    x.MedicineId ==
+                                        itemDto.MedicineId &&
                                     x.BatchNumber ==
                                         itemDto.BatchNumber,
                                 cancellationToken);
@@ -98,8 +98,8 @@ namespace Application.Features.Purchase.Handlers.Commands
                     {
                         batch = new InventoryBatch
                         {
-                            MedicineID =
-                                itemDto.MedicineID,
+                            MedicineId =
+                                itemDto.MedicineId,
 
                             BatchNumber =
                                 itemDto.BatchNumber,
@@ -130,13 +130,13 @@ namespace Application.Features.Purchase.Handlers.Commands
 
                     var purchaseItem = new PurchaseItem
                     {
-                        PurchaseID = purchase.Id,
+                        PurchaseId = purchase.Id,
 
-                        MedicineID =
-                            itemDto.MedicineID,
+                        MedicineId =
+                            itemDto.MedicineId,
 
-                        MedicineUnitID =
-                            itemDto.MedicineUnitID,
+                        MedicineUnitId =
+                            itemDto.MedicineUnitId,
 
                         Quantity =
                             itemDto.Quantity,
@@ -148,7 +148,7 @@ namespace Application.Features.Purchase.Handlers.Commands
                             itemDto.Quantity *
                             itemDto.UnitPrice,
 
-                        InventoryBatchID =
+                        InventoryBatchId =
                             batch.Id,
 
                         CreatedAt = DateTime.UtcNow,
@@ -168,12 +168,12 @@ namespace Application.Features.Purchase.Handlers.Commands
                             .Query()
                             .FirstOrDefaultAsync(
                                 x =>
-                                    x.InventoryBatchID ==
+                                    x.InventoryBatchId ==
                                         batch.Id &&
                                     x.LocationID ==
                                         itemDto.LocationID &&
-                                    x.MedicineUnitID ==
-                                        itemDto.MedicineUnitID,
+                                    x.MedicineUnitId ==
+                                        itemDto.MedicineUnitId,
                                 cancellationToken);
 
 
@@ -181,14 +181,14 @@ namespace Application.Features.Purchase.Handlers.Commands
                     {
                         stock = new InventoryStock
                         {
-                            InventoryBatchID =
+                            InventoryBatchId =
                                 batch.Id,
 
                             LocationID =
                                 itemDto.LocationID,
 
-                            MedicineUnitID =
-                                itemDto.MedicineUnitID,
+                            MedicineUnitId =
+                                itemDto.MedicineUnitId,
 
                             Quantity =
                                 itemDto.Quantity,
@@ -223,14 +223,14 @@ namespace Application.Features.Purchase.Handlers.Commands
                     var inventoryTransaction =
                         new InventoryTransaction
                         {
-                            MedicineID =
-                                itemDto.MedicineID,
+                            MedicineId =
+                                itemDto.MedicineId,
 
-                            InventoryBatchID =
+                            InventoryBatchId =
                                 batch.Id,
 
-                            MedicineUnitID =
-                                itemDto.MedicineUnitID,
+                            MedicineUnitId =
+                                itemDto.MedicineUnitId,
 
                             LocationID =
                                 itemDto.LocationID,

@@ -9,9 +9,9 @@ namespace Application.Dtos.Purchase
 
         public string? InvoiceNumber { get; set; }
 
-        public int SupplierID { get; set; }
+        public int SupplierId { get; set; }
 
-        public int CurrencyID { get; set; }
+        public int CurrencyId { get; set; }
 
         public decimal PaidAmount { get; set; }
 

@@ -13,9 +13,9 @@ namespace Application.Dtos.Sale
         public string ReceiptNumber { get; set; }
         public decimal Discount { get; set; }
         public string PaymentMethod { get; set; }
-        public int MedicineID { get; set; }
-        public int CurrencyID { get; set; }
-        public int CustomerID { get; set; }
-        public int? InventoryBatchID { get; set; }
+        public int MedicineId { get; set; }
+        public int CurrencyId { get; set; }
+        public int CustomerId { get; set; }
+        public int? InventoryBatchId { get; set; }
     }
 }

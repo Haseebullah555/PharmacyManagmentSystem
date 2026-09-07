@@ -3,7 +3,7 @@ namespace Application.Dtos.MedicineUnit
     public class MedicineUnitDto
     {
         public int Id { get; set; }
-        public int MedicineID { get; set; }
+        public int MedicineId { get; set; }
         public string Medicine { get; set; }
         public int UnitID { get; set; }
         public string Unit { get; set; }

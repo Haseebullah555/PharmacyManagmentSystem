@@ -12,11 +12,11 @@ namespace Domain.Models
         public string? InvoiceNumber { get; set; }
 
         [Required]
-        public int SupplierID { get; set; }
+        public int SupplierId { get; set; }
         public Supplier Supplier { get; set; }
 
         [Required]
-        public int CurrencyID { get; set; }
+        public int CurrencyId { get; set; }
         public Currency Currency { get; set; }
 
         [Required]

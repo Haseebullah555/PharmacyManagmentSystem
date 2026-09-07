@@ -57,9 +57,9 @@ namespace Application.Features.Purchase.Handlers.Queries
                     PaidAmount = e.PaidAmount,
                     UnpaidAmount = e.UnpaidAmount,
                     Remarks = e.Remarks,
-                    SupplierID = e.SupplierID,
+                    SupplierId = e.SupplierId,
                     Supplier = e.Supplier.SupplierName,
-                    CurrencyID = e.CurrencyID,
+                    CurrencyId = e.CurrencyId,
                     Currency = e.Currency.CurrencyName,
                 }).ToListAsync(cancellationToken);
 

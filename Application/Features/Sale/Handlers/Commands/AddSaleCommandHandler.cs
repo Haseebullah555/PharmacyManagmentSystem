@@ -83,8 +83,8 @@ public class AddSaleCommandHandler(
             var sale = new Domain.Models.Sale
             {
                 SaleDate = dto.SaleDate,
-                CustomerID = dto.CustomerID,
-                CurrencyID = dto.CurrencyID,
+                CustomerId = dto.CustomerId,
+                CurrencyId = dto.CurrencyId,
 
                 TotalAmount = totalAmount,
                 PaidAmount = dto.PaidAmount,
@@ -127,14 +127,14 @@ public class AddSaleCommandHandler(
                 var batch = await _unitOfWork.InventoryBatches
                     .Query()
                     .FirstOrDefaultAsync(
-                        x => x.Id == item.InventoryBatchID
-                             && x.MedicineID == item.MedicineID
+                        x => x.Id == item.InventoryBatchId
+                             && x.MedicineId == item.MedicineId
                              && x.IsActive,
                         cancellationToken);
 
                 if (batch == null)
                     throw new Exception(
-                        $"Inventory batch not found for Medicine ID {item.MedicineID}.");
+                        $"Inventory batch not found for Medicine ID {item.MedicineId}.");
 
 
                 // -----------------------------------------
@@ -145,9 +145,9 @@ public class AddSaleCommandHandler(
                     .Query()
                     .FirstOrDefaultAsync(
                         x =>
-                            x.InventoryBatchID == item.InventoryBatchID &&
+                            x.InventoryBatchId == item.InventoryBatchId &&
                             x.LocationID == item.LocationID &&
-                            x.MedicineUnitID == item.MedicineUnitID,
+                            x.MedicineUnitId == item.MedicineUnitId,
                         cancellationToken);
                 if (stock.Quantity < item.Quantity)
                 {
@@ -157,7 +157,7 @@ public class AddSaleCommandHandler(
                 }
                 if (stock == null)
                     throw new Exception(
-                        $"No inventory stock found for Medicine ID {item.MedicineID}.");
+                        $"No inventory stock found for Medicine ID {item.MedicineId}.");
 
                 // -----------------------------------------
                 // Check Available Quantity
@@ -190,10 +190,10 @@ public class AddSaleCommandHandler(
                 {
                     SaleID = sale.Id,
 
-                    MedicineID = item.MedicineID,
-                    MedicineUnitID = item.MedicineUnitID,
+                    MedicineId = item.MedicineId,
+                    MedicineUnitId = item.MedicineUnitId,
 
-                    InventoryBatchID = item.InventoryBatchID,
+                    InventoryBatchId = item.InventoryBatchId,
                     LocationID = item.LocationID,
 
                     Quantity = item.Quantity,
@@ -219,13 +219,13 @@ public class AddSaleCommandHandler(
                 var inventoryTransaction =
                     new Domain.Models.InventoryTransaction
                     {
-                        MedicineID = item.MedicineID,
+                        MedicineId = item.MedicineId,
 
-                        InventoryBatchID =
-                            item.InventoryBatchID,
+                        InventoryBatchId =
+                            item.InventoryBatchId,
 
-                        MedicineUnitID =
-                            item.MedicineUnitID,
+                        MedicineUnitId =
+                            item.MedicineUnitId,
 
                         LocationID =
                             item.LocationID,

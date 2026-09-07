@@ -13,7 +13,7 @@ namespace Persistence.Database
             // StaffSeeder.Seed(modelBuilder);
 
             modelBuilder.Entity<InventoryBatch>()
-                .HasIndex(batch => new { batch.MedicineID, batch.BatchNumber })
+                .HasIndex(batch => new { batch.MedicineId, batch.BatchNumber })
                 .IsUnique();
 
             // modelBuilder.Entity<InventoryBatch>()
@@ -53,27 +53,27 @@ namespace Persistence.Database
             modelBuilder.Entity<InventoryBatch>()
                 .HasOne(batch => batch.Medicine)
                 .WithMany(medicine => medicine.InventoryBatches)
-                .HasForeignKey(batch => batch.MedicineID)
+                .HasForeignKey(batch => batch.MedicineId)
                 .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<InventoryAdjustment>()
                 .HasOne(adjustment => adjustment.Medicine)
                 .WithMany(medicine => medicine.InventoryAdjustments)
-                .HasForeignKey(adjustment => adjustment.MedicineID)
+                .HasForeignKey(adjustment => adjustment.MedicineId)
                 .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<InventoryAdjustment>()
                 .HasOne(adjustment => adjustment.InventoryBatch)
                 .WithMany()
-                .HasForeignKey(adjustment => adjustment.InventoryBatchID)
+                .HasForeignKey(adjustment => adjustment.InventoryBatchId)
                 .OnDelete(DeleteBehavior.Restrict);
             // modelBuilder.Entity<Purchase>()
             //     .HasOne(purchase => purchase.InventoryBatch)
             //     .WithMany()
-            //     .HasForeignKey(purchase => purchase.InventoryBatchID)
+            //     .HasForeignKey(purchase => purchase.InventoryBatchId)
             //     .OnDelete(DeleteBehavior.Restrict);
             // modelBuilder.Entity<Sale>()
             //     .HasOne(sale => sale.InventoryBatch)
             //     .WithMany()
-            //     .HasForeignKey(sale => sale.InventoryBatchID)
+            //     .HasForeignKey(sale => sale.InventoryBatchId)
             //     .OnDelete(DeleteBehavior.Restrict);
             // modelBuilder.Entity<SaleBatchAllocation>()
             //     .HasOne(allocation => allocation.Sale)
@@ -83,7 +83,7 @@ namespace Persistence.Database
             modelBuilder.Entity<SaleBatchAllocation>()
                 .HasOne(allocation => allocation.InventoryBatch)
                 .WithMany()
-                .HasForeignKey(allocation => allocation.InventoryBatchID)
+                .HasForeignKey(allocation => allocation.InventoryBatchId)
                 .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<SaleReturn>()
                 .HasOne(returnItem => returnItem.SaleBatchAllocation)

@@ -52,7 +52,7 @@ namespace Application.Features.MedicineUnit.Handlers.Queries
                 {
                     Id = e.Id,
                     Medicine = e.Medicine.GenericName,
-                    MedicineID = e.MedicineID,
+                    MedicineId = e.MedicineId,
                     UnitID = e.UnitID,
                     Unit = e.Unit.Name,
                     ConversionFactor = e.ConversionFactor,

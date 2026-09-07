@@ -34,10 +34,10 @@ namespace Application.Features.Sale.Handlers.Queries
                     // x.MedicineUnit.IsActive &&
                     x.Location.IsActive);
 
-            if (request.MedicineID.HasValue)
+            if (request.MedicineId.HasValue)
             {
                 query = query.Where(x =>
-                    x.InventoryBatch.MedicineID == request.MedicineID.Value);
+                    x.InventoryBatch.MedicineId == request.MedicineId.Value);
             }
 
             return await query
@@ -45,13 +45,13 @@ namespace Application.Features.Sale.Handlers.Queries
                 {
                     Id = x.Id,
 
-                    MedicineID = x.InventoryBatch.MedicineID,
+                    MedicineId = x.InventoryBatch.MedicineId,
                     MedicineName = x.InventoryBatch.Medicine.TradeName,
 
-                    InventoryBatchID = x.InventoryBatchID,
+                    InventoryBatchId = x.InventoryBatchId,
                     BatchNumber = x.InventoryBatch.BatchNumber,
 
-                    MedicineUnitID = x.MedicineUnitID,
+                    MedicineUnitId = x.MedicineUnitId,
                     UnitName = x.MedicineUnit.Unit.Name,
                     UnitShortName = x.MedicineUnit.Unit.ShortName,
 

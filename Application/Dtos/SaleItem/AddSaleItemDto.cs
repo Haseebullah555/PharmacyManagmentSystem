@@ -2,11 +2,11 @@ namespace Application.Dtos.SaleItem
 {
     public class AddSaleItemDto
     {
-        public int MedicineID { get; set; }
+        public int MedicineId { get; set; }
 
-        public int MedicineUnitID { get; set; }
+        public int MedicineUnitId { get; set; }
 
-        public int InventoryBatchID { get; set; }
+        public int InventoryBatchId { get; set; }
 
         public int LocationID { get; set; }
 

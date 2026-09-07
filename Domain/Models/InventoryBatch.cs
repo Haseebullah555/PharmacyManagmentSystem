@@ -6,7 +6,7 @@ namespace Domain.Models
     public class InventoryBatch : BaseDomainEntity
     {
         [Required]
-        public int MedicineID { get; set; }
+        public int MedicineId { get; set; }
         public Medicine Medicine { get; set; }
 
         [Required]

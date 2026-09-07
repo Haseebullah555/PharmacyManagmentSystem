@@ -10,9 +10,9 @@ namespace Domain.Models
         public string Notes { get; set; }
         public DateOnly AdjustmentDate { get; set; }
 
-        public int MedicineID { get; set; }
+        public int MedicineId { get; set; }
         public Medicine Medicine { get; set; }
-        public int? InventoryBatchID { get; set; }
+        public int? InventoryBatchId { get; set; }
         public InventoryBatch InventoryBatch { get; set; }
     }
 }

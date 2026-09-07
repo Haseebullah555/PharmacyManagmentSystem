@@ -11,7 +11,7 @@ namespace Application.Dtos.Inventory
         public string Notes { get; set; }
         public DateOnly AdjustmentDate { get; set; }
         [Range(1, int.MaxValue)]
-        public int MedicineID { get; set; }
-        public int? InventoryBatchID { get; set; }
+        public int MedicineId { get; set; }
+        public int? InventoryBatchId { get; set; }
     }
 }

@@ -8,11 +8,11 @@ namespace Domain.Models
         [Required]
         public DateOnly SaleDate { get; set; }
 
-        public int? CustomerID { get; set; }
+        public int? CustomerId { get; set; }
         public Customer? Customer { get; set; }
 
         [Required]
-        public int CurrencyID { get; set; }
+        public int CurrencyId { get; set; }
         public Currency Currency { get; set; }
 
         [Required]

@@ -4,9 +4,9 @@ namespace Application.Dtos.PurchaseItem
 {
     public class AddPurchaseItemDto
     {
-        public int MedicineID { get; set; }
+        public int MedicineId { get; set; }
 
-        public int MedicineUnitID { get; set; }
+        public int MedicineUnitId { get; set; }
 
         public decimal Quantity { get; set; }
 

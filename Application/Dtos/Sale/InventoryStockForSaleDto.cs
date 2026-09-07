@@ -4,13 +4,13 @@ namespace Application.Dtos.Sale
     {
         public int Id { get; set; }
 
-        public int MedicineID { get; set; }
+        public int MedicineId { get; set; }
         public string MedicineName { get; set; }
 
-        public int InventoryBatchID { get; set; }
+        public int InventoryBatchId { get; set; }
         public string BatchNumber { get; set; }
 
-        public int MedicineUnitID { get; set; }
+        public int MedicineUnitId { get; set; }
         public string UnitName { get; set; }
         public string UnitShortName { get; set; }
 

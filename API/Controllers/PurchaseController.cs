@@ -35,6 +35,25 @@ namespace API.Controllers
                 }
             });
         }
+        [HttpGet("get-by-id/{id}")]
+        public async Task<IActionResult> GetPurchaseById(int id)
+        {
+            var purchase = await _mediator.Send(
+                new GetPurchaseByIdRequest
+                {
+                    Id = id
+                });
+
+            if (purchase == null)
+            {
+                return NotFound(new
+                {
+                    message = "Purchase not found"
+                });
+            }
+
+            return Ok(purchase);
+        }
         [HttpPost("add-purchase")]
         public async Task<IActionResult> AddPurchase(AddPurchaseDto purchase)
         {

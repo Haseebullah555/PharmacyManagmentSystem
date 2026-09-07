@@ -7,10 +7,10 @@ namespace Application.Validators
 {
     public AddPurchaseItemValidator()
     {
-        RuleFor(x => x.MedicineID)
+        RuleFor(x => x.MedicineId)
             .GreaterThan(0);
 
-        RuleFor(x => x.MedicineUnitID)
+        RuleFor(x => x.MedicineUnitId)
             .GreaterThan(0);
 
         RuleFor(x => x.Quantity)

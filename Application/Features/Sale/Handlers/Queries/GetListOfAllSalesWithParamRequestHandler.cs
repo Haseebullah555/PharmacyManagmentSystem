@@ -56,9 +56,9 @@ namespace Application.Features.Sale.Handlers.Queries
                     TotalAmount = e.TotalAmount,
                     PaidAmount = e.PaidAmount,
                     UnpaidAmount = e.UnpaidAmount,
-                    CurrencyID = e.CurrencyID,
+                    CurrencyId = e.CurrencyId,
                     Currency = e.Currency.CurrencyName,
-                    CustomerID = e.CustomerID,
+                    CustomerId = e.CustomerId,
                     Customer = e.Customer.CustomerName,
                 }).ToListAsync(cancellationToken);
 

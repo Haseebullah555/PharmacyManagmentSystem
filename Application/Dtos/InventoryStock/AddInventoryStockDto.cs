@@ -4,9 +4,9 @@ namespace Application.Dtos.InventoryStock
 {
     public class AddInventoryStockDto : CreateBaseDto
     {
-        public int InventoryBatchID { get; set; }
+        public int InventoryBatchId { get; set; }
         public int LocationID { get; set; }
-        public int MedicineUnitID { get; set; }
+        public int MedicineUnitId { get; set; }
         public decimal Quantity { get; set; }
     }
 }

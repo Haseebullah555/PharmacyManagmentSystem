@@ -4,9 +4,9 @@ namespace Application.Dtos.Sale
     {
         public int Id { get; set; }
         public DateOnly SaleDate { get; set; }
-        public int? CustomerID { get; set; }
+        public int? CustomerId { get; set; }
         public string Customer { get; set; }
-        public int CurrencyID { get; set; }
+        public int CurrencyId { get; set; }
         public string Currency { get; set; }
         public decimal TotalAmount { get; set; }
         public decimal PaidAmount { get; set; }

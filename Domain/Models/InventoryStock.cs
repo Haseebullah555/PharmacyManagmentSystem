@@ -6,7 +6,7 @@ namespace Domain.Models
     public class InventoryStock : BaseDomainEntity
     {
         [Required]
-        public int InventoryBatchID { get; set; }
+        public int InventoryBatchId { get; set; }
         public InventoryBatch InventoryBatch { get; set; }
 
         [Required]
@@ -14,7 +14,7 @@ namespace Domain.Models
         public Location Location { get; set; }
 
         [Required]
-        public int MedicineUnitID { get; set; }
+        public int MedicineUnitId { get; set; }
         public MedicineUnit MedicineUnit { get; set; }
 
         [Required]
