@@ -15,6 +15,7 @@ namespace Persistence.Repositories.Common
             _context = context;
         }
         #region Private fields
+        private ICurrencyRepository _currencyRepository;
         private IRoleRepository _roleRepository;
         private IUserRepository _userRepository;
         private IExpenseRepository _expenseRepository;
@@ -23,6 +24,7 @@ namespace Persistence.Repositories.Common
         private IDosageRepository _dosageRepository;
         private ISupplierRepository _supplierRepository;
         private IMedicineRepository _medicineRepository;
+        private IUnitRepository _unitRepository;
         private IMedicineUnitRepository _medicineUnitRepository;
         private ILocationRepository _locationRepository;
         private IInventoryStockRepository _inventoryStockRepository;
@@ -42,12 +44,14 @@ namespace Persistence.Repositories.Common
         #endregion
 
         #region Main Entities
+        public ICurrencyRepository Currencies => _currencyRepository ??= new CurrencyRepository(_context);
         public IExpenseRepository Expenses => _expenseRepository ??= new ExpenseRepository(_context);
         public ICategoryRepository Categories => _categoryRepository ??= new CategoryRepository(_context);
         public ICompanyRepository Companies => _companyRepository ??= new CompanyRepository(_context);
         public IDosageRepository Dosages => _dosageRepository ??= new DosageRepository(_context);
         public ISupplierRepository Suppliers => _supplierRepository ??= new SupplierRepository(_context);
         public IMedicineRepository Medicines => _medicineRepository ??= new MedicineRepository(_context);
+        public IUnitRepository Units => _unitRepository ??= new UnitRepository(_context);
         public IMedicineUnitRepository MedicineUnits => _medicineUnitRepository ??= new MedicineUnitRepository(_context);
         public IInventoryStockRepository InventoryStocks => _inventoryStockRepository ??= new InventoryStockRepository(_context);
         public IInventoryTransactionRepository InventoryTransactions => _inventoryTransactionRepository ??= new InventoryTransactionRepository(_context);

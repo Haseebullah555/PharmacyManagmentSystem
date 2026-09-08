@@ -9,8 +9,10 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
 using Application.Contracts.UserManagement;
+using Application.Contracts.Interfaces.seeders;
 using Identity.Utils;
 using Persistence.Repositories.UserManagement;
+using Persistence.Seeders;
 using Persistence.Seeders.UserManagement;
 using Domain.Models.UserManagement;
 using Microsoft.AspNetCore.Identity;
@@ -48,6 +50,10 @@ builder.Services.AddScoped<IPermissionSeeder, PermissionSeeder>();
 builder.Services.AddScoped<IRoleSeeder, RoleSeeder>();
 builder.Services.AddScoped<IUserSeeder, UserSeeder>();
 builder.Services.AddScoped<IRolePermissionSeeder, RolePermissionSeeder>();
+builder.Services.AddScoped<ICurrencySeeder, CurrencySeeder>();
+builder.Services.AddScoped<ICategorySeeder, CategorySeeder>();
+builder.Services.AddScoped<IDosageSeeder, DosageSeeder>();
+builder.Services.AddScoped<IUnitSeeder, UnitSeeder>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
 
@@ -172,6 +178,22 @@ using (var scope = app.Services.CreateScope())
 
     await scope.ServiceProvider
         .GetRequiredService<IUserSeeder>()
+        .SeedAsync();
+
+    await scope.ServiceProvider
+        .GetRequiredService<ICurrencySeeder>()
+        .SeedAsync();
+
+    await scope.ServiceProvider
+        .GetRequiredService<ICategorySeeder>()
+        .SeedAsync();
+
+    await scope.ServiceProvider
+        .GetRequiredService<IDosageSeeder>()
+        .SeedAsync();
+
+    await scope.ServiceProvider
+        .GetRequiredService<IUnitSeeder>()
         .SeedAsync();
 }
 

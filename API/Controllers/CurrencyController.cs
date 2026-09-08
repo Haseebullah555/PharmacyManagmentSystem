@@ -1,69 +1,68 @@
-using Domain.Models;
+using API.Controllers.Common;
+using Application.Dtos.Currency;
+using Application.Features.Currency.Requests.Commands;
+using Application.Features.Currency.Requests.Queries;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Persistence.Database;
 
 namespace API.Controllers
 {
     [ApiController]
-    [Route("api/currencies")]
-    public class CurrencyController(AppDbContext context) : ControllerBase
+    [Route("api/[controller]")]
+    public class CurrencyController : BaseApiController
     {
-        [HttpGet]
-        public async Task<ActionResult<List<object>>> GetAll([FromQuery] string? search = null, CancellationToken cancellationToken = default)
+        [HttpGet("get-with-param")]
+        public async Task<IActionResult> GetCurrenciesWithParam([FromQuery] string? search, [FromQuery] string? sort_field, [FromQuery] string? sort_order, [FromQuery] int page = 1, [FromQuery] int per_page = 10)
         {
-            var query = context.Currencies.AsNoTracking();
-
-            if (!string.IsNullOrWhiteSpace(search))
-                query = query.Where(item => item.CurrencyName.Contains(search));
-
-            var result = await query
-                .OrderBy(item => item.CurrencyName)
-                .Select(item => new { id = item.Id, currencyName = item.CurrencyName })
-                .ToListAsync(cancellationToken);
-
-            return Ok(result);
+            var currencies = await _mediator.Send(new GetListOfAllCurrenciesWithParamRequest
+            {
+                Search = search,
+                SortBy = sort_field,
+                SortDirection = sort_order,
+                Page = page,
+                PerPage = per_page
+            });
+            return Ok(new
+            {
+                data = currencies.Data,
+                meta = new
+                {
+                    total = currencies.Total,
+                    current_page = currencies.CurrentPage,
+                    per_page = currencies.PerPage,
+                    last_page = currencies.LastPage,
+                    from = currencies.From,
+                    to = currencies.To
+                }
+            });
         }
 
-        [HttpGet("select-list")]
-        public async Task<ActionResult<List<object>>> GetSelectList([FromQuery] string? search = null, CancellationToken cancellationToken = default)
+        [HttpGet("get-all")]
+        public async Task<IActionResult> GetCurrenciesList()
         {
-            var query = context.Currencies.AsNoTracking();
-
-            if (!string.IsNullOrWhiteSpace(search))
-                query = query.Where(item => item.CurrencyName.Contains(search));
-
-            var result = await query
-                .OrderBy(item => item.CurrencyName)
-                .Select(item => new { id = item.Id, text = item.CurrencyName })
-                .ToListAsync(cancellationToken);
-
-            return Ok(result);
+            var currencies = await _mediator.Send(new GetCurrenciesListRequest());
+            return Ok(currencies);
         }
 
-        [HttpPost]
-        public async Task<ActionResult<int>> Create(Currency dto, CancellationToken cancellationToken)
+        [HttpPost("add-supplier")]
+        public async Task<IActionResult> AddCurrency(AddCurrencyDto supplier)
         {
-            if (!ModelState.IsValid)
-                return ValidationProblem(ModelState);
-
-            dto.CreatedAt = DateTime.UtcNow;
-            context.Currencies.Add(dto);
-            await context.SaveChangesAsync(cancellationToken);
-            return Ok(dto.Id);
+            if (ModelState.IsValid)
+            {
+                await _mediator.Send(new AddCurrencyCommand { AddCurrencyDto = supplier });
+                return Ok(new { message = "ثبت معلومات با موفقیت شد" });
+            }
+            return BadRequest(new { message = "اضافه نمودن معلومات ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
 
-        [HttpPut("{id:int}")]
-        public async Task<IActionResult> Update(int id, Currency dto, CancellationToken cancellationToken)
+        [HttpPut("update-supplier")]
+        public async Task<IActionResult> UpdateCurrency(UpdateCurrencyDto supplier)
         {
-            var currency = await context.Currencies.FirstOrDefaultAsync(item => item.Id == id, cancellationToken);
-            if (currency is null)
-                return NotFound();
-
-            currency.CurrencyName = dto.CurrencyName;
-            currency.UpdatedAt = DateTime.UtcNow;
-            await context.SaveChangesAsync(cancellationToken);
-            return NoContent();
+            if (ModelState.IsValid)
+            {
+                await _mediator.Send(new UpdateCurrencyCommand { UpdateCurrencyDto = supplier });
+                return Ok(new { message = "تغییرات معلومات با موفقیت شد" });
+            }
+            return BadRequest(new { message = "تجدید معلومات ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
     }
 }

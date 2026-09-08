@@ -13,7 +13,7 @@ namespace API.Controllers
         [HttpGet("get-with-param")]
         public async Task<IActionResult> GetSuppliersWithParam([FromQuery] string? search, [FromQuery] string? sort_field, [FromQuery] string? sort_order, [FromQuery] int page = 1, [FromQuery] int per_page = 10)
         {
-            var categories = await _mediator.Send(new GetListOfAllSuppliersWithParamRequest
+            var suppliers = await _mediator.Send(new GetListOfAllSuppliersWithParamRequest
             {
                 Search = search,
                 SortBy = sort_field,
@@ -23,15 +23,15 @@ namespace API.Controllers
             });
             return Ok(new
             {
-                data = categories.Data,
+                data = suppliers.Data,
                 meta = new
                 {
-                    total = categories.Total,
-                    current_page = categories.CurrentPage,
-                    per_page = categories.PerPage,
-                    last_page = categories.LastPage,
-                    from = categories.From,
-                    to = categories.To
+                    total = suppliers.Total,
+                    current_page = suppliers.CurrentPage,
+                    per_page = suppliers.PerPage,
+                    last_page = suppliers.LastPage,
+                    from = suppliers.From,
+                    to = suppliers.To
                 }
             });
         }
@@ -39,8 +39,8 @@ namespace API.Controllers
         [HttpGet("get-all")]
         public async Task<IActionResult> GetSuppliersList()
         {
-            var categories = await _mediator.Send(new GetSuppliersListRequest());
-            return Ok(categories);
+            var suppliers = await _mediator.Send(new GetSuppliersListRequest());
+            return Ok(suppliers);
         }
 
         [HttpPost("add-supplier")]

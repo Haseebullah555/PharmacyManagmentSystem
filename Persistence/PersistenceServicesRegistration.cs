@@ -3,7 +3,9 @@ using Microsoft.Extensions.Configuration;
 using Persistence.Database;
 using Microsoft.EntityFrameworkCore;
 using Application.Contracts.Interfaces.Common;
+using Application.Contracts.Interfaces.seeders;
 using Persistence.Repositories.Common;
+using Persistence.Seeders;
 using StackExchange.Redis;
 
 namespace Persistence
@@ -15,6 +17,11 @@ namespace Persistence
             // services.AddDbContext<AppDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+            services.AddScoped<ICurrencySeeder, CurrencySeeder>();
+            services.AddScoped<ICategorySeeder, CategorySeeder>();
+            services.AddScoped<IDosageSeeder, DosageSeeder>();
+            services.AddScoped<IUnitSeeder, UnitSeeder>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddStackExchangeRedisCache(options =>

@@ -1,22 +1,24 @@
 using Application.Contracts.Interfaces.Common;
+using Application.Dtos.Unit;
 using Application.Dtos.Common;
-using Application.Dtos.Purchase;
-using Application.Features.Purchase.Requests.Queries;
+using Application.Features.Unit.Requests.Queries;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Features.Purchase.Handlers.Queries
+namespace Application.Features.Unit.Handlers.Queries
 {
-    public class GetListOfAllPurchasesWithParamRequestHandler(IUnitOfWork _unitOfWork) : IRequestHandler<GetListOfAllPurchasesWithParamRequest, PaginatedResult<PurchaseDto>>
+    public class GetListOfAllUnitsWithParamRequestHandler(IUnitOfWork unitOfWork) : IRequestHandler<GetListOfAllUnitsWithParamRequest, PaginatedResult<UnitDto>>
     {
-        public async Task<PaginatedResult<PurchaseDto>> Handle(GetListOfAllPurchasesWithParamRequest request, CancellationToken cancellationToken)
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
+
+        public async Task<PaginatedResult<UnitDto>> Handle(GetListOfAllUnitsWithParamRequest request, CancellationToken cancellationToken)
         {
-            var query = _unitOfWork.Purchases.Query().AsNoTracking();
+             var query = _unitOfWork.Units.Query().AsNoTracking();
 
             // Search
             if (!string.IsNullOrWhiteSpace(request.Search))
             {
-                query = query.Where(s => s.InvoiceNumber.ToString().Contains(request.Search));
+                query = query.Where(s => s.Name.ToString().Contains(request.Search));
             }
 
             // Sorting
@@ -25,8 +27,8 @@ namespace Application.Features.Purchase.Handlers.Queries
                 if (request.SortBy.Equals("name", StringComparison.OrdinalIgnoreCase))
                 {
                     query = request.SortDirection == "desc"
-                        ? query.OrderByDescending(s => s.InvoiceNumber)
-                        : query.OrderBy(s => s.InvoiceNumber);
+                        ? query.OrderByDescending(s => s.Name)
+                        : query.OrderBy(s => s.Name);
                 }
                 else if (request.SortBy.Equals("id", StringComparison.OrdinalIgnoreCase))
                 {
@@ -45,28 +47,20 @@ namespace Application.Features.Purchase.Handlers.Queries
             var total = await query.CountAsync(cancellationToken);
 
             // Pagination
-            var medicines = await query
+            var Units = await query
                 .Skip((request.Page - 1) * request.PerPage)
                 .Take(request.PerPage)
-                .Select(e => new PurchaseDto
+                .Select(e => new UnitDto
                 {
                     Id = e.Id,
-                    InvoiceNumber = e.InvoiceNumber,
-                    PurchaseDate = e.PurchaseDate,
-                    TotalAmount = e.TotalAmount,
-                    PaidAmount = e.PaidAmount,
-                    UnpaidAmount = e.UnpaidAmount,
-                    Remarks = e.Remarks,
-                    SupplierId = e.SupplierId,
-                    Supplier = e.Supplier.SupplierName,
-                    CurrencyId = e.CurrencyId,
-                    Currency = e.Currency.CurrencyName,
-                    ExchangeRate = e.ExchangeRate,
+                    Name = e.Name,
+                    ShortName = e.ShortName,
                 }).ToListAsync(cancellationToken);
 
-            return new PaginatedResult<PurchaseDto>
+
+            return new PaginatedResult<UnitDto>
             {
-                Data = medicines,
+                Data = Units,
                 Total = total,
                 CurrentPage = request.Page,
                 PerPage = request.PerPage

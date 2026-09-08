@@ -11,12 +11,14 @@ namespace Application.Contracts.Interfaces.Common
         #endregion
 
         #region Main Entities
+        public ICurrencyRepository Currencies { get; }
         public ICategoryRepository Categories { get; }
         public ICompanyRepository Companies { get; }
         public IDosageRepository Dosages { get; }
         public ISupplierRepository Suppliers { get; }
         public ICustomerRepository Customers { get; }
         public IMedicineRepository Medicines { get; }
+        public IUnitRepository Units { get; }
         public IMedicineUnitRepository MedicineUnits { get; }
         public IInventoryStockRepository InventoryStocks { get; }
         public IInventoryTransactionRepository InventoryTransactions { get; }

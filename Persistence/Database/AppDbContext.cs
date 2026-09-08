@@ -1,6 +1,7 @@
 ﻿using Domain.Models;
 using Domain.Models.UserManagement;
 using Microsoft.EntityFrameworkCore;
+using Persistence.Seeders;
 
 namespace Persistence.Database
 {
@@ -10,7 +11,47 @@ namespace Persistence.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            // StaffSeeder.Seed(modelBuilder);
+
+            var seedDate = new DateTime(2026, 1, 1);
+
+            modelBuilder.Entity<Currency>().HasData(
+                new { Id = 1, CurrencyName = "AFG", CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate },
+                new { Id = 2, CurrencyName = "USD", CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate },
+                new { Id = 3, CurrencyName = "PKR", CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate });
+
+            modelBuilder.Entity<Category>().HasData(
+                new { Id = 1, CategoryName = "Syrup", CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate },
+                new { Id = 2, CategoryName = "Capsule", CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate },
+                new { Id = 3, CategoryName = "Tablet", CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate },
+                new { Id = 4, CategoryName = "Injection", CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate },
+                new { Id = 5, CategoryName = "Ointment", CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate },
+                new { Id = 6, CategoryName = "Cream", CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate },
+                new { Id = 7, CategoryName = "Powder", CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate },
+                new { Id = 8, CategoryName = "Drops", CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate },
+                new { Id = 9, CategoryName = "Lotion", CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate });
+
+            modelBuilder.Entity<Dosage>().HasData(
+                new { Id = 1, DosageName = "250mg", CategoryId = 3, CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate },
+                new { Id = 2, DosageName = "500mg", CategoryId = 3, CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate },
+                new { Id = 3, DosageName = "750mg", CategoryId = 3, CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate },
+                new { Id = 4, DosageName = "1000mg", CategoryId = 3, CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate },
+                new { Id = 5, DosageName = "125ml", CategoryId = 1, CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate },
+                new { Id = 6, DosageName = "250ml", CategoryId = 1, CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate },
+                new { Id = 7, DosageName = "500mg", CategoryId = 2, CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate });
+
+            modelBuilder.Entity<Unit>().HasData(
+                new { Id = 1, Name = "Strip", ShortName = "stp", IsActive = true, CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate },
+                new { Id = 2, Name = "Bottle", ShortName = "btl", IsActive = true, CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate },
+                new { Id = 3, Name = "Box", ShortName = "box", IsActive = true, CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate },
+                new { Id = 4, Name = "Packet", ShortName = "pkt", IsActive = true, CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate },
+                new { Id = 5, Name = "Tube", ShortName = "tub", IsActive = true, CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate },
+                new { Id = 6, Name = "Vial", ShortName = "vial", IsActive = true, CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate },
+                new { Id = 7, Name = "Ampoule", ShortName = "amp", IsActive = true, CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate });
+
+            modelBuilder.Entity<Role>().HasData(
+                new { Id = Guid.Parse("11111111-1111-1111-1111-111111111111"), Name = "Admin", CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate },
+                new { Id = Guid.Parse("22222222-2222-2222-2222-222222222222"), Name = "Manager", CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate },
+                new { Id = Guid.Parse("33333333-3333-3333-3333-333333333333"), Name = "User", CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate });
 
             modelBuilder.Entity<InventoryBatch>()
                 .HasIndex(batch => new { batch.MedicineId, batch.BatchNumber })
@@ -102,6 +143,7 @@ namespace Persistence.Database
         public DbSet<Company> Companies { get; set; }
         public DbSet<Dosage> Dosages { get; set; }
         public DbSet<Medicine> Medicines { get; set; }
+        public DbSet<Unit> Units { get; set; }
         public DbSet<MedicineUnit> MedicineUnits { get; set; }
         public DbSet<Purchase> Purchases { get; set; }
         public DbSet<Sale> Sales { get; set; }

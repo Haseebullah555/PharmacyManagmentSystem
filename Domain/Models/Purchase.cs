@@ -19,6 +19,8 @@ namespace Domain.Models
         public int CurrencyId { get; set; }
         public Currency Currency { get; set; }
 
+        public decimal ExchangeRate { get; set; }
+
         [Required]
         public decimal TotalAmount { get; set; }
 

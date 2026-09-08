@@ -12,6 +12,7 @@ namespace Application.Dtos.Purchase
         public int SupplierId { get; set; }
 
         public int CurrencyId { get; set; }
+        public decimal ExchangeRate { get; set; }
 
         public decimal PaidAmount { get; set; }
 
