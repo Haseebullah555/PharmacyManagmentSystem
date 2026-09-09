@@ -22,6 +22,9 @@ namespace Persistence
             services.AddScoped<ICategorySeeder, CategorySeeder>();
             services.AddScoped<IDosageSeeder, DosageSeeder>();
             services.AddScoped<IUnitSeeder, UnitSeeder>();
+            services.AddScoped<ICompanySeeder, CompanySeeder>();
+            services.AddScoped<IMedicineUnitSeeder, MedicineUnitSeeder>();
+            services.AddScoped<IMedicineSeeder, MedicineSeeder>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddStackExchangeRedisCache(options =>

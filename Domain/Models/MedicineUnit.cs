@@ -10,16 +10,12 @@ namespace Domain.Models
         public Medicine Medicine { get; set; }
 
         [Required]
-        public int UnitID { get; set; }
+        public int UnitId { get; set; }
         public Unit Unit { get; set; }
 
         [Required]
         public decimal ConversionFactor { get; set; }
 
         public bool IsBaseUnit { get; set; }
-
-        public bool CanPurchase { get; set; }
-
-        public bool CanSell { get; set; }
     }
 }

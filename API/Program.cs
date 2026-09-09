@@ -191,10 +191,23 @@ using (var scope = app.Services.CreateScope())
     await scope.ServiceProvider
         .GetRequiredService<IDosageSeeder>()
         .SeedAsync();
-
+        
+    await scope.ServiceProvider
+        .GetRequiredService<ICompanySeeder>()
+        .SeedAsync();
+    
     await scope.ServiceProvider
         .GetRequiredService<IUnitSeeder>()
         .SeedAsync();
+
+    await scope.ServiceProvider
+        .GetRequiredService<IMedicineSeeder>()
+        .SeedAsync();
+
+    await scope.ServiceProvider
+        .GetRequiredService<IMedicineUnitSeeder>()
+        .SeedAsync();
+
 }
 
 // ===================== MIDDLEWARE =====================

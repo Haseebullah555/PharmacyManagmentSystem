@@ -53,12 +53,10 @@ namespace Application.Features.MedicineUnit.Handlers.Queries
                     Id = e.Id,
                     Medicine = e.Medicine.GenericName,
                     MedicineId = e.MedicineId,
-                    UnitID = e.UnitID,
+                    UnitId = e.UnitId,
                     Unit = e.Unit.Name,
                     ConversionFactor = e.ConversionFactor,
                     IsBaseUnit = e.IsBaseUnit,
-                    CanPurchase = e.CanPurchase,
-                    CanSell = e.CanSell
                 }).ToListAsync(cancellationToken);
 
             return new PaginatedResult<MedicineUnitDto>

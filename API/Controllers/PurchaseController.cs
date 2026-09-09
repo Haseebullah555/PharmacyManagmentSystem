@@ -75,5 +75,21 @@ namespace API.Controllers
             }
             return BadRequest(new { message = "تجدید معلومات ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
+
+
+        [HttpGet("{purchaseId}/items")]
+        public async Task<IActionResult> GetPurchaseItems(int purchaseId)
+        {
+            var result = await _mediator.Send(
+                new GetPurchaseItemsByPurchaseIdRequest
+                {
+                    PurchaseId = purchaseId
+                });
+
+            return Ok(result);
+        }
+
+
     }
+
 }

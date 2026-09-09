@@ -19,6 +19,13 @@ namespace Persistence.Database
                 new { Id = 2, CurrencyName = "USD", CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate },
                 new { Id = 3, CurrencyName = "PKR", CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate });
 
+            modelBuilder.Entity<Company>().HasData(
+                new { Id = 1, CompanyName = "Acme Pharmaceuticals", CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate },
+                new { Id = 2, CompanyName = "Global Pharma", CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate },
+                new { Id = 3, CompanyName = "Afghan Pharma", CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate },
+                new { Id = 4, CompanyName = "Medica Pharmaceuticals", CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate },
+                new { Id = 5, CompanyName = "HealthCare Pharma", CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate });
+
             modelBuilder.Entity<Category>().HasData(
                 new { Id = 1, CategoryName = "Syrup", CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate },
                 new { Id = 2, CategoryName = "Capsule", CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate },
@@ -151,6 +158,7 @@ namespace Persistence.Database
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<InventoryBatch> InventoryBatches { get; set; }
+        public DbSet<InventoryTransaction> InventoryTransactions { get; set; }
         public DbSet<InventoryAdjustment> InventoryAdjustments { get; set; }
         public DbSet<SaleBatchAllocation> SaleBatchAllocations { get; set; }
         public DbSet<SaleReturn> SaleReturns { get; set; }

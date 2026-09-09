@@ -13,7 +13,7 @@ namespace API.Controllers
         [HttpGet("get-with-param")]
         public async Task<IActionResult> GetMedicineUnitsWithParam([FromQuery] string? search, [FromQuery] string? sort_field, [FromQuery] string? sort_order, [FromQuery] int page = 1, [FromQuery] int per_page = 10)
         {
-            var medicineLocations = await _mediator.Send(new GetListOfAllMedicineUnitsWithParamRequest
+            var medicineUnits = await _mediator.Send(new GetListOfAllMedicineUnitsWithParamRequest
             {
                 Search = search,
                 SortBy = sort_field,
@@ -23,15 +23,15 @@ namespace API.Controllers
             });
             return Ok(new
             {
-                data = medicineLocations.Data,
+                data = medicineUnits.Data,
                 meta = new
                 {
-                    total = medicineLocations.Total,
-                    current_page = medicineLocations.CurrentPage,
-                    per_page = medicineLocations.PerPage,
-                    last_page = medicineLocations.LastPage,
-                    from = medicineLocations.From,
-                    to = medicineLocations.To
+                    total = medicineUnits.Total,
+                    current_page = medicineUnits.CurrentPage,
+                    per_page = medicineUnits.PerPage,
+                    last_page = medicineUnits.LastPage,
+                    from = medicineUnits.From,
+                    to = medicineUnits.To
                 }
             });
         }
@@ -39,8 +39,8 @@ namespace API.Controllers
         [HttpGet("get-all")]
         public async Task<IActionResult> GetMedicineUnitsList()
         {
-            var medicineLocations = await _mediator.Send(new GetMedicineUnitsListRequest());
-            return Ok(medicineLocations);
+            var medicineUnits = await _mediator.Send(new GetMedicineUnitsListRequest());
+            return Ok(medicineUnits);
         }
 
         [HttpPost("add-medicine-unit")]

@@ -9,9 +9,6 @@ namespace Domain.Models
     [MaxLength(100)]
     public string LocationName { get; set; }
 
-    [MaxLength(50)]
-    public string? Code { get; set; }
-
     public int? ParentLocationID { get; set; }
     public Location? ParentLocation { get; set; }
 

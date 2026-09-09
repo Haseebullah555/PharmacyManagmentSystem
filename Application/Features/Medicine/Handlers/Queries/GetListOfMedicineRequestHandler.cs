@@ -1,5 +1,6 @@
 using Application.Contracts.Interfaces.Common;
 using Application.Dtos.Medicine;
+using Application.Features.Medicine.Requests.Queries;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 

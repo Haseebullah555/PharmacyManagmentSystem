@@ -4,7 +4,6 @@ namespace Application.Dtos.Location
     {
         public int Id { get; set; }
         public string LocationName { get; set; }
-        public string? Code { get; set; }
         public int? ParentLocationID { get; set; }
         public bool IsActive { get; set; }
     }

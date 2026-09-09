@@ -14,7 +14,7 @@ namespace API.Controllers
         [HttpGet("get-with-param")]
         public async Task<IActionResult> GetMedicinesWithParam([FromQuery] string? search, [FromQuery] string? sort_field, [FromQuery] string? sort_order, [FromQuery] int page = 1, [FromQuery] int per_page = 10)
         {
-            var categories = await _mediator.Send(new GetListOfAllMedicinesWithParamRequest
+            var medicines = await _mediator.Send(new GetListOfAllMedicinesWithParamRequest
             {
                 Search = search,
                 SortBy = sort_field,
@@ -24,15 +24,15 @@ namespace API.Controllers
             });
             return Ok(new
             {
-                data = categories.Data,
+                data = medicines.Data,
                 meta = new
                 {
-                    total = categories.Total,
-                    current_page = categories.CurrentPage,
-                    per_page = categories.PerPage,
-                    last_page = categories.LastPage,
-                    from = categories.From,
-                    to = categories.To
+                    total = medicines.Total,
+                    current_page = medicines.CurrentPage,
+                    per_page = medicines.PerPage,
+                    last_page = medicines.LastPage,
+                    from = medicines.From,
+                    to = medicines.To
                 }
             });
         }
@@ -40,8 +40,8 @@ namespace API.Controllers
         [HttpGet("get-all")]
         public async Task<IActionResult> GetMedicinesList()
         {
-            var categories = await _mediator.Send(new GetMedicinesListRequest());
-            return Ok(categories);
+            var medicines = await _mediator.Send(new GetMedicinesListRequest());
+            return Ok(medicines);
         }
 
         [HttpPost("add-medicine")]
