@@ -12,7 +12,7 @@ namespace Persistence.Database
         {
             base.OnModelCreating(modelBuilder);
 
-            var seedDate = new DateTime(2026, 1, 1);
+            var seedDate = DateTime.SpecifyKind(new DateTime(2026, 1, 1), DateTimeKind.Utc);
 
             modelBuilder.Entity<Currency>().HasData(
                 new { Id = 1, CurrencyName = "AFG", CreatedBy = Guid.Empty, UpdateBy = Guid.Empty, CreatedAt = seedDate, UpdatedAt = seedDate },

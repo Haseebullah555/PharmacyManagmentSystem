@@ -35,23 +35,23 @@ namespace API.Controllers
                 }
             });
         }
-        [HttpPost("add-purchase")]
-        public async Task<IActionResult> AddSale(AddSaleDto purchase)
+        [HttpPost("add-sale")]
+        public async Task<IActionResult> AddSale(AddSaleDto sale)
         {
             if (ModelState.IsValid)
             {
-                await _mediator.Send(new AddSaleCommand { AddSaleDto = purchase });
+                await _mediator.Send(new AddSaleCommand { AddSaleDto = sale });
                 return Ok(new { message = "ثبت معلومات با موفقیت شد" });
             }
             return BadRequest(new { message = "اضافه نمودن معلومات ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
 
-        [HttpPut("update-purchase")]
-        public async Task<IActionResult> UpdateSale(UpdateSaleDto purchase)
+        [HttpPut("update-sale")]
+        public async Task<IActionResult> UpdateSale(UpdateSaleDto sale)
         {
             if (ModelState.IsValid)
             {
-                await _mediator.Send(new UpdateSaleCommand { UpdateSaleDto = purchase });
+                await _mediator.Send(new UpdateSaleCommand { UpdateSaleDto = sale });
                 return Ok(new { message = "تغییرات معلومات با موفقیت شد" });
             }
             return BadRequest(new { message = "تجدید معلومات ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
