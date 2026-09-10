@@ -12,7 +12,7 @@ namespace Domain.Models
         public bool Restock { get; set; }
         public DateOnly ReturnDate { get; set; }
 
-        public int SaleBatchAllocationID { get; set; }
+        public int SaleBatchAlLocationId { get; set; }
         public SaleBatchAllocation SaleBatchAllocation { get; set; }
     }
 }

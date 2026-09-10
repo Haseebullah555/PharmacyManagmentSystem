@@ -58,7 +58,7 @@ namespace Application.Features.Location.Handlers.Queries
                 {
                     Id = e.Id,
                     LocationName = e.LocationName,
-                    ParentLocationID = e.ParentLocationID,
+                    ParentLocationId = e.ParentLocationId,
                 }).ToListAsync(cancellationToken);
 
 

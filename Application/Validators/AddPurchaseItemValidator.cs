@@ -22,7 +22,7 @@ namespace Application.Validators
         RuleFor(x => x.BatchNumber)
             .NotEmpty();
 
-        RuleFor(x => x.LocationID)
+        RuleFor(x => x.LocationId)
             .GreaterThan(0);
     }
 }

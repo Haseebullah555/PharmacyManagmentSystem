@@ -55,7 +55,7 @@ namespace Application.Features.Sale.Handlers.Queries
                     UnitName = x.MedicineUnit.Unit.Name,
                     UnitShortName = x.MedicineUnit.Unit.ShortName,
 
-                    LocationID = x.LocationID,
+                    LocationId = x.LocationId,
                     LocationName = x.Location.LocationName,
 
                     Quantity = x.Quantity

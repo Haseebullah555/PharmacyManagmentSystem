@@ -146,7 +146,7 @@ public class AddSaleCommandHandler(
                     .FirstOrDefaultAsync(
                         x =>
                             x.InventoryBatchId == item.InventoryBatchId &&
-                            x.LocationID == item.LocationID &&
+                            x.LocationId == item.LocationId &&
                             x.MedicineUnitId == item.MedicineUnitId,
                         cancellationToken);
                 if (stock.Quantity < item.Quantity)
@@ -194,7 +194,7 @@ public class AddSaleCommandHandler(
                     MedicineUnitId = item.MedicineUnitId,
 
                     InventoryBatchId = item.InventoryBatchId,
-                    LocationID = item.LocationID,
+                    LocationId = item.LocationId,
 
                     Quantity = item.Quantity,
                     UnitPrice = item.UnitPrice,
@@ -227,8 +227,8 @@ public class AddSaleCommandHandler(
                         MedicineUnitId =
                             item.MedicineUnitId,
 
-                        LocationID =
-                            item.LocationID,
+                        LocationId =
+                            item.LocationId,
 
                         Quantity = item.Quantity,
 

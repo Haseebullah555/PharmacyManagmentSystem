@@ -18,6 +18,6 @@ namespace Application.Dtos.PurchaseItem
 
         public DateOnly? ExpiryDate { get; set; }
 
-        public int LocationID { get; set; }
+        public int LocationId { get; set; }
     }
 }

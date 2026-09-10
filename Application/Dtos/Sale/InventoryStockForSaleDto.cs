@@ -14,7 +14,7 @@ namespace Application.Dtos.Sale
         public string UnitName { get; set; }
         public string UnitShortName { get; set; }
 
-        public int LocationID { get; set; }
+        public int LocationId { get; set; }
         public string LocationName { get; set; }
 
         public decimal Quantity { get; set; }

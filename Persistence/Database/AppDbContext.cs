@@ -136,7 +136,7 @@ namespace Persistence.Database
             modelBuilder.Entity<SaleReturn>()
                 .HasOne(returnItem => returnItem.SaleBatchAllocation)
                 .WithMany(allocation => allocation.SaleReturns)
-                .HasForeignKey(returnItem => returnItem.SaleBatchAllocationID)
+                .HasForeignKey(returnItem => returnItem.SaleBatchAlLocationId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
         #region DbSets

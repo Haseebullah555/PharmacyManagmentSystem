@@ -18,8 +18,8 @@ namespace Application.Features.Purchase.Handlers.Queries
                 MedicineName = x.Medicine.TradeName,
 
                 MedicineUnitId = x.MedicineUnitId,
-                UnitName = x.MedicineUnit.Unit.Name,
-                UnitShortName = x.MedicineUnit.Unit.ShortName,
+                MedicineUnitName = x.MedicineUnit.Unit.Name,
+                // UnitShortName = x.MedicineUnit.Unit.ShortName,
 
                 InventoryBatchId = x.InventoryBatchId,
                 BatchNumber = x.InventoryBatch.BatchNumber,

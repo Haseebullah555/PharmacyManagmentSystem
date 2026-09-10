@@ -8,7 +8,7 @@ namespace Application.Dtos.SaleItem
 
         public int InventoryBatchId { get; set; }
 
-        public int LocationID { get; set; }
+        public int LocationId { get; set; }
 
         public decimal Quantity { get; set; }
 

@@ -11,6 +11,6 @@ namespace Application.Dtos.Inventory
         public bool Restock { get; set; } = true;
         public DateOnly ReturnDate { get; set; }
         [Range(1, int.MaxValue)]
-        public int SaleBatchAllocationID { get; set; }
+        public int SaleBatchAlLocationId { get; set; }
     }
 }

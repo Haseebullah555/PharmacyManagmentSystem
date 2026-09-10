@@ -19,7 +19,7 @@ namespace Domain.Models
         public MedicineUnit MedicineUnit { get; set; }
 
         [Required]
-        public int LocationID { get; set; }
+        public int LocationId { get; set; }
         public Location Location { get; set; }
 
         [Required]

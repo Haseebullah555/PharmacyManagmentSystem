@@ -10,7 +10,7 @@ namespace Domain.Models
         public InventoryBatch InventoryBatch { get; set; }
 
         [Required]
-        public int LocationID { get; set; }
+        public int LocationId { get; set; }
         public Location Location { get; set; }
 
         [Required]

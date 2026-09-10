@@ -170,8 +170,8 @@ namespace Application.Features.Purchase.Handlers.Commands
                                 x =>
                                     x.InventoryBatchId ==
                                         batch.Id &&
-                                    x.LocationID ==
-                                        itemDto.LocationID &&
+                                    x.LocationId ==
+                                        itemDto.LocationId &&
                                     x.MedicineUnitId ==
                                         itemDto.MedicineUnitId,
                                 cancellationToken);
@@ -184,8 +184,8 @@ namespace Application.Features.Purchase.Handlers.Commands
                             InventoryBatchId =
                                 batch.Id,
 
-                            LocationID =
-                                itemDto.LocationID,
+                            LocationId =
+                                itemDto.LocationId,
 
                             MedicineUnitId =
                                 itemDto.MedicineUnitId,
@@ -232,8 +232,8 @@ namespace Application.Features.Purchase.Handlers.Commands
                             MedicineUnitId =
                                 itemDto.MedicineUnitId,
 
-                            LocationID =
-                                itemDto.LocationID,
+                            LocationId =
+                                itemDto.LocationId,
 
                             Quantity =
                                 itemDto.Quantity,

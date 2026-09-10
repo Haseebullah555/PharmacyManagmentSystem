@@ -8,7 +8,7 @@ namespace Application.Dtos.InventoryTransaction
         public int MedicineId { get; set; }
         public int InventoryBatchId { get; set; }
         public int MedicineUnitId { get; set; }
-        public int LocationID { get; set; }
+        public int LocationId { get; set; }
         public decimal Quantity { get; set; }
         public InventoryTransactionType TransactionType { get; set; }
         public InventoryReferenceType ReferenceType { get; set; }
