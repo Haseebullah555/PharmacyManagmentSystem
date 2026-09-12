@@ -1,4 +1,5 @@
 using API.Controllers.Common;
+using Application.Features.InventoryStock.Requests.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -31,6 +32,18 @@ namespace API.Controllers
                     to = categories.To
                 }
             });
+        }
+
+        [HttpGet("stocks-for-sale")]
+        public async Task<IActionResult> GetStocksForSale([FromQuery] int? MedicineId)
+        {
+            var result = await _mediator.Send(
+                new GetInventoryStocksForSaleQuery
+                {
+                    MedicineId = MedicineId
+                });
+
+            return Ok(result);
         }
     }
 }

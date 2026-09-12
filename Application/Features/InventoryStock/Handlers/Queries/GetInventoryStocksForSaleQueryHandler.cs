@@ -1,28 +1,13 @@
 using Application.Contracts.Interfaces.Common;
 using Application.Dtos.Sale;
-using Application.Features.Sale.Requests.Queries;
-using AutoMapper;
+using Application.Features.InventoryStock.Requests.Queries;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Features.Sale.Handlers.Queries
+namespace Application.Features.InventoryStock.Handlers.Queries
 {
-    public class GetInventoryStocksForSaleQueryHandler
-    : IRequestHandler<
-        GetInventoryStocksForSaleQuery,
-        List<InventoryStockForSaleDto>>
+    public class GetInventoryStocksForSaleQueryHandler(IUnitOfWork _unitOfWork) : IRequestHandler<GetInventoryStocksForSaleQuery, List<InventoryStockForSaleDto>>
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-
-        public GetInventoryStocksForSaleQueryHandler(
-            IUnitOfWork unitOfWork,
-            IMapper mapper)
-        {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
-        }
-
         public async Task<List<InventoryStockForSaleDto>> Handle(GetInventoryStocksForSaleQuery request, CancellationToken cancellationToken)
         {
             var query = _unitOfWork
