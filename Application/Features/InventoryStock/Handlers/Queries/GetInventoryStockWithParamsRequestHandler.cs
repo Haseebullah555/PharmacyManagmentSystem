@@ -13,7 +13,7 @@ public class GetInventoryStockWithParamsRequestHandler(
         GetInventoryStockWithParamsRequest request,
         CancellationToken cancellationToken)
     {
-        var query = _unitOfWork.InventoryStocks
+        var stockQuery = _unitOfWork.InventoryStocks
             .Query()
             .AsNoTracking()
             .Where(x => x.Quantity > 0);
@@ -23,71 +23,48 @@ public class GetInventoryStockWithParamsRequestHandler(
         {
             var search = request.Search.Trim();
 
-            query = query.Where(x =>
+            stockQuery = stockQuery.Where(x =>
                 x.InventoryBatch.Medicine.TradeName.Contains(search) ||
-                x.InventoryBatch.Medicine.GenericName.Contains(search) ||
-                x.InventoryBatch.BatchNumber.Contains(search) ||
-                x.Location.LocationName.Contains(search) ||
-                x.MedicineUnit.Unit.Name.Contains(search) ||
-                x.MedicineUnit.Unit.ShortName.Contains(search)
+                x.InventoryBatch.Medicine.GenericName.Contains(search)
             );
         }
 
-        // Total records
+        // A medicine may be stored in multiple batches, units, and locations.
+        // This page is a stock summary, so it returns one row per medicine.
+        var query = stockQuery
+            .GroupBy(x => new
+            {
+                x.InventoryBatch.MedicineId,
+                x.InventoryBatch.Medicine.TradeName
+            })
+            .Select(group => new InventoryStockDto
+            {
+                Id = group.Key.MedicineId,
+                MedicineId = group.Key.MedicineId,
+                MedicineName = group.Key.TradeName,
+                Quantity = group.Sum(x => x.Quantity)
+            });
+
         var totalRecords = await query.CountAsync(cancellationToken);
 
         // Sorting
         query = request.SortBy?.ToLower() switch
         {
             "medicine" => request.SortDirection?.ToLower() == "desc"
-                ? query.OrderByDescending(x => x.InventoryBatch.Medicine.TradeName)
-                : query.OrderBy(x => x.InventoryBatch.Medicine.TradeName),
-
-            "batch" => request.SortDirection?.ToLower() == "desc"
-                ? query.OrderByDescending(x => x.InventoryBatch.BatchNumber)
-                : query.OrderBy(x => x.InventoryBatch.BatchNumber),
-
-            "expirydate" => request.SortDirection?.ToLower() == "desc"
-                ? query.OrderByDescending(x => x.InventoryBatch.ExpiryDate)
-                : query.OrderBy(x => x.InventoryBatch.ExpiryDate),
-
-            "location" => request.SortDirection?.ToLower() == "desc"
-                ? query.OrderByDescending(x => x.Location.LocationName)
-                : query.OrderBy(x => x.Location.LocationName),
+                ? query.OrderByDescending(x => x.MedicineName)
+                : query.OrderBy(x => x.MedicineName),
 
             "quantity" => request.SortDirection?.ToLower() == "desc"
                 ? query.OrderByDescending(x => x.Quantity)
                 : query.OrderBy(x => x.Quantity),
 
-            _ => query.OrderBy(x => x.InventoryBatch.Medicine.TradeName)
+            _ => query.OrderBy(x => x.MedicineName)
         };
 
         // Pagination
         var data = await query
             .Skip((request.Page - 1) * request.PerPage)
             .Take(request.PerPage)
-            .Select(x => new InventoryStockDto
-            {
-                Id = x.Id,
-
-                MedicineId = x.InventoryBatch.MedicineId,
-                MedicineName = x.InventoryBatch.Medicine.TradeName,
-
-                InventoryBatchId = x.InventoryBatchId,
-                BatchNumber = x.InventoryBatch.BatchNumber,
-
-                ManufacturingDate = x.InventoryBatch.ManufacturingDate,
-                ExpiryDate = x.InventoryBatch.ExpiryDate,
-
-                MedicineUnitId = x.MedicineUnitId,
-                UnitName = x.MedicineUnit.Unit.Name,
-                UnitShortName = x.MedicineUnit.Unit.ShortName,
-
-                LocationId = x.LocationId,
-                LocationName = x.Location.LocationName,
-
-                Quantity = x.Quantity
-            })
             .ToListAsync(cancellationToken);
         return new PaginatedResult<InventoryStockDto>
         {

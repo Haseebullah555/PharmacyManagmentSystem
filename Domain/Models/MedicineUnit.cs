@@ -16,6 +16,6 @@ namespace Domain.Models
         [Required]
         public decimal ConversionFactor { get; set; }
 
-        public bool IsBaseUnit { get; set; }
+        // public bool IsBaseUnit { get; set; }
     }
 }

@@ -179,7 +179,7 @@ namespace Application.Features.Purchase.Handlers.Commands
 
                     if (stock == null)
                     {
-                        stock = new InventoryStock
+                        stock = new Domain.Models.InventoryStock
                         {
                             InventoryBatchId =
                                 batch.Id,

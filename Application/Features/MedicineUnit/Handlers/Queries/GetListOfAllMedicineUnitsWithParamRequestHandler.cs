@@ -55,8 +55,7 @@ namespace Application.Features.MedicineUnit.Handlers.Queries
                     MedicineId = e.MedicineId,
                     UnitId = e.UnitId,
                     Unit = e.Unit.Name,
-                    ConversionFactor = e.ConversionFactor,
-                    IsBaseUnit = e.IsBaseUnit,
+                    ConversionFactor = e.ConversionFactor
                 }).ToListAsync(cancellationToken);
 
             return new PaginatedResult<MedicineUnitDto>

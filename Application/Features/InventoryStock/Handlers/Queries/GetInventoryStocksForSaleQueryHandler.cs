@@ -14,10 +14,12 @@ namespace Application.Features.InventoryStock.Handlers.Queries
                 .InventoryStocks
                 .Query()
                 .Where(x =>
-                    x.Quantity > 0 &&
-                    x.InventoryBatch.IsActive &&
+                    x.Quantity > 0
+                    //  &&
+                    // x.InventoryBatch.IsActive &&
                     // x.MedicineUnit.IsActive &&
-                    x.Location.IsActive);
+                    // x.Location.IsActive
+                    );
 
             if (request.MedicineId.HasValue)
             {

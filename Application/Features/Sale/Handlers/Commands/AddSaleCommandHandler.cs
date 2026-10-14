@@ -149,6 +149,16 @@ public class AddSaleCommandHandler(
 
             foreach (var item in dto.Items)
             {
+                await PooledSaleAllocator.AllocateAsync(
+                    _unitOfWork,
+                    sale,
+                    item,
+                    userId,
+                    cancellationToken);
+
+                // Allocation is now pooled by medicine. The detailed
+                // batch/location fields are selected internally above.
+#if false
                 // ----------------------------------------------------
                 // Find Inventory Batch
                 // ----------------------------------------------------
@@ -343,6 +353,9 @@ public class AddSaleCommandHandler(
             }
 
 
+                }
+#endif
+            }
             // ========================================================
             // 6. SAVE EVERYTHING
             // ========================================================

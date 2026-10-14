@@ -16,6 +16,14 @@ public class UpdateSaleCommandHandler(IUnitOfWork unitOfWork, ICurrentUserReposi
     {
         var dto = request.UpdateSaleDto;
 
+        await PooledSaleUpdater.UpdateAsync(
+            _unitOfWork,
+            _currentUser,
+            dto,
+            cancellationToken);
+        return;
+
+#if false
         // ---------------------------------------------------------
         // 1. Validate request
         // ---------------------------------------------------------
@@ -611,5 +619,7 @@ public class UpdateSaleCommandHandler(IUnitOfWork unitOfWork, ICurrentUserReposi
 
         await _unitOfWork.InventoryTransactions
             .AddAsync(inventoryTransaction);
+    }
+#endif
     }
 }

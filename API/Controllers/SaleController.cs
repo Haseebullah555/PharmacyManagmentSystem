@@ -35,6 +35,19 @@ namespace API.Controllers
                 }
             });
         }
+
+        [HttpGet("{saleId}/items")]
+        public async Task<IActionResult> GetSaleItems(int saleId)
+        {
+            var result = await _mediator.Send(
+                new GetSaleItemsBySaleIdRequest
+                {
+                    SaleId = saleId
+                });
+
+            return Ok(result);
+        }
+
         [HttpPost("add-sale")]
         public async Task<IActionResult> AddSale(AddSaleDto sale)
         {

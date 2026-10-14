@@ -34,7 +34,7 @@ namespace API.Controllers
             });
         }
 
-        [HttpGet("stocks-for-sale")]
+        [HttpGet("get-stocks-for-sale")]
         public async Task<IActionResult> GetStocksForSale([FromQuery] int? MedicineId)
         {
             var result = await _mediator.Send(

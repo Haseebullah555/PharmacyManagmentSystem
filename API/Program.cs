@@ -191,11 +191,11 @@ using (var scope = app.Services.CreateScope())
     await scope.ServiceProvider
         .GetRequiredService<IDosageSeeder>()
         .SeedAsync();
-        
+
     await scope.ServiceProvider
         .GetRequiredService<ICompanySeeder>()
         .SeedAsync();
-    
+
     await scope.ServiceProvider
         .GetRequiredService<IUnitSeeder>()
         .SeedAsync();
@@ -217,11 +217,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseHttpsRedirection();
-app.UseCors("AllowReactApp");
+app.UseStaticFiles();
+ app.UseCors("AllowReactApp");
 
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+// app.MapFallbackToFile("index.html");
 app.Run();

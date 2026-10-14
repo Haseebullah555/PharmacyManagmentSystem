@@ -26,7 +26,6 @@ namespace Persistence.Seeders
                 MedicineId = 1,
                 UnitId = 1,             // Strip
                 ConversionFactor = 10,
-                IsBaseUnit = true
             },
 
             new MedicineUnit
@@ -34,7 +33,6 @@ namespace Persistence.Seeders
                 MedicineId = 1,
                 UnitId = 3,             // Box
                 ConversionFactor = 100,
-                IsBaseUnit = false
             },
 
             // --------------------------------------------------
@@ -45,7 +43,6 @@ namespace Persistence.Seeders
                 MedicineId = 2,
                 UnitId = 1,             // Strip
                 ConversionFactor = 10,
-                IsBaseUnit = true
             },
 
             new MedicineUnit
@@ -53,7 +50,6 @@ namespace Persistence.Seeders
                 MedicineId = 2,
                 UnitId = 3,             // Box
                 ConversionFactor = 100,
-                IsBaseUnit = false
             },
 
             // --------------------------------------------------
@@ -64,7 +60,6 @@ namespace Persistence.Seeders
                 MedicineId = 3,
                 UnitId = 1,             // Strip
                 ConversionFactor = 10,
-                IsBaseUnit = true
             },
 
             new MedicineUnit
@@ -72,7 +67,6 @@ namespace Persistence.Seeders
                 MedicineId = 3,
                 UnitId = 3,             // Box
                 ConversionFactor = 100,
-                IsBaseUnit = false
             },
 
             // --------------------------------------------------
@@ -83,7 +77,6 @@ namespace Persistence.Seeders
                 MedicineId = 4,
                 UnitId = 1,             // Strip
                 ConversionFactor = 10,
-                IsBaseUnit = true
             },
 
             new MedicineUnit
@@ -91,7 +84,6 @@ namespace Persistence.Seeders
                 MedicineId = 4,
                 UnitId = 3,             // Box
                 ConversionFactor = 100,
-                IsBaseUnit = false
             },
 
             // --------------------------------------------------
@@ -102,7 +94,6 @@ namespace Persistence.Seeders
                 MedicineId = 5,
                 UnitId = 1,             // Strip
                 ConversionFactor = 10,
-                IsBaseUnit = true
             },
 
             new MedicineUnit
@@ -110,7 +101,6 @@ namespace Persistence.Seeders
                 MedicineId = 5,
                 UnitId = 3,             // Box
                 ConversionFactor = 100,
-                IsBaseUnit = false
             },
 
             // --------------------------------------------------
@@ -121,7 +111,6 @@ namespace Persistence.Seeders
                 MedicineId = 6,
                 UnitId = 1,             // Strip
                 ConversionFactor = 6,
-                IsBaseUnit = true
             },
 
             new MedicineUnit
@@ -129,7 +118,6 @@ namespace Persistence.Seeders
                 MedicineId = 6,
                 UnitId = 3,             // Box
                 ConversionFactor = 60,
-                IsBaseUnit = false
             },
 
             // --------------------------------------------------
@@ -140,7 +128,6 @@ namespace Persistence.Seeders
                 MedicineId = 7,
                 UnitId = 2,             // Bottle
                 ConversionFactor = 1,
-                IsBaseUnit = true
             },
 
             // --------------------------------------------------
@@ -151,7 +138,6 @@ namespace Persistence.Seeders
                 MedicineId = 8,
                 UnitId = 2,             // Bottle
                 ConversionFactor = 1,
-                IsBaseUnit = true
             },
 
             // --------------------------------------------------
@@ -162,7 +148,6 @@ namespace Persistence.Seeders
                 MedicineId = 9,
                 UnitId = 7,             // Ampoule
                 ConversionFactor = 1,
-                IsBaseUnit = true
             },
 
             // --------------------------------------------------
@@ -173,7 +158,6 @@ namespace Persistence.Seeders
                 MedicineId = 10,
                 UnitId = 6,             // Vial
                 ConversionFactor = 1,
-                IsBaseUnit = true
             }
         };
 
